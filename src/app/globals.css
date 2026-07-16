@@ -3607,6 +3607,162 @@ html[data-kb-intro="play"] .kb-intro {
   }
 }
 
+.brand-name,
+.is-rtl .brand-name {
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+}
+
+.is-rtl :where(
+  .positioning__body ul,
+  .capability-group ul,
+  .study-panel ul
+) {
+  direction: rtl;
+  text-align: right;
+  list-style-position: inside;
+}
+
+.is-rtl :where(
+  .positioning__body li,
+  .capability-group li,
+  .study-panel li
+) {
+  direction: rtl;
+  text-align: right;
+}
+
+.is-rtl .positioning__body li,
+.is-rtl .study-panel li {
+  padding-inline-start: 22px;
+  padding-inline-end: 0;
+}
+
+.is-rtl .positioning__body li::before,
+.is-rtl .study-panel li::before {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+}
+
+.is-rtl :where(
+  .section-heading,
+  .positioning__statement,
+  .positioning__body,
+  .expertise-panel__copy,
+  .section-heading__eyebrow,
+  .hero__eyebrow,
+  .hero__metrics div,
+  .positioning__statement p,
+  .expertise-panel__copy > span,
+  .signal-row,
+  .signal-row small,
+  .study-stage__caption,
+  .study-stage__caption span,
+  .study-control,
+  .study-control span,
+  .study-control strong,
+  .study-panel span,
+  .insight-row article,
+  .contact-actions,
+  .contact-actions span,
+  .footer p,
+  .footer nav
+) {
+  direction: rtl;
+  text-align: right;
+}
+
+.is-rtl .section-heading,
+.is-rtl .positioning__statement,
+.is-rtl .positioning__body,
+.is-rtl .expertise-panel__copy,
+.is-rtl .study-stage__caption,
+.is-rtl .study-control,
+.is-rtl .contact__statement {
+  justify-items: start;
+}
+
+.is-rtl .signal-row,
+.is-rtl .footer nav {
+  justify-content: flex-start;
+}
+
+.is-rtl .expertise-index-item {
+  direction: rtl;
+  grid-template-columns: 36px minmax(0, 1fr);
+  text-align: right;
+}
+
+.is-rtl .expertise-index-item > span {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+
+.is-rtl .expertise-index-item > strong,
+.is-rtl .expertise-index-item > small {
+  grid-column: 2;
+  justify-self: stretch;
+  text-align: right;
+}
+
+.is-rtl .capability-group__number {
+  justify-self: end;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+
+.is-rtl .approach-step > span,
+.is-rtl .why__principles span {
+  justify-self: start;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+
+.is-rtl .capability-group__copy,
+.is-rtl .capability-group__copy h3,
+.is-rtl .capability-group__copy p,
+.is-rtl .approach-step,
+.is-rtl .approach-step h3,
+.is-rtl .approach-step p {
+  direction: rtl;
+  text-align: right;
+}
+
+.is-rtl .why__principles article {
+  direction: rtl;
+  grid-template-columns: 48px minmax(0, 1fr);
+  text-align: right;
+}
+
+.is-rtl .why__principles span {
+  grid-column: 1;
+}
+
+.is-rtl .why__principles h3,
+.is-rtl .why__principles p {
+  grid-column: 2;
+  text-align: right;
+}
+
+.is-rtl .contact-actions strong {
+  justify-self: start;
+  text-align: right;
+}
+
+.is-rtl .contact-actions a:first-child strong,
+.is-rtl .contact-actions a:nth-child(2) strong {
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

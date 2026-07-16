@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   MotionConfig,
   motion,
@@ -22,6 +22,7 @@ import {
 } from "@/content/site-content";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
+const brandName = "Khalid Bamarouf";
 type TextDirection = "ltr" | "rtl";
 type RevealAxis = "x" | "y";
 
@@ -65,6 +66,27 @@ function localizeNumerals(value: string, locale: Locale) {
 
 function formatIndex(index: number, locale: Locale) {
   return localizeNumerals(String(index + 1).padStart(2, "0"), locale);
+}
+
+function renderCopy(text: string): ReactNode {
+  const parts = text.split(brandName);
+
+  if (parts.length === 1) {
+    return text;
+  }
+
+  return parts.flatMap((part, index) => {
+    if (index === parts.length - 1) {
+      return [part];
+    }
+
+    return [
+      part,
+      <span className="brand-name" dir="ltr" key={`${text}-${index}`}>
+        {brandName}
+      </span>,
+    ];
+  });
 }
 
 function ApproachBlueprint({
@@ -131,8 +153,8 @@ function SectionHeading({
       {...getReveal(44)}
     >
       {eyebrow ? <p className="section-heading__eyebrow">{eyebrow}</p> : null}
-      <h2 id={id}>{title}</h2>
-      <p>{lead}</p>
+      <h2 id={id}>{renderCopy(title)}</h2>
+      <p>{renderCopy(lead)}</p>
     </motion.div>
   );
 }
@@ -310,7 +332,7 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
               width={64}
             />
             <span>
-              <strong>{content.brand.name}</strong>
+              <strong className="brand-name" dir="ltr">{content.brand.name}</strong>
               <small>{content.brand.role}</small>
             </span>
           </a>
@@ -394,14 +416,14 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
         <section className="positioning chapter" id="positioning" aria-labelledby="positioning-title">
           <motion.div className="positioning__statement content-protected" {...getReveal(50, content.direction, "x")}>
             <p>{content.brand.role}</p>
-            <h2 id="positioning-title">{content.positioning.title}</h2>
+            <h2 id="positioning-title">{renderCopy(content.positioning.title)}</h2>
           </motion.div>
           <motion.div className="positioning__body content-protected" {...getReveal(42, oppositeDirection(content.direction), "x")}>
-            <p className="positioning__lead">{content.positioning.lead}</p>
-            <p>{content.positioning.body}</p>
+            <p className="positioning__lead">{renderCopy(content.positioning.lead)}</p>
+            <p>{renderCopy(content.positioning.body)}</p>
             <ul>
               {content.positioning.notes.map((note) => (
-                <li key={note}>{note}</li>
+                <li key={note}>{renderCopy(note)}</li>
               ))}
             </ul>
           </motion.div>
@@ -506,15 +528,15 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
 
         <section className="why chapter" id="why" aria-labelledby="why-title">
           <motion.div className="why__title content-protected" {...getReveal(48)}>
-            <p>{content.why.lead}</p>
-            <h2 id="why-title">{content.why.title}</h2>
+            <p>{renderCopy(content.why.lead)}</p>
+            <h2 id="why-title">{renderCopy(content.why.title)}</h2>
           </motion.div>
           <motion.div className="why__principles content-protected" {...getReveal(40)}>
             {content.why.principles.map((principle, index) => (
               <article key={principle.title}>
                 <span>{formatIndex(index, locale)}</span>
-                <h3>{principle.title}</h3>
-                <p>{principle.body}</p>
+                <h3>{renderCopy(principle.title)}</h3>
+                <p>{renderCopy(principle.body)}</p>
               </article>
             ))}
           </motion.div>
@@ -577,7 +599,7 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
         <footer className="footer content-protected">
           <a className="footer__brand" href="#top">
             <Image alt="" height={52} src={logoPath} width={52} />
-            <span>{content.brand.name}</span>
+            <span className="brand-name" dir="ltr">{content.brand.name}</span>
           </a>
           <p>{content.footer.statement}</p>
           <nav aria-label="Footer navigation">
