@@ -23,6 +23,13 @@
   --shadow: rgba(0, 0, 0, 0.58);
   --background: var(--void);
   --foreground: var(--paper);
+  --page-gutter: clamp(24px, 6.2vw, 118px);
+  --content-z: 4;
+  --decor-z: 1;
+  --text-measure: 68ch;
+  --heading-measure: 13ch;
+  --arabic-text-measure: 58ch;
+  --arabic-heading-measure: 11ch;
 }
 
 @theme inline {
@@ -91,7 +98,7 @@ img {
 .ambient-grid {
   position: fixed;
   inset: 0;
-  z-index: 5;
+  z-index: 0;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(238, 233, 220, 0.022) 1px, transparent 1px),
@@ -100,12 +107,37 @@ img {
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 70%);
 }
 
+.content-protected {
+  position: relative;
+  z-index: var(--content-z);
+  min-width: 0;
+}
+
+.content-protected :where(h1, h2, h3) {
+  max-width: var(--heading-max, var(--heading-measure));
+  overflow-wrap: normal;
+}
+
+.content-protected :where(p, li) {
+  max-width: var(--paragraph-max, var(--text-measure));
+  overflow-wrap: break-word;
+}
+
+.content-protected :where(a, button, input, label, small, span, strong, textarea) {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.decorative-layer {
+  pointer-events: none;
+}
+
 .blueprint-field {
   position: absolute;
-  z-index: 1;
+  z-index: var(--decor-z);
   pointer-events: none;
   color: var(--blueprint-gold);
-  opacity: 0.28;
+  opacity: 0.18;
 }
 
 .blueprint-field svg {
@@ -192,65 +224,61 @@ img {
   inset-block-start: clamp(120px, 16vh, 190px);
   inset-inline-end: clamp(18px, 5vw, 90px);
   z-index: 0;
-  width: min(60vw, 980px);
-  opacity: 0.34;
+  width: min(30vw, 440px);
+  opacity: 0.18;
 }
 
 .blueprint-field--positioning {
-  inset-block-start: clamp(90px, 12vw, 160px);
-  inset-inline-end: clamp(24px, 5vw, 92px);
-  width: min(58vw, 900px);
-  opacity: 0.2;
+  inset-block-start: clamp(30px, 4vw, 64px);
+  inset-inline-end: var(--page-gutter);
+  width: min(20vw, 240px);
+  opacity: 0.1;
 }
 
 .blueprint-field--expertise {
-  inset-block-start: clamp(92px, 12vw, 160px);
-  inset-inline-end: clamp(18px, 5vw, 86px);
-  width: min(54vw, 860px);
-  opacity: 0.18;
+  inset-block-start: clamp(30px, 4vw, 64px);
+  inset-inline-end: var(--page-gutter);
+  width: min(20vw, 240px);
+  opacity: 0.1;
 }
 
 .blueprint-field--capabilities {
-  inset-block-start: clamp(72px, 9vw, 132px);
-  inset-inline-end: clamp(18px, 5vw, 88px);
-  width: min(52vw, 820px);
-  opacity: 0.18;
+  inset-block-start: clamp(30px, 4vw, 64px);
+  inset-inline-end: var(--page-gutter);
+  width: min(20vw, 240px);
+  opacity: 0.1;
 }
 
 .blueprint-field--approach {
-  inset-block-start: clamp(180px, 24vw, 320px);
-  inset-inline-start: clamp(24px, 6.2vw, 118px);
-  width: min(74vw, 1120px);
-  opacity: 0.24;
+  inset-block-start: clamp(30px, 4vw, 64px);
+  inset-inline-end: var(--page-gutter);
+  width: min(20vw, 240px);
+  opacity: 0.1;
 }
 
 .blueprint-field--studies {
-  inset-block-start: clamp(108px, 12vw, 174px);
-  inset-inline-start: clamp(18px, 5vw, 88px);
-  width: min(64vw, 940px);
-  opacity: 0.16;
+  inset-block-start: clamp(30px, 4vw, 64px);
+  inset-inline-end: var(--page-gutter);
+  width: min(20vw, 240px);
+  opacity: 0.1;
 }
 
 .blueprint-field--why {
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
-  width: min(50vw, 760px);
-  opacity: 0.16;
-  translate: -50% -50%;
+  display: none;
 }
 
 .blueprint-field--insights {
-  inset-block-start: clamp(140px, 16vw, 230px);
-  inset-inline-start: clamp(24px, 6vw, 96px);
-  width: min(70vw, 1080px);
-  opacity: 0.14;
+  inset-block-start: clamp(30px, 4vw, 64px);
+  inset-inline-end: var(--page-gutter);
+  width: min(20vw, 240px);
+  opacity: 0.08;
 }
 
 .blueprint-field--contact {
-  inset-block-start: clamp(118px, 14vw, 210px);
-  inset-inline-start: clamp(24px, 6vw, 104px);
-  width: min(50vw, 740px);
-  opacity: 0.28;
+  inset-block-start: clamp(30px, 4vw, 64px);
+  inset-inline-end: var(--page-gutter);
+  width: min(20vw, 240px);
+  opacity: 0.08;
 }
 
 .topbar {
@@ -376,17 +404,19 @@ img {
 
 .chapter {
   position: relative;
-  padding: clamp(88px, 9vw, 160px) clamp(24px, 6.2vw, 118px);
+  padding: clamp(88px, 9vw, 160px) var(--page-gutter);
   overflow: hidden;
   scroll-margin-top: 124px;
 }
 
 .section-heading {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
-  max-width: 860px;
+  max-width: min(860px, 100%);
   gap: 22px;
+  --heading-max: 13ch;
+  --paragraph-max: 62ch;
 }
 
 .section-heading--quiet {
@@ -394,7 +424,8 @@ img {
 }
 
 .section-heading--technical {
-  max-width: 700px;
+  max-width: min(700px, 100%);
+  --heading-max: 16ch;
 }
 
 .section-heading--technical h2 {
@@ -407,7 +438,9 @@ img {
 .section-heading--editorial {
   grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.8fr);
   gap: clamp(18px, 4vw, 64px);
-  max-width: 1060px;
+  max-width: min(1060px, 100%);
+  --heading-max: 12ch;
+  --paragraph-max: 46ch;
 }
 
 .section-heading--editorial .section-heading__eyebrow,
@@ -498,8 +531,14 @@ img {
 .hero {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(320px, 0.64fr);
+  grid-template-areas:
+    "content visual"
+    "metrics metrics";
+  column-gap: clamp(36px, 6vw, 108px);
+  row-gap: clamp(32px, 5vw, 72px);
   min-height: 100svh;
-  padding: clamp(132px, 15vh, 180px) clamp(24px, 6.2vw, 118px) 42px;
+  padding: clamp(132px, 15vh, 180px) var(--page-gutter) 42px;
   isolation: isolate;
   overflow: hidden;
   background: #050604;
@@ -507,7 +546,9 @@ img {
 
 .hero__image {
   position: absolute;
-  inset: -7vh -3vw 0 43vw;
+  inset-block: -7vh 0;
+  inset-inline-start: 46vw;
+  inset-inline-end: -3vw;
   z-index: -3;
   min-height: 112%;
   filter: brightness(0.64) contrast(1.08) saturate(0.78);
@@ -530,7 +571,7 @@ img {
 .hero__architectural-mask {
   position: absolute;
   inset-block: 15vh 13vh;
-  inset-inline-start: clamp(24px, 6.2vw, 118px);
+  inset-inline-start: var(--page-gutter);
   width: min(34vw, 520px);
   z-index: -1;
   border-inline-start: 1px solid rgba(238, 233, 220, 0.18);
@@ -563,8 +604,8 @@ img {
   inset-block-start: 20vh;
   inset-inline-end: min(9vw, 130px);
   z-index: -1;
-  width: clamp(230px, 30vw, 560px);
-  opacity: 0.28;
+  width: clamp(220px, 27vw, 500px);
+  opacity: 0.22;
   mix-blend-mode: screen;
 }
 
@@ -572,9 +613,9 @@ img {
   position: absolute;
   inset-block-start: clamp(142px, 18vh, 210px);
   inset-inline-end: clamp(32px, 8vw, 150px);
-  z-index: 1;
-  width: clamp(260px, 28vw, 520px);
-  opacity: 0.86;
+  z-index: var(--decor-z);
+  width: clamp(240px, 24vw, 430px);
+  opacity: 0.68;
   pointer-events: none;
 }
 
@@ -615,16 +656,19 @@ img {
 
 .hero__content {
   position: relative;
-  z-index: 2;
+  grid-area: content;
+  z-index: var(--content-z);
   align-self: center;
   display: grid;
-  width: min(860px, 82vw);
+  width: min(780px, 100%);
   gap: 28px;
   padding-block: 8vh;
+  --heading-max: 12ch;
+  --paragraph-max: 64ch;
 }
 
 .hero__content h1 {
-  max-width: 820px;
+  max-width: var(--heading-max);
   margin: 0;
   color: #fff4df;
   font-family: var(--font-display);
@@ -636,7 +680,7 @@ img {
 }
 
 .hero__lead {
-  max-width: 720px;
+  max-width: var(--paragraph-max);
   margin: 0;
   color: rgba(238, 233, 220, 0.72);
   font-size: clamp(1rem, 1.15vw, 1.22rem);
@@ -652,7 +696,8 @@ img {
 
 .hero__metrics {
   position: relative;
-  z-index: 2;
+  grid-area: metrics;
+  z-index: var(--content-z);
   align-self: end;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -691,8 +736,11 @@ img {
 .positioning {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(300px, 0.62fr);
+  grid-template-areas:
+    "statement body"
+    "diagram body";
   gap: clamp(44px, 8vw, 132px);
-  min-height: 760px;
+  min-height: auto;
   isolation: isolate;
   background:
     linear-gradient(90deg, rgba(21, 22, 17, 0.94), rgba(24, 29, 23, 0.72)),
@@ -701,11 +749,14 @@ img {
 
 .positioning__statement {
   position: relative;
-  z-index: 2;
+  grid-area: statement;
+  z-index: var(--content-z);
   display: grid;
   align-content: center;
   gap: 26px;
-  max-width: 860px;
+  max-width: min(860px, 100%);
+  --heading-max: 12ch;
+  --paragraph-max: 54ch;
 }
 
 .positioning__statement p {
@@ -718,11 +769,14 @@ img {
 
 .positioning__body {
   position: relative;
-  z-index: 2;
+  grid-area: body;
+  z-index: var(--content-z);
   display: grid;
   align-content: end;
   gap: 24px;
-  padding-block-start: 18vh;
+  padding-block-start: clamp(88px, 12vh, 150px);
+  --heading-max: 20ch;
+  --paragraph-max: 54ch;
 }
 
 .positioning__lead {
@@ -766,8 +820,8 @@ img {
   inset-block: 0;
   inset-inline-start: 0;
   z-index: 0;
-  width: clamp(54px, 5vw, 86px);
-  opacity: 0.52;
+  width: clamp(22px, 2vw, 34px);
+  opacity: 0.36;
   filter: contrast(1.18);
   pointer-events: none;
 }
@@ -777,18 +831,21 @@ img {
 }
 
 .decision-map {
-  position: absolute;
-  inset-block-end: clamp(18px, 4vw, 58px);
-  inset-inline-end: clamp(24px, 6vw, 110px);
-  z-index: 2;
-  width: min(32vw, 440px);
-  opacity: 0.48;
+  position: relative;
+  inset: auto;
+  grid-area: diagram;
+  align-self: end;
+  justify-self: start;
+  z-index: var(--decor-z);
+  width: min(420px, 100%);
+  margin-block-start: clamp(28px, 5vw, 80px);
+  opacity: 0.36;
   pointer-events: none;
 }
 
 .decision-map svg {
   width: 100%;
-  opacity: 0.48;
+  opacity: 0.5;
 }
 
 .decision-map__grid {
@@ -833,7 +890,7 @@ img {
   color: rgba(238, 233, 220, 0.56);
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  opacity: 0.48;
+  opacity: 0.5;
 }
 
 .decision-map__plate strong {
@@ -844,7 +901,7 @@ img {
 .positioning__statement,
 .positioning__body {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
 }
 
 .expertise {
@@ -855,7 +912,7 @@ img {
 
 .expertise-board {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
   grid-template-columns: minmax(260px, 0.36fr) minmax(0, 1fr);
   gap: clamp(24px, 4vw, 70px);
@@ -940,6 +997,8 @@ img {
   align-content: center;
   gap: 22px;
   min-width: 0;
+  --heading-max: 14ch;
+  --paragraph-max: 58ch;
 }
 
 .expertise-panel__copy span,
@@ -956,6 +1015,7 @@ img {
 
 .expertise-panel__copy h3 {
   margin: 0;
+  max-width: var(--heading-max);
   color: #fff1d1;
   font-family: var(--font-display);
   font-size: clamp(2rem, 4.2vw, 4.8rem);
@@ -966,7 +1026,7 @@ img {
 }
 
 .expertise-panel__copy p {
-  max-width: 660px;
+  max-width: var(--paragraph-max);
   margin: 0;
   color: rgba(238, 233, 220, 0.66);
   font-size: clamp(1rem, 1.14vw, 1.2rem);
@@ -991,7 +1051,9 @@ img {
 
 .system-line-diagram {
   align-self: center;
+  justify-self: end;
   width: 100%;
+  max-width: 560px;
   min-height: 260px;
 }
 
@@ -1042,13 +1104,15 @@ img {
 }
 
 .capability-topology {
-  position: absolute;
-  inset-block-start: clamp(78px, 9vw, 140px);
-  inset-inline-end: clamp(24px, 6vw, 116px);
-  z-index: 1;
+  position: relative;
+  inset: auto;
+  z-index: var(--decor-z);
   display: grid;
   gap: 12px;
-  width: min(32vw, 440px);
+  width: min(420px, 34vw);
+  margin-block-start: clamp(22px, 3vw, 48px);
+  margin-inline-start: auto;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -1104,7 +1168,7 @@ img {
 
 .capability-matrix {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
   gap: 0;
   margin-block-start: clamp(42px, 6vw, 92px);
@@ -1117,6 +1181,8 @@ img {
   gap: clamp(18px, 3vw, 58px);
   padding: clamp(28px, 4vw, 52px) 0;
   border-block-end: 1px solid rgba(238, 233, 220, 0.1);
+  --heading-max: 22ch;
+  --paragraph-max: 42ch;
 }
 
 .capability-group__number {
@@ -1187,7 +1253,7 @@ img {
 
 .approach-rail {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0;
@@ -1197,9 +1263,11 @@ img {
 
 .approach-blueprint {
   position: relative;
-  z-index: 2;
+  z-index: var(--decor-z);
   margin-block-start: clamp(34px, 5vw, 72px);
   width: min(960px, 100%);
+  overflow: hidden;
+  opacity: 0.82;
 }
 
 .approach-blueprint svg {
@@ -1250,6 +1318,8 @@ img {
   min-height: 340px;
   padding: 28px 22px 0 0;
   border-inline-end: 1px solid rgba(238, 233, 220, 0.1);
+  --heading-max: 13ch;
+  --paragraph-max: 32ch;
 }
 
 .approach-step span {
@@ -1275,7 +1345,7 @@ img {
 
 .study-exhibition {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.48fr);
   grid-template-areas:
@@ -1288,7 +1358,12 @@ img {
 .study-stage {
   position: relative;
   grid-area: stage;
+  display: grid;
+  grid-template-rows: auto minmax(120px, 1fr) auto;
+  gap: clamp(22px, 4vw, 54px);
   min-height: clamp(420px, 56vw, 760px);
+  padding: clamp(22px, 4vw, 54px);
+  isolation: isolate;
   overflow: hidden;
   border: 1px solid rgba(238, 233, 220, 0.12);
 }
@@ -1296,34 +1371,39 @@ img {
 .study-stage__image {
   position: absolute;
   inset: 0;
+  z-index: 0;
   filter: brightness(0.74) contrast(1.1) saturate(0.82);
 }
 
 .study-stage__shade {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
     linear-gradient(180deg, transparent 42%, rgba(7, 8, 7, 0.94)),
     linear-gradient(90deg, rgba(7, 8, 7, 0.3), transparent);
 }
 
 .study-stage__caption {
-  position: absolute;
-  inset-inline: clamp(22px, 4vw, 54px);
-  inset-block-end: clamp(22px, 4vw, 54px);
+  position: relative;
+  z-index: var(--content-z);
+  grid-row: 3;
+  align-self: end;
   display: grid;
   gap: 14px;
   max-width: 660px;
+  --heading-max: 13ch;
 }
 
 .study-flow-map {
-  position: absolute;
-  inset-block-start: clamp(18px, 3vw, 36px);
-  inset-inline-end: clamp(18px, 3vw, 36px);
+  position: relative;
+  inset: auto;
   z-index: 2;
+  grid-row: 1;
+  justify-self: end;
   display: grid;
   gap: 8px;
-  width: min(38vw, 420px);
+  width: min(420px, 42%);
   padding: 14px;
   border: 1px solid rgba(238, 233, 220, 0.11);
   background: rgba(7, 8, 7, 0.58);
@@ -1369,6 +1449,7 @@ img {
 
 .study-stage__caption h3 {
   margin: 0;
+  max-width: var(--heading-max);
   color: #fff2d6;
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 5.7rem);
@@ -1444,22 +1525,25 @@ img {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(320px, 0.72fr);
-  gap: clamp(44px, 9vw, 150px);
+  grid-template-columns: minmax(0, 0.82fr) minmax(160px, 0.24fr) minmax(320px, 0.72fr);
+  grid-template-areas: "title compass principles";
+  align-items: center;
+  gap: clamp(32px, 6vw, 104px);
   background:
     linear-gradient(90deg, rgba(21, 22, 17, 0.98), rgba(8, 9, 7, 0.98)),
     var(--carbon);
 }
 
 .operating-compass {
-  position: absolute;
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
-  z-index: 0;
-  width: min(26vw, 340px);
-  opacity: 0.16;
+  position: relative;
+  inset: auto;
+  grid-area: compass;
+  justify-self: center;
+  z-index: var(--decor-z);
+  width: min(260px, 100%);
+  opacity: 0.14;
   pointer-events: none;
-  translate: -50% -50%;
+  translate: none;
 }
 
 .operating-compass svg {
@@ -1493,10 +1577,13 @@ img {
 
 .why__title {
   position: relative;
-  z-index: 2;
+  grid-area: title;
+  z-index: var(--content-z);
   display: grid;
   align-content: center;
   gap: 30px;
+  --heading-max: 11ch;
+  --paragraph-max: 46ch;
 }
 
 .why__title p {
@@ -1507,11 +1594,14 @@ img {
 
 .why__principles {
   position: relative;
-  z-index: 2;
+  grid-area: principles;
+  z-index: var(--content-z);
   display: grid;
   align-content: center;
   gap: 0;
   border-block-start: 1px solid rgba(238, 233, 220, 0.12);
+  --heading-max: 24ch;
+  --paragraph-max: 48ch;
 }
 
 .why__principles article {
@@ -1546,7 +1636,7 @@ img {
 
 .insight-row {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
   grid-template-columns: 1.2fr 0.82fr 1fr;
   gap: 1px;
@@ -1559,9 +1649,12 @@ img {
   position: relative;
   display: grid;
   align-content: space-between;
+  gap: 32px;
   min-height: 320px;
   padding: clamp(24px, 3vw, 44px);
   background: #10120e;
+  --heading-max: 12ch;
+  --paragraph-max: 42ch;
 }
 
 .insight-annotation {
@@ -1581,7 +1674,7 @@ img {
 }
 
 .insight-row h3 {
-  max-width: 380px;
+  max-width: var(--heading-max);
   margin: 0;
   color: #fff1d0;
   font-family: var(--font-display);
@@ -1612,10 +1705,12 @@ img {
 
 .contact__statement {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
   gap: 26px;
-  max-width: 860px;
+  max-width: min(860px, 100%);
+  --heading-max: 11ch;
+  --paragraph-max: 62ch;
 }
 
 .contact-signal {
@@ -1672,7 +1767,7 @@ img {
 
 .contact-form {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   display: grid;
   gap: 18px;
   padding: clamp(22px, 3.2vw, 40px);
@@ -1728,7 +1823,7 @@ img {
 
 .contact-channels {
   position: relative;
-  z-index: 2;
+  z-index: var(--content-z);
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1760,9 +1855,10 @@ img {
   grid-template-columns: minmax(200px, 0.5fr) minmax(260px, 1fr) auto;
   gap: 24px;
   align-items: center;
-  padding: 28px clamp(24px, 6.2vw, 118px);
+  padding: 28px var(--page-gutter);
   border-block-start: 1px solid rgba(238, 233, 220, 0.12);
   background: #070807;
+  --paragraph-max: 74ch;
 }
 
 .footer__brand {
@@ -1794,8 +1890,25 @@ img {
 }
 
 .is-rtl {
+  --heading-measure: var(--arabic-heading-measure);
+  --text-measure: var(--arabic-text-measure);
   font-family: var(--font-arabic-sans);
   text-align: right;
+}
+
+.is-rtl .content-protected {
+  --paragraph-max: var(--arabic-text-measure);
+  text-align: right;
+  word-spacing: 0.035em;
+}
+
+.is-rtl .content-protected :where(p, li) {
+  line-height: 2;
+}
+
+.is-rtl .content-protected :where(h1, h2, h3) {
+  line-height: 1.16;
+  text-wrap: balance;
 }
 
 .is-rtl :where(p, h1, h2, h3, li, a, button, label, span, input, textarea, strong, small) {
@@ -1846,6 +1959,18 @@ img {
   .footer
 ) {
   direction: ltr;
+}
+
+.is-rtl .brand-lockup strong,
+.is-rtl .footer__brand span {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.is-rtl .brand-lockup small {
+  overflow: visible;
+  line-height: 1.65;
+  text-overflow: clip;
 }
 
 .is-rtl :where(
@@ -1926,6 +2051,9 @@ img {
 .is-rtl .section-heading {
   justify-items: end;
   margin-inline-start: auto;
+  max-width: min(760px, 100%);
+  --heading-max: 11ch;
+  --paragraph-max: 54ch;
   text-align: right;
 }
 
@@ -1937,6 +2065,13 @@ img {
   font-family: var(--font-arabic-sans);
   font-size: clamp(2rem, 4vw, 3.8rem);
   line-height: 1.2;
+}
+
+.is-rtl .hero {
+  grid-template-columns: minmax(320px, 0.64fr) minmax(0, 0.96fr);
+  grid-template-areas:
+    "visual content"
+    "metrics metrics";
 }
 
 .is-rtl .section-heading--editorial {
@@ -1953,7 +2088,9 @@ img {
 }
 
 .is-rtl .hero__image {
-  inset-inline: 0 43vw;
+  inset-block: -7vh 0;
+  inset-inline-start: -3vw;
+  inset-inline-end: 46vw;
 }
 
 .is-rtl .hero__shadow {
@@ -1970,14 +2107,17 @@ img {
 }
 
 .is-rtl .hero__content {
-  justify-self: stretch;
-  margin-right: 0;
-  margin-left: auto;
+  grid-area: content;
+  justify-self: end;
+  width: min(760px, 100%);
+  margin: 0;
+  --heading-max: 10.5ch;
+  --paragraph-max: 56ch;
   text-align: right;
 }
 
 .is-rtl .hero__content h1 {
-  max-width: 780px;
+  max-width: var(--heading-max);
   font-size: clamp(3rem, 7vw, 5.45rem);
   line-height: 1.08;
 }
@@ -2018,22 +2158,29 @@ img {
 .is-rtl .blueprint-field--hero,
 .is-rtl .blueprint-field--positioning,
 .is-rtl .blueprint-field--expertise,
-.is-rtl .blueprint-field--capabilities {
-  inset-inline-start: clamp(18px, 5vw, 90px);
-  inset-inline-end: auto;
-}
-
+.is-rtl .blueprint-field--capabilities,
 .is-rtl .blueprint-field--approach,
 .is-rtl .blueprint-field--studies,
 .is-rtl .blueprint-field--insights,
 .is-rtl .blueprint-field--contact {
-  inset-inline-start: auto;
-  inset-inline-end: clamp(24px, 6vw, 104px);
+  inset-inline-start: var(--page-gutter);
+  inset-inline-end: auto;
+}
+
+.is-rtl .blueprint-field--hero {
+  width: min(16vw, 240px);
+  opacity: 0.12;
+}
+
+.is-rtl .blueprint-field:not(.blueprint-field--hero) {
+  display: none;
 }
 
 .is-rtl .positioning {
   grid-template-columns: minmax(300px, 0.62fr) minmax(0, 0.92fr);
-  grid-template-areas: "body statement";
+  grid-template-areas:
+    "body statement"
+    "body diagram";
   background:
     linear-gradient(270deg, rgba(21, 22, 17, 0.94), rgba(24, 29, 23, 0.72)),
     var(--charcoal);
@@ -2041,11 +2188,15 @@ img {
 
 .is-rtl .positioning__statement {
   grid-area: statement;
+  justify-items: end;
+  --heading-max: 11ch;
+  --paragraph-max: 48ch;
   text-align: right;
 }
 
 .is-rtl .positioning__body {
   grid-area: body;
+  --paragraph-max: 52ch;
   text-align: right;
 }
 
@@ -2062,13 +2213,15 @@ img {
 }
 
 .is-rtl .positioning__image {
-  inset-inline-start: auto;
-  inset-inline-end: 0;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
 }
 
 .is-rtl .decision-map {
-  inset-inline-start: clamp(24px, 6vw, 110px);
-  inset-inline-end: auto;
+  inset: auto;
+  justify-self: end;
+  margin-inline-start: auto;
+  margin-inline-end: 0;
 }
 
 .is-rtl .decision-map__plate {
@@ -2097,6 +2250,8 @@ img {
 
 .is-rtl .expertise-panel__copy {
   grid-area: copy;
+  --heading-max: 16ch;
+  --paragraph-max: 52ch;
   text-align: right;
 }
 
@@ -2107,6 +2262,7 @@ img {
 
 .is-rtl .expertise-panel .system-line-diagram {
   grid-area: diagram;
+  justify-self: start;
 }
 
 .is-rtl .expertise-index-item {
@@ -2134,8 +2290,9 @@ img {
 }
 
 .is-rtl .capability-topology {
-  inset-inline-start: clamp(24px, 6vw, 116px);
-  inset-inline-end: auto;
+  inset: auto;
+  margin-inline-start: 0;
+  margin-inline-end: auto;
 }
 
 .is-rtl .capability-group {
@@ -2151,6 +2308,8 @@ img {
 
 .is-rtl .capability-group__copy {
   grid-area: copy;
+  --heading-max: 20ch;
+  --paragraph-max: 38ch;
   text-align: right;
 }
 
@@ -2188,6 +2347,8 @@ img {
   padding: 28px 0 0 22px;
   border-inline-end: 0;
   border-inline-start: 1px solid rgba(238, 233, 220, 0.1);
+  --heading-max: 14ch;
+  --paragraph-max: 32ch;
   text-align: right;
 }
 
@@ -2211,12 +2372,13 @@ img {
 .is-rtl .study-stage__caption {
   justify-items: end;
   margin-inline-start: auto;
+  --heading-max: 12ch;
   text-align: right;
 }
 
 .is-rtl .study-flow-map {
-  inset-inline-start: clamp(18px, 3vw, 36px);
-  inset-inline-end: auto;
+  inset: auto;
+  justify-self: start;
 }
 
 .is-rtl .study-control {
@@ -2239,8 +2401,8 @@ img {
 }
 
 .is-rtl .why {
-  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 0.86fr);
-  grid-template-areas: "principles title";
+  grid-template-columns: minmax(320px, 0.72fr) minmax(160px, 0.24fr) minmax(0, 0.86fr);
+  grid-template-areas: "principles compass title";
   background:
     linear-gradient(270deg, rgba(21, 22, 17, 0.98), rgba(8, 9, 7, 0.98)),
     var(--carbon);
@@ -2249,6 +2411,8 @@ img {
 .is-rtl .why__title {
   grid-area: title;
   justify-items: end;
+  --heading-max: 10ch;
+  --paragraph-max: 48ch;
   text-align: right;
 }
 
@@ -2258,6 +2422,8 @@ img {
 
 .is-rtl .why__principles {
   grid-area: principles;
+  --heading-max: 24ch;
+  --paragraph-max: 44ch;
 }
 
 .is-rtl .why__principles article {
@@ -2299,6 +2465,8 @@ img {
 .is-rtl .contact__statement {
   grid-area: statement;
   justify-items: end;
+  --heading-max: 10ch;
+  --paragraph-max: 56ch;
   text-align: right;
 }
 
@@ -2355,13 +2523,43 @@ img {
   text-align: right;
 }
 
-.is-rtl .footer nav {
-  grid-area: nav;
-  direction: rtl;
-  justify-content: flex-start;
+  .is-rtl .footer nav {
+    grid-area: nav;
+    direction: rtl;
+    justify-content: flex-start;
+  }
+
+@media (max-width: 1320px) {
+  .positioning__image {
+    display: none;
+  }
+
+  .expertise-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .system-line-diagram {
+    justify-self: start;
+    max-width: 520px;
+  }
+
+  .is-rtl .expertise-panel {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "diagram";
+  }
+
+  .is-rtl .expertise-panel .system-line-diagram {
+    justify-self: end;
+  }
 }
 
 @media (max-width: 1180px) {
+  .blueprint-field {
+    display: none;
+  }
+
   .topbar {
     grid-template-columns: minmax(210px, 1fr) auto;
   }
@@ -2373,11 +2571,28 @@ img {
   }
 
   .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "metrics";
+    min-height: auto;
     padding-block-start: 178px;
   }
 
   .hero__image {
-    inset-inline-start: 36vw;
+    inset: 0;
+    opacity: 0.42;
+  }
+
+  .hero__content {
+    width: min(760px, 100%);
+    padding-block: clamp(72px, 12vh, 120px);
+  }
+
+  .hero-calibration,
+  .hero__logo,
+  .blueprint-field--hero {
+    opacity: 0.14;
   }
 
   .positioning,
@@ -2388,23 +2603,27 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .positioning {
+    grid-template-areas:
+      "statement"
+      "body"
+      "diagram";
+  }
+
   .positioning__body {
     padding-block-start: 0;
   }
 
   .decision-map {
-    position: relative;
-    inset: auto;
-    grid-column: 1 / -1;
     justify-self: end;
     width: min(520px, 82vw);
     margin-block-start: 24px;
-    opacity: 0.62;
+    opacity: 0.42;
   }
 
   .decision-map svg,
   .decision-map__plate {
-    opacity: 0.62;
+    opacity: 0.5;
   }
 
   .expertise-board,
@@ -2413,12 +2632,10 @@ img {
   }
 
   .capability-topology {
-    position: relative;
-    inset: auto;
     width: min(440px, 70vw);
     margin-block-start: 34px;
     margin-inline-start: auto;
-    opacity: 0.72;
+    opacity: 0.5;
   }
 
   .study-exhibition {
@@ -2471,12 +2688,21 @@ img {
   }
 
   .operating-compass {
-    inset-block-start: auto;
-    inset-block-end: clamp(28px, 6vw, 72px);
-    inset-inline-start: auto;
-    inset-inline-end: clamp(24px, 6vw, 72px);
-    width: min(360px, 48vw);
+    position: relative;
+    inset: auto;
+    grid-area: compass;
+    justify-self: end;
+    width: min(260px, 42vw);
+    margin-block-start: 20px;
+    opacity: 0.12;
     translate: none;
+  }
+
+  .why {
+    grid-template-areas:
+      "title"
+      "principles"
+      "compass";
   }
 
   .is-rtl .topbar {
@@ -2525,9 +2751,9 @@ img {
 
   .is-rtl .decision-map {
     inset: auto;
-    justify-self: start;
-    margin-inline-start: 0;
-    margin-inline-end: auto;
+    justify-self: end;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
   }
 
   .is-rtl .expertise-board,
@@ -2559,7 +2785,8 @@ img {
   .is-rtl .positioning {
     grid-template-areas:
       "statement"
-      "body";
+      "body"
+      "diagram";
   }
 
   .is-rtl .expertise-board {
@@ -2577,7 +2804,8 @@ img {
   .is-rtl .why {
     grid-template-areas:
       "title"
-      "principles";
+      "principles"
+      "compass";
   }
 
   .is-rtl .contact {
@@ -2629,10 +2857,11 @@ img {
   }
 
   .hero-calibration {
-    inset-block-start: 136px;
-    inset-inline-end: 18px;
-    width: min(290px, 72vw);
-    opacity: 0.5;
+    display: none;
+  }
+
+  .blueprint-field {
+    display: none;
   }
 
   .hero__image {
@@ -2685,7 +2914,7 @@ img {
   }
 
   .study-stage__caption {
-    padding-block-start: 150px;
+    padding-block-start: 0;
   }
 
   .approach-blueprint {

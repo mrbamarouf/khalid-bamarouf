@@ -274,7 +274,7 @@ function BlueprintField({ variant }: { variant: BlueprintVariant }) {
   const plan = blueprintPlans[variant];
 
   return (
-    <div className={`blueprint-field blueprint-field--${variant}`} aria-hidden="true">
+    <div className={`blueprint-field blueprint-field--${variant} decorative-layer`} aria-hidden="true">
       <svg viewBox="0 0 1000 520">
         <path className="blueprint-field__frame" d="M72 58H928V462H72Z" />
         <path className="blueprint-field__grid" d="M72 160H928M72 260H928M72 360H928" />
@@ -321,7 +321,7 @@ function SystemLineDiagram({ activeIndex }: { activeIndex: number }) {
   const activeCode = `KB.${String(activeIndex + 1).padStart(2, "0")}`;
 
   return (
-    <svg className="system-line-diagram" viewBox="0 0 600 260" aria-hidden="true">
+    <svg className="system-line-diagram decorative-layer" viewBox="0 0 600 260" aria-hidden="true">
       <defs>
         <linearGradient id="system-line-gold" x1="0" x2="1" y1="0" y2="1">
           <stop offset="0%" stopColor="rgba(215, 185, 124, 0.9)" />
@@ -373,7 +373,7 @@ function HeroCalibration() {
   return (
     <motion.div
       aria-hidden="true"
-      className="hero-calibration"
+      className="hero-calibration decorative-layer"
       initial={reduceMotion ? false : { opacity: 0.001, clipPath: "inset(0 100% 0 0)" }}
       animate={reduceMotion ? undefined : { opacity: 1, clipPath: "inset(0 0% 0 0)" }}
       transition={{ duration: 1.1, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
@@ -427,7 +427,7 @@ function HeroCalibration() {
 
 function DecisionMap() {
   return (
-    <motion.div className="decision-map" {...getReveal(26)} aria-hidden="true">
+    <motion.div className="decision-map decorative-layer" {...getReveal(26)} aria-hidden="true">
       <svg viewBox="0 0 520 320">
         <path className="decision-map__grid" d="M36 52H486M36 160H486M36 268H486" />
         <path className="decision-map__grid" d="M96 34V286M260 34V286M424 34V286" />
@@ -466,7 +466,7 @@ function CapabilityTopology() {
   ];
 
   return (
-    <motion.div className="capability-topology" {...getReveal(32)} aria-hidden="true">
+    <motion.div className="capability-topology decorative-layer" {...getReveal(32)} aria-hidden="true">
       <svg viewBox="0 0 520 340">
         <path className="topology-ring" d="M260 56L426 140L374 286H146L94 140Z" />
         <path className="topology-axis" d="M260 56V286M94 140H426M146 286L426 140M374 286L94 140" />
@@ -503,7 +503,7 @@ function ApproachBlueprint({
   const labels = direction === "rtl" ? [...steps].reverse() : steps;
 
   return (
-    <motion.div className="approach-blueprint" {...getReveal(28)} aria-hidden="true">
+    <motion.div className="approach-blueprint decorative-layer" {...getReveal(28)} aria-hidden="true">
       <svg viewBox="0 0 960 170">
         <path className="approach-blueprint__rail" d="M70 92H890" />
         <path className="approach-blueprint__measure" d="M70 58V128M275 58V128M480 58V128M685 58V128M890 58V128" />
@@ -545,7 +545,7 @@ function StudyFlowMap({ activeIndex }: { activeIndex: number }) {
   const labels = variants[activeIndex] ?? variants[0];
 
   return (
-    <div className="study-flow-map" aria-hidden="true">
+    <div className="study-flow-map decorative-layer" aria-hidden="true">
       <svg viewBox="0 0 420 180">
         <path className="study-flow-map__grid" d="M38 52H382M38 128H382" />
         <path className="study-flow-map__grid" d="M72 28V154M180 28V154M288 28V154" />
@@ -571,7 +571,7 @@ function StudyFlowMap({ activeIndex }: { activeIndex: number }) {
 
 function OperatingCompass() {
   return (
-    <motion.div className="operating-compass" {...getReveal(34)} aria-hidden="true">
+    <motion.div className="operating-compass decorative-layer" {...getReveal(34)} aria-hidden="true">
       <svg viewBox="0 0 360 360">
         <circle className="operating-compass__ring" cx="180" cy="180" r="138" />
         <circle className="operating-compass__ring operating-compass__ring--inner" cx="180" cy="180" r="78" />
@@ -593,7 +593,7 @@ function OperatingCompass() {
 
 function InsightAnnotation({ index }: { index: number }) {
   return (
-    <div className="insight-annotation" aria-hidden="true">
+    <div className="insight-annotation decorative-layer" aria-hidden="true">
       <span>KB.{String(index + 1).padStart(2, "0")}</span>
       <i />
       <i />
@@ -604,7 +604,7 @@ function InsightAnnotation({ index }: { index: number }) {
 
 function ContactSignal() {
   return (
-    <motion.div className="contact-signal" {...getReveal(28)} aria-hidden="true">
+    <motion.div className="contact-signal decorative-layer" {...getReveal(28)} aria-hidden="true">
       <svg viewBox="0 0 420 180">
         <path className="contact-signal__axis" d="M48 90H372M210 30V150" />
         <path className="contact-signal__pulse" d="M48 90C98 18 146 162 210 90S306 18 372 90" />
@@ -621,11 +621,13 @@ function ContactSignal() {
 }
 
 function SectionHeading({
+  id,
   eyebrow,
   title,
   lead,
   tone,
 }: {
+  id: string;
   eyebrow?: string;
   title: string;
   lead: string;
@@ -633,11 +635,11 @@ function SectionHeading({
 }) {
   return (
     <motion.div
-      className={`section-heading ${tone ? `section-heading--${tone}` : ""}`}
+      className={`section-heading content-protected ${tone ? `section-heading--${tone}` : ""}`}
       {...getReveal(44)}
     >
       {eyebrow ? <p className="section-heading__eyebrow">{eyebrow}</p> : null}
-      <h2>{title}</h2>
+      <h2 id={id}>{title}</h2>
       <p>{lead}</p>
     </motion.div>
   );
@@ -658,7 +660,7 @@ function ExpertiseBoard({
 
   return (
     <motion.div className="expertise-board" {...getReveal(40)}>
-      <div className="expertise-board__index" role="tablist" aria-label="Expertise areas">
+      <div className="expertise-board__index content-protected" role="tablist" aria-label="Expertise areas">
         {items.map((item, index) => (
           <button
             aria-controls="expertise-panel"
@@ -685,7 +687,7 @@ function ExpertiseBoard({
         role="tabpanel"
         transition={{ duration: 0.45, ease: "easeOut" }}
       >
-        <div className="expertise-panel__copy">
+        <div className="expertise-panel__copy content-protected">
           <span>{activeItem.name}</span>
           <h3>{activeItem.focus}</h3>
           <p>{activeItem.value}</p>
@@ -733,13 +735,13 @@ function StudyExhibition({
         </motion.div>
         <div className="study-stage__shade" aria-hidden="true" />
         <StudyFlowMap activeIndex={activeIndex} />
-        <div className="study-stage__caption">
+        <div className="study-stage__caption content-protected">
           <span>{activeStudy.label}</span>
           <h3>{activeStudy.title}</h3>
         </div>
       </div>
 
-      <div className="study-controls" role="tablist" aria-label="System studies">
+      <div className="study-controls content-protected" role="tablist" aria-label="System studies">
         {studies.map((study, index) => (
           <button
             aria-controls="study-panel"
@@ -758,7 +760,7 @@ function StudyExhibition({
 
       <motion.article
         animate={{ opacity: 1, y: 0 }}
-        className="study-panel"
+        className="study-panel content-protected"
         id="study-panel"
         initial={{ opacity: 0.001, y: 20 }}
         key={activeStudy.title}
@@ -859,7 +861,7 @@ export function DesktopExperience() {
         <section className="hero" aria-labelledby="hero-title">
           <BlueprintField variant="hero" />
           <motion.div
-            className="hero__image"
+            className="hero__image decorative-layer"
             style={reduceMotion ? undefined : { y: heroImageY }}
           >
             <Image
@@ -871,10 +873,10 @@ export function DesktopExperience() {
               src="/images/enterprise-data-center.jpg"
             />
           </motion.div>
-          <div className="hero__shadow" aria-hidden="true" />
-          <div className="hero__architectural-mask" aria-hidden="true" />
+          <div className="hero__shadow decorative-layer" aria-hidden="true" />
+          <div className="hero__architectural-mask decorative-layer" aria-hidden="true" />
           <motion.div
-            className="hero__logo"
+            className="hero__logo decorative-layer"
             style={reduceMotion ? undefined : { y: heroMarkY }}
           >
             <Image
@@ -888,7 +890,7 @@ export function DesktopExperience() {
           <HeroCalibration />
 
           <motion.div
-            className="hero__content"
+            className="hero__content content-protected"
             initial={
               reduceMotion
                 ? false
@@ -917,7 +919,7 @@ export function DesktopExperience() {
           </motion.div>
 
           <motion.div
-            className="hero__metrics"
+            className="hero__metrics content-protected"
             initial={reduceMotion ? false : { opacity: 0.001, y: 34 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ ...revealTransition, delay: 0.25 }}
@@ -933,11 +935,11 @@ export function DesktopExperience() {
 
         <section className="positioning chapter" id="positioning" aria-labelledby="positioning-title">
           <BlueprintField variant="positioning" />
-          <motion.div className="positioning__statement" {...getReveal(50, content.direction, "x")}>
+          <motion.div className="positioning__statement content-protected" {...getReveal(50, content.direction, "x")}>
             <p>{content.brand.role}</p>
             <h2 id="positioning-title">{content.positioning.title}</h2>
           </motion.div>
-          <motion.div className="positioning__body" {...getReveal(42, oppositeDirection(content.direction), "x")}>
+          <motion.div className="positioning__body content-protected" {...getReveal(42, oppositeDirection(content.direction), "x")}>
             <p className="positioning__lead">{content.positioning.lead}</p>
             <p>{content.positioning.body}</p>
             <ul>
@@ -947,7 +949,7 @@ export function DesktopExperience() {
             </ul>
           </motion.div>
           <DecisionMap />
-          <motion.div className="positioning__image" {...getReveal(36)}>
+          <motion.div className="positioning__image decorative-layer" {...getReveal(36)}>
             <Image
               alt=""
               fill
@@ -961,6 +963,7 @@ export function DesktopExperience() {
           <BlueprintField variant="expertise" />
           <SectionHeading
             eyebrow={content.labels.expertise}
+            id="expertise-title"
             lead={content.expertise.lead}
             title={content.expertise.title}
             tone="quiet"
@@ -977,6 +980,7 @@ export function DesktopExperience() {
           <BlueprintField variant="capabilities" />
           <SectionHeading
             eyebrow={content.labels.capabilities}
+            id="capabilities-title"
             lead={content.capabilities.lead}
             title={content.capabilities.title}
             tone="technical"
@@ -984,7 +988,7 @@ export function DesktopExperience() {
           <CapabilityTopology />
           <motion.div className="capability-matrix" {...getReveal(44)}>
             {content.capabilities.groups.map((group, groupIndex) => (
-              <article className="capability-group" key={group.title}>
+              <article className="capability-group content-protected" key={group.title}>
                 <div className="capability-group__number">
                   {formatIndex(groupIndex, locale)}
                 </div>
@@ -1003,7 +1007,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="approach chapter" id="approach" aria-labelledby="approach-title">
-          <div className="approach__image">
+          <div className="approach__image decorative-layer">
             <Image
               alt=""
               fill
@@ -1011,10 +1015,11 @@ export function DesktopExperience() {
               src="/images/enterprise-data-center.jpg"
             />
           </div>
-          <div className="approach__shade" aria-hidden="true" />
+          <div className="approach__shade decorative-layer" aria-hidden="true" />
           <BlueprintField variant="approach" />
           <SectionHeading
             eyebrow={content.labels.approach}
+            id="approach-title"
             lead={content.approach.lead}
             title={content.approach.title}
           />
@@ -1025,7 +1030,7 @@ export function DesktopExperience() {
           />
           <motion.div className="approach-rail" {...getReveal(40)}>
             {content.approach.steps.map((step) => (
-              <article className="approach-step" key={step.number}>
+              <article className="approach-step content-protected" key={step.number}>
                 <span>{localizeNumerals(step.number, locale)}</span>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
@@ -1038,6 +1043,7 @@ export function DesktopExperience() {
           <BlueprintField variant="studies" />
           <SectionHeading
             eyebrow={content.labels.studies}
+            id="studies-title"
             lead={content.studies.lead}
             title={content.studies.title}
             tone="quiet"
@@ -1055,12 +1061,12 @@ export function DesktopExperience() {
 
         <section className="why chapter" id="why" aria-labelledby="why-title">
           <BlueprintField variant="why" />
-          <motion.div className="why__title" {...getReveal(48)}>
+          <motion.div className="why__title content-protected" {...getReveal(48)}>
             <p>{content.why.lead}</p>
             <h2 id="why-title">{content.why.title}</h2>
           </motion.div>
           <OperatingCompass />
-          <motion.div className="why__principles" {...getReveal(40)}>
+          <motion.div className="why__principles content-protected" {...getReveal(40)}>
             {content.why.principles.map((principle, index) => (
               <article key={principle.title}>
                 <span>{formatIndex(index, locale)}</span>
@@ -1075,13 +1081,14 @@ export function DesktopExperience() {
           <BlueprintField variant="insights" />
           <SectionHeading
             eyebrow={content.labels.insights}
+            id="insights-title"
             lead={content.insights.lead}
             title={content.insights.title}
             tone="editorial"
           />
           <motion.div className="insight-row" {...getReveal(40)}>
             {content.insights.items.map((insight, index) => (
-              <article key={insight.title}>
+              <article className="content-protected" key={insight.title}>
                 <InsightAnnotation index={index} />
                 <h3>{insight.title}</h3>
                 <p>{insight.body}</p>
@@ -1091,7 +1098,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="contact chapter" id="contact" aria-labelledby="contact-title">
-          <div className="contact__image">
+          <div className="contact__image decorative-layer">
             <Image
               alt=""
               fill
@@ -1099,9 +1106,9 @@ export function DesktopExperience() {
               src="/images/architectural-hallway.jpg"
             />
           </div>
-          <div className="contact__shade" aria-hidden="true" />
+          <div className="contact__shade decorative-layer" aria-hidden="true" />
           <BlueprintField variant="contact" />
-          <motion.div className="contact__statement" {...getReveal(52, content.direction, "x")}>
+          <motion.div className="contact__statement content-protected" {...getReveal(52, content.direction, "x")}>
             <Image
               alt=""
               height={92}
@@ -1114,7 +1121,7 @@ export function DesktopExperience() {
           </motion.div>
 
           <motion.form
-            className="contact-form"
+            className="contact-form content-protected"
             onSubmit={handleInquirySubmit}
             {...getReveal(44, oppositeDirection(content.direction), "x")}
           >
@@ -1133,7 +1140,7 @@ export function DesktopExperience() {
             </button>
           </motion.form>
 
-          <motion.div className="contact-channels" {...getReveal(36)}>
+          <motion.div className="contact-channels content-protected" {...getReveal(36)}>
             {content.contact.channels.map((channel) => (
               <div key={channel.label}>
                 <span>{channel.label}</span>
@@ -1147,7 +1154,7 @@ export function DesktopExperience() {
           </motion.div>
         </section>
 
-        <footer className="footer">
+        <footer className="footer content-protected">
           <a className="footer__brand" href="#top">
             <Image alt="" height={52} src={logoPath} width={52} />
             <span>{content.brand.name}</span>

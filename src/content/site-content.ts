@@ -483,9 +483,9 @@ export const siteContent: Record<Locale, SiteContent> = {
     locale: "ar",
     direction: "rtl",
     brand: {
-      name: "خالد بامعروف",
+      name: "Khalid Bamarouf",
       role: "معماري أنظمة ومستشار تقني",
-      logoAlt: "شعار خالد بامعروف الذهبي",
+      logoAlt: "شعار Khalid Bamarouf الذهبي",
     },
     nav: [
       { label: "الخبرات", href: "#expertise" },
@@ -767,7 +767,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       lead:
         "لمراجعات المعمارية، وقرارات المنصات، واستراتيجية التكامل، وبرامج الأتمتة، أو طبقات تشغيل الذكاء الاصطناعي، ابدأ بالمشكلة التي أصبحت أهم من أن تبقى غامضة.",
       email: "hello@khalidbamarouf.com",
-      subject: "استفسار مشروع لخالد بامعروف",
+      subject: "استفسار مشروع لـ Khalid Bamarouf",
       button: "إرسال استفسار مشروع",
       channels: [
         {
