@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Khalid Bamarouf Systems Experience
+
+A desktop-led digital experience for Khalid Bamarouf, positioned around systems architecture, backend engineering, automation, AI operating layers, cloud infrastructure, APIs, and integration.
+
+The project uses Next.js, TypeScript, Tailwind CSS, and Framer Motion. Content lives in `src/content/site-content.ts` so English, Arabic, navigation, contact channels, and project inquiry fields can be edited from one place.
 
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev`: start local development.
+- `npm run lint`: run ESLint.
+- `npx tsc --noEmit`: run TypeScript checks.
+- `npm run build`: create a production build.
 
-## Learn More
+## Brand Assets
 
-To learn more about Next.js, take a look at the following resources:
+- Source logo: `brand-assets/khalid-bamarouf-logo.png`
+- Transparent logo: `public/brand/khalid-bamarouf-logo-transparent.png`
+- Local photography: `public/images/`
+- Image attribution: `IMAGE-SOURCES.md`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content Model
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The visible English experience is complete. Arabic content and RTL metadata are built into the same content model and can be activated through the language switch without mixing page languages.
