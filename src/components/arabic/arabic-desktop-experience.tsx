@@ -1,16 +1,25 @@
 import Image from "next/image";
+import Link from "next/link";
 import { siteContent } from "@/content/site-content";
 import styles from "./arabic-desktop-experience.module.css";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
 const content = siteContent.ar;
 const primaryStudy = content.studies.items[0];
+const arabicOrder = ["٠١", "٠٢", "٠٣", "٠٤", "٠٥"];
+const arabicNav = [
+  { label: "الخبرات", href: "#arabic-expertise" },
+  { label: "القدرات", href: "#arabic-capabilities" },
+  { label: "المنهج", href: "#arabic-approach" },
+  { label: "الدراسات", href: "#arabic-studies" },
+  { label: "التواصل", href: "#arabic-contact" },
+];
 
 export function ArabicDesktopExperience() {
   return (
     <main
       className={styles.shell}
-      data-arabic-composition="isolated-draft"
+      data-arabic-composition="native-desktop"
       data-locale="ar"
       dir="rtl"
       lang="ar"
@@ -25,12 +34,16 @@ export function ArabicDesktopExperience() {
         </a>
 
         <nav className={styles.nav} aria-label="Arabic navigation">
-          {content.nav.map((item) => (
+          {arabicNav.map((item) => (
             <a href={item.href} key={item.href}>
               {item.label}
             </a>
           ))}
         </nav>
+
+        <Link className={styles.languageLink} href="/" hrefLang="en" aria-label="English version">
+          EN
+        </Link>
       </header>
 
       <section className={`${styles.chapter} ${styles.hero}`} id="arabic-top">
@@ -51,6 +64,14 @@ export function ArabicDesktopExperience() {
           <div className={styles.actions}>
             <a href="#arabic-contact">{content.hero.primaryCta}</a>
             <a href="#arabic-expertise">{content.hero.secondaryCta}</a>
+          </div>
+          <div className={styles.heroMetrics} aria-label="مؤشرات العمل">
+            {content.hero.metrics.map((metric) => (
+              <div key={metric.label}>
+                <span>{metric.label}</span>
+                <strong>{metric.value}</strong>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -73,63 +94,83 @@ export function ArabicDesktopExperience() {
       </section>
 
       <section className={`${styles.chapter} ${styles.expertise}`} id="arabic-expertise">
-        <div className={styles.chapterTitle}>
-          <p>{content.labels.expertise}</p>
-          <h2>{content.expertise.title}</h2>
-          <p>{content.expertise.lead}</p>
-        </div>
-
-        <div className={styles.expertiseSystem}>
-          <div className={styles.expertiseList}>
-            {content.expertise.items.map((item) => (
-              <article key={item.name}>
+        <div className={styles.expertiseLayout}>
+          <div className={styles.expertiseDiagram} aria-hidden="true">
+            <div className={styles.expertiseHub}>
+              <span>بنية النظام</span>
+              <strong>Khalid Bamarouf</strong>
+            </div>
+            {content.expertise.items.map((item, index) => (
+              <div className={`${styles.expertiseNode} ${styles[`expertiseNode${index + 1}`]}`} key={item.name}>
                 <span>{item.name}</span>
-                <h3>{item.focus}</h3>
-                <p>{item.value}</p>
-              </article>
+              </div>
             ))}
+            <div className={styles.expertiseAxis} />
+          </div>
+
+          <div className={styles.expertiseContent}>
+            <div className={styles.chapterTitle}>
+              <p>{content.labels.expertise}</p>
+              <h2>{content.expertise.title}</h2>
+              <p>{content.expertise.lead}</p>
+            </div>
+
+            <div className={styles.expertiseList}>
+              {content.expertise.items.map((item) => (
+                <article key={item.name}>
+                  <span>{item.name}</span>
+                  <h3>{item.short}</h3>
+                  <p>{item.focus}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section className={`${styles.chapter} ${styles.capabilities}`} id="arabic-capabilities">
-        <div className={styles.chapterTitle}>
-          <p>{content.labels.capabilities}</p>
-          <h2>{content.capabilities.title}</h2>
-          <p>{content.capabilities.lead}</p>
-        </div>
+        <div className={styles.capabilitiesLayout}>
+          <div className={styles.capabilityRows}>
+            {content.capabilities.groups.map((group, index) => (
+              <article key={group.title}>
+                <span>{arabicOrder[index]}</span>
+                <div>
+                  <h3>{group.title}</h3>
+                  <p>{group.intro}</p>
+                </div>
+                <ul>
+                  {group.capabilities.map((capability) => (
+                    <li key={capability}>{capability}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
 
-        <div className={styles.capabilityRows}>
-          {content.capabilities.groups.map((group) => (
-            <article key={group.title}>
-              <div>
-                <h3>{group.title}</h3>
-                <p>{group.intro}</p>
-              </div>
-              <ul>
-                {group.capabilities.map((capability) => (
-                  <li key={capability}>{capability}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          <div className={`${styles.chapterTitle} ${styles.capabilitiesIntro}`}>
+            <p>{content.labels.capabilities}</p>
+            <h2>{content.capabilities.title}</h2>
+            <p>{content.capabilities.lead}</p>
+          </div>
         </div>
       </section>
 
       <section className={`${styles.chapter} ${styles.approach}`} id="arabic-approach">
-        <div className={styles.approachVisual} aria-hidden="true">
-          <Image alt="" fill sizes="42vw" src="/images/automation-controls.jpg" />
-        </div>
-        <div className={styles.chapterTitle}>
-          <p>{content.labels.approach}</p>
-          <h2>{content.approach.title}</h2>
-          <p>{content.approach.lead}</p>
+        <div className={styles.approachLayout}>
+          <div className={styles.approachVisual} aria-hidden="true">
+            <Image alt="" fill sizes="42vw" src="/images/automation-control-panel.jpg" />
+          </div>
+          <div className={`${styles.chapterTitle} ${styles.approachIntro}`}>
+            <p>{content.labels.approach}</p>
+            <h2>{content.approach.title}</h2>
+            <p>{content.approach.lead}</p>
+          </div>
         </div>
 
         <div className={styles.approachSteps}>
           {content.approach.steps.map((step) => (
             <article key={step.number}>
-              <span>{step.number}</span>
+              <span>{arabicOrder[Number(step.number) - 1]}</span>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
             </article>
@@ -236,6 +277,13 @@ export function ArabicDesktopExperience() {
           <span>{content.brand.name}</span>
         </a>
         <p>{content.footer.statement}</p>
+        <nav className={styles.footerNav} aria-label="Arabic footer navigation">
+          {arabicNav.map((item) => (
+            <a href={item.href} key={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
       </footer>
     </main>
   );
