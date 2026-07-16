@@ -1,5 +1,5 @@
-import { ArabicDesktopExperience } from "@/components/arabic/arabic-desktop-experience";
+import { DesktopExperience } from "@/components/desktop-experience";
 
 export default function ArabicHome() {
-  return <ArabicDesktopExperience />;
+  return <DesktopExperience locale="ar" />;
 }

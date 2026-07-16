@@ -132,6 +132,8 @@ export type SiteContent = {
     lead: string;
     email: string;
     subject: string;
+    whatsappLabel: string;
+    emailLabel: string;
     button: string;
     channels: ContactLink[];
     fields: ContactField[];
@@ -431,6 +433,8 @@ export const siteContent: Record<Locale, SiteContent> = {
         "For architecture reviews, platform decisions, integration strategy, automation programs, or AI operating layers, start with the problem that is becoming too important to leave unclear.",
       email: "hello@khalidbamarouf.com",
       subject: "Project inquiry for Khalid Bamarouf",
+      whatsappLabel: "WhatsApp",
+      emailLabel: "Email",
       button: "Send project inquiry",
       channels: [
         {
@@ -523,7 +527,7 @@ export const siteContent: Record<Locale, SiteContent> = {
     positioning: {
       title: "شريك تقني للأنظمة التي تحمل وزنا تجاريا حقيقيا.",
       lead:
-        "يعمل خالد عند نقطة التقاء نية الأعمال، وعمق الهندسة، وواقع التشغيل.",
+        "يعمل Khalid Bamarouf عند نقطة التقاء نية الأعمال، وعمق الهندسة، وواقع التشغيل.",
       body:
         "تبدأ المهمة بجعل البنية غير المرئية واضحة: الاعتماديات، التدفقات، المخاطر، الواجهات، الملكية، الحوكمة، والقرارات التي تقوي النظام أو تقيده.",
       notes: [
@@ -661,7 +665,7 @@ export const siteContent: Record<Locale, SiteContent> = {
     studies: {
       title: "دراسات أنظمة مختارة.",
       lead:
-        "توضح الدراسات المفاهيمية كيف يؤطر خالد الأعمال التقنية الصعبة عندما تكون تفاصيل العملاء سرية.",
+        "توضح الدراسات المفاهيمية كيف يؤطر Khalid Bamarouf الأعمال التقنية الصعبة عندما تكون تفاصيل العملاء سرية.",
       items: [
         {
           label: "معمارية التكامل",
@@ -714,7 +718,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     why: {
-      title: "لماذا يستعين العملاء الجادون بخالد.",
+      title: "لماذا يستعين العملاء الجادون بـ Khalid Bamarouf.",
       lead:
         "القيمة ليست في كتابة الكود أو رسم المعمارية فقط. بل في معرفة البنية المهمة قبل أن يتجمد المال والوقت حول خيار خاطئ.",
       principles: [
@@ -768,6 +772,8 @@ export const siteContent: Record<Locale, SiteContent> = {
         "لمراجعات المعمارية، وقرارات المنصات، واستراتيجية التكامل، وبرامج الأتمتة، أو طبقات تشغيل الذكاء الاصطناعي، ابدأ بالمشكلة التي أصبحت أهم من أن تبقى غامضة.",
       email: "hello@khalidbamarouf.com",
       subject: "استفسار مشروع لـ Khalid Bamarouf",
+      whatsappLabel: "واتساب",
+      emailLabel: "البريد الإلكتروني",
       button: "إرسال استفسار مشروع",
       channels: [
         {

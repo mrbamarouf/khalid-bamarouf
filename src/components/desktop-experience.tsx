@@ -6,7 +6,6 @@ import { useState } from "react";
 import {
   MotionConfig,
   motion,
-  useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
@@ -142,18 +141,20 @@ function ExpertiseBoard({
   items,
   activeIndex,
   locale,
+  ariaLabel,
   setActiveIndex,
 }: {
   items: ExpertiseItem[];
   activeIndex: number;
   locale: Locale;
+  ariaLabel: string;
   setActiveIndex: (index: number) => void;
 }) {
   const activeItem = items[activeIndex];
 
   return (
     <motion.div className="expertise-board" {...getReveal(40)}>
-      <div className="expertise-board__index content-protected" role="tablist" aria-label="Expertise areas">
+      <div className="expertise-board__index content-protected" role="tablist" aria-label={ariaLabel}>
         {items.map((item, index) => (
           <button
             aria-controls="expertise-panel"
@@ -200,11 +201,13 @@ function StudyExhibition({
   activeIndex,
   setActiveIndex,
   labels,
+  ariaLabel,
 }: {
   studies: SystemStudy[];
   activeIndex: number;
   setActiveIndex: (index: number) => void;
   labels: { challenge: string; structure: string };
+  ariaLabel: string;
 }) {
   const activeStudy = studies[activeIndex];
 
@@ -232,7 +235,7 @@ function StudyExhibition({
         </div>
       </div>
 
-      <div className="study-controls content-protected" role="tablist" aria-label="System studies">
+      <div className="study-controls content-protected" role="tablist" aria-label={ariaLabel}>
         {studies.map((study, index) => (
           <button
             aria-controls="study-panel"
@@ -279,11 +282,9 @@ function StudyExhibition({
   );
 }
 
-export function DesktopExperience() {
-  const locale: Locale = "en";
+export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
   const [activeExpertise, setActiveExpertise] = useState(0);
   const [activeStudy, setActiveStudy] = useState(0);
-  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const content = siteContent[locale];
   const heroImageY = useTransform(scrollYProgress, [0, 0.22], [0, 110]);
@@ -325,8 +326,8 @@ export function DesktopExperience() {
           <Link
             aria-label={content.language.switchLabel}
             className="language-switch"
-            href="/ar"
-            hrefLang="ar"
+            href={locale === "ar" ? "/" : "/ar"}
+            hrefLang={locale === "ar" ? "en" : "ar"}
           >
             <span>{content.language.current}</span>
             <span>{content.language.alternate}</span>
@@ -336,7 +337,7 @@ export function DesktopExperience() {
         <section className="hero" aria-labelledby="hero-title">
           <motion.div
             className="hero__image decorative-layer"
-            style={reduceMotion ? undefined : { y: heroImageY }}
+            style={{ y: heroImageY }}
           >
             <Image
               alt=""
@@ -352,19 +353,15 @@ export function DesktopExperience() {
 
           <motion.div
             className="hero__content content-protected"
-            initial={
-              reduceMotion
-                ? false
-                : {
-                    opacity: 0.001,
-                    x: content.direction === "rtl" ? -42 : 42,
-                    y: 30,
-                    filter: "blur(12px)",
-                  }
-            }
-            animate={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
+            initial={{
+              opacity: 0.001,
+              x: content.direction === "rtl" ? -42 : 42,
+              y: 30,
+              filter: "blur(12px)",
+            }}
+            animate={{ opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
             transition={revealTransition}
-            style={reduceMotion ? undefined : { y: heroCopyY }}
+            style={{ y: heroCopyY }}
           >
             <p className="hero__eyebrow">{content.hero.eyebrow}</p>
             <h1 id="hero-title">{content.hero.title}</h1>
@@ -381,8 +378,8 @@ export function DesktopExperience() {
 
           <motion.div
             className="hero__metrics content-protected"
-            initial={reduceMotion ? false : { opacity: 0.001, y: 34 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            initial={{ opacity: 0.001, y: 34 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ ...revealTransition, delay: 0.25 }}
           >
             {content.hero.metrics.map((metric) => (
@@ -420,6 +417,7 @@ export function DesktopExperience() {
           />
           <ExpertiseBoard
             activeIndex={activeExpertise}
+            ariaLabel={content.labels.expertise}
             items={content.expertise.items}
             locale={locale}
             setActiveIndex={setActiveExpertise}
@@ -496,6 +494,7 @@ export function DesktopExperience() {
           />
           <StudyExhibition
             activeIndex={activeStudy}
+            ariaLabel={content.labels.studies}
             labels={{
               challenge: content.labels.challenge,
               structure: content.labels.structure,
@@ -565,11 +564,11 @@ export function DesktopExperience() {
             {...getReveal(44, oppositeDirection(content.direction), "x")}
           >
             <a href={getWhatsAppHref()} target="_blank" rel="noreferrer">
-              <span>WhatsApp</span>
+              <span>{content.contact.whatsappLabel}</span>
               <strong>{temporaryContactConfig.whatsapp.display}</strong>
             </a>
             <a href={getMailtoHref(content.contact.subject)}>
-              <span>Email</span>
+              <span>{content.contact.emailLabel}</span>
               <strong>{temporaryContactConfig.email.address}</strong>
             </a>
           </motion.div>
