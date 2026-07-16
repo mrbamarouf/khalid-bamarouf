@@ -33,30 +33,33 @@
   inset-block-start: 0;
   z-index: 30;
   display: grid;
-  grid-template-columns: minmax(300px, 0.48fr) minmax(0, 1fr) auto;
-  gap: clamp(24px, 4vw, 72px);
+  grid-template-columns: minmax(320px, 0.5fr) minmax(0, 1fr) auto;
+  gap: clamp(20px, 3.4vw, 56px);
   align-items: center;
-  min-height: 96px;
-  border-block-end: 1px solid var(--ar-hairline);
+  min-height: 108px;
+  border-block-end: 1px solid rgba(238, 233, 220, 0.13);
   background:
     linear-gradient(180deg, rgba(7, 8, 7, 0.94), rgba(7, 8, 7, 0.72)),
-    #070807;
-  backdrop-filter: blur(18px);
+    rgba(7, 8, 7, 0.86);
+  box-shadow: inset 0 1px 0 rgba(255, 246, 223, 0.045);
+  backdrop-filter: blur(20px) saturate(1.08);
 }
 
 .brand {
   display: inline-flex;
   flex-direction: row-reverse;
-  gap: 14px;
+  gap: 16px;
   align-items: center;
   justify-self: end;
+  min-height: 72px;
+  padding-inline: 12px 4px;
   color: inherit;
   text-decoration: none;
 }
 
 .brand img {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
@@ -82,7 +85,7 @@
 
 .brand small,
 .nav,
-.languageLink,
+.languageSwitch,
 .heroContent,
 .aboutContent,
 .chapterTitle,
@@ -94,7 +97,7 @@
 .studyDetailList,
 .insightGrid,
 .contactContent,
-.contactForm,
+.contactActions,
 .footer {
   text-align: right;
 }
@@ -109,26 +112,31 @@
 .nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
   justify-content: flex-end;
+  min-height: 46px;
+  padding: 4px;
+  border: 1px solid rgba(238, 233, 220, 0.1);
+  border-radius: 10px;
+  background: rgba(238, 233, 220, 0.035);
   font-size: 0.88rem;
   line-height: 1;
 }
 
 .nav a,
 .actions a,
-.languageLink {
+.languageSwitch {
   color: rgba(238, 233, 220, 0.72);
   text-decoration: none;
 }
 
 .nav a,
-.languageLink {
+.languageSwitch {
   display: inline-grid;
-  min-height: 40px;
+  min-height: 36px;
   place-items: center;
   border-radius: 8px;
-  padding: 0 12px;
+  padding: 0 14px;
   transition:
     background 180ms ease,
     color 180ms ease;
@@ -136,25 +144,44 @@
 
 .nav a:hover,
 .nav a:focus-visible,
-.languageLink:hover,
-.languageLink:focus-visible {
+.languageSwitch:hover,
+.languageSwitch:focus-visible {
   color: #fff3d6;
   background: rgba(238, 233, 220, 0.07);
   outline: none;
 }
 
 .nav a:focus-visible,
-.languageLink:focus-visible {
+.languageSwitch:focus-visible {
   box-shadow: 0 0 0 1px rgba(228, 199, 133, 0.74);
 }
 
-.languageLink {
+.languageSwitch {
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
   justify-self: start;
-  min-width: 42px;
+  min-height: 46px;
+  min-width: 86px;
+  padding: 4px;
   border: 1px solid rgba(238, 233, 220, 0.14);
+  background: rgba(7, 8, 7, 0.58);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   direction: ltr;
+}
+
+.languageSwitch span {
+  display: inline-grid;
+  min-width: 38px;
+  min-height: 34px;
+  place-items: center;
+  border-radius: 6px;
+  color: rgba(238, 233, 220, 0.58);
+}
+
+.languageSwitch span:first-child {
+  background: rgba(200, 169, 106, 0.18);
+  color: #fff2cf;
 }
 
 .chapter {
@@ -176,7 +203,7 @@
 .heroVisual,
 .aboutVisual,
 .approachVisual,
-.contactForm {
+.contactActions {
   grid-area: visual;
 }
 
@@ -296,7 +323,7 @@
 }
 
 .actions a,
-.contactForm button {
+.contactActions a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -888,7 +915,7 @@
 .contact {
   direction: ltr;
   grid-template-columns: minmax(420px, 0.62fr) minmax(0, 0.84fr);
-  grid-template-areas: "form content";
+  grid-template-areas: "actions content";
   column-gap: clamp(52px, 8vw, 118px);
   align-items: center;
   min-height: calc(100svh - 96px);
@@ -897,44 +924,63 @@
     #070807;
 }
 
-.contact .contactForm {
-  grid-area: form;
+.contact .contactActions {
+  grid-area: actions;
 }
 
 .contact .contactContent {
   grid-area: content;
 }
 
-.contactForm {
+.contactActions {
   display: grid;
-  gap: 14px;
+  gap: 1px;
   align-self: center;
-  padding: clamp(20px, 2.8vw, 36px);
   border: 1px solid var(--ar-hairline);
-  background: rgba(238, 233, 220, 0.025);
+  background: rgba(238, 233, 220, 0.1);
 }
 
-.contactForm label {
+.contactActions a {
   display: grid;
-  gap: 8px;
-}
-
-.contactForm input,
-.contactForm textarea {
-  width: 100%;
-  border: 1px solid rgba(238, 233, 220, 0.14);
-  border-radius: 8px;
-  padding: 12px;
-  background: rgba(238, 233, 220, 0.06);
-  color: #eee9dc;
-  font: inherit;
-  line-height: 1.8;
+  gap: 12px;
+  min-height: 148px;
+  padding: clamp(22px, 3vw, 36px);
+  border: 1px solid rgba(238, 233, 220, 0.12);
+  background: rgba(238, 233, 220, 0.025);
+  color: inherit;
+  text-decoration: none;
   text-align: right;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
 }
 
-.contactForm button {
-  width: 100%;
-  cursor: pointer;
+.contactActions a:hover,
+.contactActions a:focus-visible {
+  border-color: rgba(228, 199, 133, 0.38);
+  background: rgba(238, 233, 220, 0.045);
+  outline: none;
+}
+
+.contactActions a:focus-visible {
+  box-shadow: 0 0 0 1px rgba(228, 199, 133, 0.74);
+}
+
+.contactActions span {
+  color: var(--ar-gold);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.contactActions strong {
+  direction: ltr;
+  color: #eee9dc;
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: right;
+  unicode-bidi: isolate;
 }
 
 .contactContent {
@@ -1068,7 +1114,7 @@
   .heroVisual,
   .aboutVisual,
   .approachVisual,
-  .contactForm,
+  .contactActions,
   .heroContent,
   .aboutContent,
   .approach .chapterTitle,

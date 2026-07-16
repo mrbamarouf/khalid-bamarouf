@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import {
   Bodoni_Moda,
   Geist_Mono,
@@ -6,7 +7,23 @@ import {
   Noto_Sans_Arabic,
   Sora,
 } from "next/font/google";
+import { IntroExperience } from "@/components/intro-experience";
 import "./globals.css";
+
+const introDecisionScript = `
+(function () {
+  try {
+    var key = "kb-intro-played";
+    var navigation = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    var isReload = navigation && navigation.type === "reload";
+    var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var hasPlayed = window.sessionStorage.getItem(key) === "true";
+    document.documentElement.dataset.kbIntro = !prefersReducedMotion && (isReload || !hasPlayed) ? "play" : "skip";
+  } catch (error) {
+    document.documentElement.dataset.kbIntro = "play";
+  }
+})();
+`;
 
 const display = Bodoni_Moda({
   variable: "--font-display",
@@ -64,8 +81,16 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${display.variable} ${sans.variable} ${arabicDisplay.variable} ${arabicSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <IntroExperience />
+        {children}
+        <Script id="kb-intro-decision" strategy="beforeInteractive">
+          {introDecisionScript}
+        </Script>
+      </body>
     </html>
   );
 }

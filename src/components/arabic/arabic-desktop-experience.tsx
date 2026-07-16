@@ -1,5 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import {
+  getMailtoHref,
+  getWhatsAppHref,
+  temporaryContactConfig,
+} from "@/content/contact-config";
 import { siteContent } from "@/content/site-content";
 import styles from "./arabic-desktop-experience.module.css";
 
@@ -26,7 +31,7 @@ export function ArabicDesktopExperience() {
     >
       <header className={styles.header}>
         <a className={styles.brand} href="#arabic-top" aria-label={`${content.brand.name} home`}>
-          <Image alt="" height={48} src={logoPath} width={48} />
+          <Image alt="" height={64} src={logoPath} width={64} />
           <span>
             <strong>{content.brand.name}</strong>
             <small>{content.brand.role}</small>
@@ -41,8 +46,9 @@ export function ArabicDesktopExperience() {
           ))}
         </nav>
 
-        <Link className={styles.languageLink} href="/" hrefLang="en" aria-label="English version">
-          EN
+        <Link className={styles.languageSwitch} href="/" hrefLang="en" aria-label="English version">
+          <span>AR</span>
+          <span>EN</span>
         </Link>
       </header>
 
@@ -242,32 +248,21 @@ export function ArabicDesktopExperience() {
       </section>
 
       <section className={`${styles.chapter} ${styles.contact}`} id="arabic-contact">
-        <form className={styles.contactForm}>
-          {content.contact.fields.map((field) => (
-            <label key={field.name}>
-              <span>{field.label}</span>
-              {field.type === "textarea" ? (
-                <textarea name={field.name} placeholder={field.placeholder} rows={4} />
-              ) : (
-                <input name={field.name} placeholder={field.placeholder} type={field.type} />
-              )}
-            </label>
-          ))}
-          <button type="button">{content.contact.button}</button>
-        </form>
+        <div className={styles.contactActions}>
+          <a href={getWhatsAppHref()} target="_blank" rel="noreferrer">
+            <span>واتساب</span>
+            <strong>{temporaryContactConfig.whatsapp.display}</strong>
+          </a>
+          <a href={getMailtoHref(content.contact.subject)}>
+            <span>البريد</span>
+            <strong>{temporaryContactConfig.email.address}</strong>
+          </a>
+        </div>
 
         <div className={styles.contactContent}>
           <Image alt="" height={92} src={logoPath} width={92} />
           <h2>{content.contact.title}</h2>
           <p>{content.contact.lead}</p>
-          <div className={styles.channels}>
-            {content.contact.channels.map((channel) => (
-              <div key={channel.label}>
-                <span>{channel.label}</span>
-                {channel.href ? <a href={channel.href}>{channel.value}</a> : <strong>{channel.value}</strong>}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

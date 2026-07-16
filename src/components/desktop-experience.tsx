@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 import {
   MotionConfig,
   motion,
@@ -10,15 +11,18 @@ import {
   useTransform,
 } from "framer-motion";
 import {
+  getMailtoHref,
+  getWhatsAppHref,
+  temporaryContactConfig,
+} from "@/content/contact-config";
+import {
   siteContent,
   type ExpertiseItem,
   type Locale,
-  type SiteContent,
   type SystemStudy,
 } from "@/content/site-content";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
-const arabicReleaseEnabled = false;
 type TextDirection = "ltr" | "rtl";
 type RevealAxis = "x" | "y";
 
@@ -48,21 +52,6 @@ function getReveal(distance = 56, direction: TextDirection = "ltr", axis: Reveal
 
 function oppositeDirection(direction: TextDirection) {
   return direction === "rtl" ? "ltr" : "rtl";
-}
-
-function getFormValue(formData: FormData, name: string) {
-  const value = formData.get(name);
-
-  return typeof value === "string" ? value.trim() : "";
-}
-
-function buildInquiryBody(formData: FormData, content: SiteContent) {
-  const lines = content.contact.fields.map((field) => {
-    const value = getFormValue(formData, field.name);
-    return `${field.label}: ${value || "-"}`;
-  });
-
-  return lines.join("\n\n");
 }
 
 const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
@@ -291,7 +280,7 @@ function StudyExhibition({
 }
 
 export function DesktopExperience() {
-  const [locale, setLocale] = useState<Locale>("en");
+  const locale: Locale = "en";
   const [activeExpertise, setActiveExpertise] = useState(0);
   const [activeStudy, setActiveStudy] = useState(0);
   const reduceMotion = useReducedMotion();
@@ -299,25 +288,6 @@ export function DesktopExperience() {
   const content = siteContent[locale];
   const heroImageY = useTransform(scrollYProgress, [0, 0.22], [0, 110]);
   const heroCopyY = useTransform(scrollYProgress, [0, 0.18], [0, 68]);
-
-  function handleLanguageSwitch() {
-    if (!arabicReleaseEnabled) {
-      return;
-    }
-
-    setLocale((current) => (current === "en" ? "ar" : "en"));
-  }
-
-  function handleInquirySubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const body = buildInquiryBody(formData, content);
-    const mailto = `mailto:${content.contact.email}?subject=${encodeURIComponent(
-      content.contact.subject,
-    )}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
-  }
 
   return (
     <MotionConfig reducedMotion="user">
@@ -333,10 +303,10 @@ export function DesktopExperience() {
           <a className="brand-lockup" href="#top" aria-label={`${content.brand.name} home`}>
             <Image
               alt=""
-              height={48}
+              height={64}
               priority
               src={logoPath}
-              width={48}
+              width={64}
             />
             <span>
               <strong>{content.brand.name}</strong>
@@ -352,17 +322,15 @@ export function DesktopExperience() {
             ))}
           </nav>
 
-          <button
+          <Link
             aria-label={content.language.switchLabel}
-            aria-disabled={!arabicReleaseEnabled}
             className="language-switch"
-            disabled={!arabicReleaseEnabled}
-            onClick={handleLanguageSwitch}
-            type="button"
+            href="/ar"
+            hrefLang="ar"
           >
             <span>{content.language.current}</span>
             <span>{content.language.alternate}</span>
-          </button>
+          </Link>
         </header>
 
         <section className="hero" aria-labelledby="hero-title">
@@ -592,37 +560,18 @@ export function DesktopExperience() {
             <p>{content.contact.lead}</p>
           </motion.div>
 
-          <motion.form
-            className="contact-form content-protected"
-            onSubmit={handleInquirySubmit}
+          <motion.div
+            className="contact-actions content-protected"
             {...getReveal(44, oppositeDirection(content.direction), "x")}
           >
-            {content.contact.fields.map((field) => (
-              <label key={field.name}>
-                <span>{field.label}</span>
-                {field.type === "textarea" ? (
-                  <textarea name={field.name} placeholder={field.placeholder} rows={4} />
-                ) : (
-                  <input name={field.name} placeholder={field.placeholder} type={field.type} />
-                )}
-              </label>
-            ))}
-            <button className="button button--primary" type="submit">
-              {content.contact.button}
-            </button>
-          </motion.form>
-
-          <motion.div className="contact-channels content-protected" {...getReveal(36)}>
-            {content.contact.channels.map((channel) => (
-              <div key={channel.label}>
-                <span>{channel.label}</span>
-                {channel.href ? (
-                  <a href={channel.href}>{channel.value}</a>
-                ) : (
-                  <strong>{channel.value}</strong>
-                )}
-              </div>
-            ))}
+            <a href={getWhatsAppHref()} target="_blank" rel="noreferrer">
+              <span>WhatsApp</span>
+              <strong>{temporaryContactConfig.whatsapp.display}</strong>
+            </a>
+            <a href={getMailtoHref(content.contact.subject)}>
+              <span>Email</span>
+              <strong>{temporaryContactConfig.email.address}</strong>
+            </a>
           </motion.div>
         </section>
 
