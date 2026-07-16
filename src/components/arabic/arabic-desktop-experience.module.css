@@ -1,0 +1,386 @@
+.shell {
+  --ar-heading-size: clamp(2.4rem, 4.6vw, 5rem);
+  --ar-hero-heading-size: clamp(3.2rem, 6vw, 6rem);
+  --ar-heading-line: 1.12;
+  --ar-copy-line: 1.9;
+  --ar-copy-width: 46ch;
+  --ar-section-spacing: clamp(96px, 9vw, 168px);
+  --ar-column-gap: clamp(44px, 6vw, 112px);
+  --ar-content-max: 640px;
+  --ar-button-gap: 12px;
+  min-height: 100vh;
+  background: #070807;
+  color: #eee9dc;
+  direction: rtl;
+}
+
+.header,
+.chapter,
+.footer {
+  padding-inline: clamp(28px, 6.2vw, 118px);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.42fr) minmax(0, 1fr);
+  gap: var(--ar-column-gap);
+  align-items: center;
+  min-height: 98px;
+  border-block-end: 1px solid rgba(238, 233, 220, 0.12);
+}
+
+.brand {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  justify-self: end;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand span {
+  display: grid;
+  gap: 4px;
+  text-align: right;
+}
+
+.brand strong,
+.brand > span {
+  direction: ltr;
+}
+
+.brand small,
+.nav,
+.heroContent,
+.aboutContent,
+.chapterTitle,
+.expertiseList,
+.capabilityRows,
+.approachSteps,
+.studyIndex,
+.studySummary,
+.studyDetailList,
+.insightGrid,
+.contactContent,
+.contactForm,
+.footer {
+  text-align: right;
+}
+
+.brand small {
+  color: rgba(238, 233, 220, 0.56);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.nav a,
+.actions a {
+  color: rgba(238, 233, 220, 0.72);
+  text-decoration: none;
+}
+
+.chapter {
+  display: grid;
+  gap: var(--ar-column-gap);
+  padding-block: var(--ar-section-spacing);
+}
+
+.hero,
+.about,
+.approach,
+.contact {
+  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1fr);
+  grid-template-areas: "visual content";
+  align-items: center;
+}
+
+.heroVisual,
+.aboutVisual,
+.approachVisual,
+.contactForm {
+  grid-area: visual;
+}
+
+.heroContent,
+.aboutContent,
+.approach .chapterTitle,
+.contactContent {
+  grid-area: content;
+  justify-self: end;
+  max-width: var(--ar-content-max);
+}
+
+.heroVisual,
+.studyImage,
+.approachVisual {
+  position: relative;
+  min-height: clamp(420px, 58vw, 760px);
+  overflow: hidden;
+  background: #10120e;
+}
+
+.heroVisual img,
+.studyImage img,
+.approachVisual img {
+  object-fit: cover;
+  opacity: 0.52;
+}
+
+.heroBlueprint,
+.systemTrace,
+.expertiseDiagram,
+.capabilityMap {
+  min-height: 280px;
+  border: 1px solid rgba(200, 169, 106, 0.22);
+  background:
+    linear-gradient(90deg, rgba(200, 169, 106, 0.18) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(200, 169, 106, 0.12) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.heroContent h1 {
+  max-width: 10ch;
+  margin: 18px 0;
+  font-size: var(--ar-hero-heading-size);
+  line-height: var(--ar-heading-line);
+}
+
+.heroContent p,
+.aboutContent p,
+.chapterTitle p,
+.expertiseList p,
+.capabilityRows p,
+.approachSteps p,
+.studySummary p,
+.studyDetailList p,
+.insightGrid p,
+.contactContent p,
+.footer p {
+  max-width: var(--ar-copy-width);
+  line-height: var(--ar-copy-line);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ar-button-gap);
+  justify-content: flex-start;
+  margin-block-start: 28px;
+}
+
+.actions a,
+.contactForm button {
+  padding: 12px 18px;
+  border: 1px solid rgba(238, 233, 220, 0.18);
+  border-radius: 8px;
+}
+
+.about {
+  background: #151611;
+}
+
+.aboutContent h2,
+.chapterTitle h2,
+.studySummary h2,
+.contactContent h2 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: var(--ar-heading-size);
+  line-height: var(--ar-heading-line);
+}
+
+.aboutContent ul,
+.capabilityRows ul,
+.studyDetailList ul {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.expertiseSystem {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.58fr) minmax(0, 1fr);
+  gap: var(--ar-column-gap);
+  align-items: start;
+}
+
+.expertiseList,
+.capabilityRows,
+.approachSteps,
+.insightGrid {
+  display: grid;
+  gap: 1px;
+}
+
+.expertiseList article,
+.capabilityRows article,
+.approachSteps article,
+.insightGrid article,
+.studyIndex article,
+.studyDetailList article {
+  border: 1px solid rgba(238, 233, 220, 0.12);
+  padding: clamp(20px, 2.2vw, 34px);
+  background: rgba(238, 233, 220, 0.03);
+}
+
+.capabilities {
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 0.92fr);
+  grid-template-areas:
+    "visual title"
+    "rows rows";
+  align-items: end;
+  background: #181d17;
+}
+
+.capabilityMap {
+  grid-area: visual;
+}
+
+.capabilities .chapterTitle {
+  grid-area: title;
+  justify-self: end;
+}
+
+.capabilityRows {
+  grid-area: rows;
+}
+
+.capabilityRows article {
+  display: grid;
+  grid-template-columns: minmax(0, 0.48fr) minmax(320px, 1fr);
+  gap: clamp(24px, 4vw, 76px);
+}
+
+.approach {
+  background: #090a08;
+}
+
+.approachSteps {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.studies {
+  background: #070807;
+}
+
+.studyStage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.36fr);
+  gap: var(--ar-column-gap);
+  align-items: start;
+}
+
+.studyIndex {
+  display: grid;
+  gap: 1px;
+}
+
+.studyDetails {
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.studySummary {
+  justify-self: end;
+}
+
+.studyDetailList {
+  display: grid;
+  gap: 18px;
+}
+
+.insights {
+  background: #10120e;
+}
+
+.insightGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.contact {
+  background: #070807;
+}
+
+.contactForm {
+  display: grid;
+  gap: 14px;
+}
+
+.contactForm label {
+  display: grid;
+  gap: 8px;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+  border: 1px solid rgba(238, 233, 220, 0.14);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(238, 233, 220, 0.06);
+  color: #eee9dc;
+  font: inherit;
+  line-height: 1.8;
+  text-align: right;
+}
+
+.channels {
+  display: grid;
+  gap: 12px;
+  margin-block-start: 34px;
+}
+
+.channels a,
+.channels strong {
+  color: #eee9dc;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--ar-column-gap);
+  align-items: center;
+  padding-block: 32px;
+  border-block-start: 1px solid rgba(238, 233, 220, 0.12);
+}
+
+@media (max-width: 1100px) {
+  .hero,
+  .about,
+  .approach,
+  .contact,
+  .expertiseSystem,
+  .studyStage,
+  .studyDetails,
+  .capabilities {
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
+  }
+
+  .heroVisual,
+  .aboutVisual,
+  .approachVisual,
+  .contactForm,
+  .heroContent,
+  .aboutContent,
+  .approach .chapterTitle,
+  .contactContent,
+  .capabilityMap,
+  .capabilities .chapterTitle,
+  .capabilityRows {
+    grid-area: auto;
+  }
+
+  .approachSteps,
+  .insightGrid,
+  .capabilityRows article {
+    grid-template-columns: 1fr;
+  }
+}
