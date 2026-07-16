@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const introStorageKey = "kb-intro-played";
-const introDuration = 7200;
+const desktopIntroDuration = 7200;
+const mobileIntroDuration = 6200;
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
 
 export function IntroExperience() {
@@ -17,11 +18,14 @@ export function IntroExperience() {
       return;
     }
 
+    const isMobile = window.matchMedia(
+      "(max-width: 860px), (max-width: 960px) and (max-height: 520px)",
+    ).matches;
     const timeout = window.setTimeout(() => {
       window.sessionStorage.setItem(introStorageKey, "true");
       document.documentElement.dataset.kbIntro = "done";
       setMounted(false);
-    }, introDuration);
+    }, isMobile ? mobileIntroDuration : desktopIntroDuration);
 
     return () => window.clearTimeout(timeout);
   }, []);
