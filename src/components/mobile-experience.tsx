@@ -11,6 +11,7 @@ import {
 } from "@/content/contact-config";
 import {
   siteContent,
+  type CapabilityGroup,
   type Locale,
   type NavigationItem,
   type SystemStudy,
@@ -63,34 +64,40 @@ function renderCopy(text: string): ReactNode {
 
 function mobileReveal(delay = 0) {
   return {
-    initial: { opacity: 1, y: 0 },
+    initial: { opacity: 0.001, y: 18 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.18 },
-    transition: { duration: 0.58, delay, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    viewport: { once: true, amount: 0.22 },
+    transition: {
+      duration: 0.5,
+      delay,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
   };
 }
 
-function MobileSectionIntro({
+function PhoneSectionHeader({
   eyebrow,
   id,
   lead,
   title,
+  tone = "standard",
 }: {
   eyebrow: string;
   id: string;
   lead: string;
   title: string;
+  tone?: "standard" | "quiet" | "monument";
 }) {
   return (
-    <motion.div className="mobile-section-intro" {...mobileReveal()}>
-      <p className="mobile-kicker">{eyebrow}</p>
+    <motion.div className={`phone-section-head phone-section-head--${tone}`} {...mobileReveal()}>
+      <p className="phone-eyebrow">{eyebrow}</p>
       <h2 id={id}>{renderCopy(title)}</h2>
       <p>{renderCopy(lead)}</p>
     </motion.div>
   );
 }
 
-function MobileHeader({
+function PhoneHeader({
   brand,
   locale,
   menuOpen,
@@ -109,62 +116,134 @@ function MobileHeader({
   const closeLabel = locale === "ar" ? "إغلاق" : "Close";
 
   return (
-    <header className="mobile-header">
-      <div className="mobile-header__bar">
-        <a className="mobile-brand" href="#m-top" aria-label={`${brand.name} home`}>
-          <Image alt="" height={48} priority src={logoPath} width={48} />
+    <header className="phone-header">
+      <div className="phone-header__bar">
+        <a className="phone-brand" href="#m-top" aria-label={`${brand.name} home`}>
+          <Image alt="" height={40} priority src={logoPath} width={40} />
           <span>
-            <strong className="brand-name" dir="ltr">{brand.name}</strong>
+            <strong className="brand-name" dir="ltr">
+              {brand.name}
+            </strong>
             <small>{brand.role}</small>
           </span>
         </a>
 
-        <Link
-          aria-label={switchLabel}
-          className="mobile-language"
-          href={locale === "ar" ? "/" : "/ar"}
-          hrefLang={locale === "ar" ? "en" : "ar"}
-        >
-          {locale === "ar" ? "EN" : "AR"}
-        </Link>
+        <div className="phone-header__actions">
+          <Link
+            aria-label={switchLabel}
+            className="phone-language"
+            href={locale === "ar" ? "/" : "/ar"}
+            hrefLang={locale === "ar" ? "en" : "ar"}
+          >
+            {locale === "ar" ? "EN" : "AR"}
+          </Link>
 
-        <button
-          aria-controls="mobile-menu"
-          aria-expanded={menuOpen}
-          className="mobile-menu-button"
-          onClick={() => setMenuOpen(!menuOpen)}
-          type="button"
-        >
-          <span>{menuOpen ? closeLabel : menuLabel}</span>
-          <i aria-hidden="true" />
-        </button>
+          <button
+            aria-controls="phone-menu"
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? closeLabel : menuLabel}
+            className="phone-menu-button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            type="button"
+          >
+            <span>{menuOpen ? closeLabel : menuLabel}</span>
+            <i aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
         {menuOpen ? (
-          <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            className="mobile-menu"
-            exit={{ opacity: 0, y: -10 }}
-            id="mobile-menu"
-            initial={{ opacity: 0.001, y: -10 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-          >
-            <nav aria-label="Mobile navigation">
-              {nav.map((item) => (
-                <a
-                  href={mobileHref(item.href)}
-                  key={item.href}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </motion.div>
+          <>
+            <motion.button
+              aria-label={closeLabel}
+              animate={{ opacity: 1 }}
+              className="phone-menu-scrim"
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0.001 }}
+              onClick={() => setMenuOpen(false)}
+              type="button"
+            />
+            <motion.div
+              animate={{ opacity: 1, y: 0 }}
+              className="phone-menu"
+              exit={{ opacity: 0, y: -12 }}
+              id="phone-menu"
+              initial={{ opacity: 0.001, y: -12 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+            >
+              <nav aria-label={locale === "ar" ? "تنقل الهاتف" : "Mobile navigation"}>
+                {nav.map((item, index) => (
+                  <a
+                    href={mobileHref(item.href)}
+                    key={item.href}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span>{formatIndex(index, locale)}</span>
+                    <strong>{item.label}</strong>
+                  </a>
+                ))}
+              </nav>
+            </motion.div>
+          </>
         ) : null}
       </AnimatePresence>
     </header>
+  );
+}
+
+function CapabilityAccordion({
+  activeIndex,
+  groups,
+  locale,
+  setActiveIndex,
+}: {
+  activeIndex: number;
+  groups: CapabilityGroup[];
+  locale: Locale;
+  setActiveIndex: (index: number) => void;
+}) {
+  return (
+    <div className="phone-capability-accordion">
+      {groups.map((group, index) => {
+        const isOpen = activeIndex === index;
+        const panelId = `phone-capability-${index}`;
+
+        return (
+          <article className="phone-capability" key={group.title}>
+            <button
+              aria-controls={panelId}
+              aria-expanded={isOpen}
+              onClick={() => setActiveIndex(index)}
+              type="button"
+            >
+              <span>{formatIndex(index, locale)}</span>
+              <strong>{group.title}</strong>
+              <i aria-hidden="true" />
+            </button>
+            <AnimatePresence initial={false}>
+              {isOpen ? (
+                <motion.div
+                  animate={{ opacity: 1, height: "auto" }}
+                  className="phone-capability__panel"
+                  exit={{ opacity: 0, height: 0 }}
+                  id={panelId}
+                  initial={{ opacity: 0.001, height: 0 }}
+                  transition={{ duration: 0.28, ease: "easeOut" }}
+                >
+                  <p>{group.intro}</p>
+                  <ul>
+                    {group.capabilities.map((capability) => (
+                      <li key={capability}>{capability}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </article>
+        );
+      })}
+    </div>
   );
 }
 
@@ -178,46 +257,50 @@ function StudyDetail({
   return (
     <motion.article
       animate={{ opacity: 1, y: 0 }}
-      className="mobile-study-detail"
-      initial={{ opacity: 0.001, y: 14 }}
+      className="phone-study-story__card"
+      initial={{ opacity: 0.001, y: 12 }}
       key={activeStudy.title}
       transition={{ duration: 0.36, ease: "easeOut" }}
     >
-      <figure className="mobile-study-detail__image">
-        <Image alt="" fill sizes="100vw" src={activeStudy.image} />
-      </figure>
-      <div className="mobile-study-detail__copy">
-        <p className="mobile-study-detail__label">{activeStudy.label}</p>
-        <h3>{activeStudy.title}</h3>
-        <p>{activeStudy.summary}</p>
+      <p className="phone-eyebrow">{activeStudy.label}</p>
+      <h2>{activeStudy.title}</h2>
+      <p className="phone-study-story__summary">{activeStudy.summary}</p>
+
+      <div className="phone-story-block">
+        <span>{labels.challenge}</span>
+        <p>{activeStudy.challenge}</p>
       </div>
-      <div className="mobile-study-detail__body">
-        <div>
-          <span>{labels.challenge}</span>
-          <p>{activeStudy.challenge}</p>
-        </div>
-        <div>
-          <span>{labels.structure}</span>
-          <ul>
-            {activeStudy.structure.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-        <p className="mobile-study-detail__value">{activeStudy.value}</p>
+
+      <div className="phone-story-block">
+        <span>{labels.structure}</span>
+        <ul>
+          {activeStudy.structure.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="phone-story-block phone-story-block--outcome">
+        <span>{labels.structure === "Structure" ? "Outcome" : "النتيجة"}</span>
+        <p>{activeStudy.value}</p>
       </div>
     </motion.article>
   );
 }
 
 export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
-  const [activeExpertise, setActiveExpertise] = useState(0);
+  const [activeCapability, setActiveCapability] = useState(0);
   const [activeStudy, setActiveStudy] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const content = siteContent[locale];
   const isRtl = content.direction === "rtl";
-  const activeExpertiseItem = content.expertise.items[activeExpertise];
   const activeStudyItem = content.studies.items[activeStudy];
+  const contactActionLabel = locale === "ar" ? "جاهز لتوضيح النظام؟" : "Ready to clarify the system?";
+  const heroLead =
+    locale === "ar"
+      ? "معمارية، منصات خلفية، أتمتة، ذكاء اصطناعي، سحابة وتكامل للمؤسسات التي تكون فيها الأعطال مكلفة."
+      : "Architecture, backend platforms, automation, AI, cloud, and integration for organizations where failure is expensive.";
+  const storyLabel = locale === "ar" ? "تفاصيل الدراسة" : "Study detail";
   const mobileNav = [
     { label: locale === "ar" ? "عن خالد" : "About", href: "#about" },
     { label: content.labels.expertise, href: "#expertise" },
@@ -231,13 +314,13 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
   return (
     <MotionConfig reducedMotion="user">
       <main
-        className={`mobile-shell ${isRtl ? "is-mobile-rtl" : ""}`}
+        className={`mobile-shell phone-shell ${isRtl ? "is-mobile-rtl" : ""}`}
         data-locale={content.locale}
         dir={content.direction}
         id="m-top"
         lang={content.locale}
       >
-        <MobileHeader
+        <PhoneHeader
           brand={content.brand}
           locale={locale}
           menuOpen={menuOpen}
@@ -246,52 +329,47 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
           switchLabel={content.language.switchLabel}
         />
 
-        <section className="mobile-hero" aria-labelledby="m-hero-title">
-          <motion.div className="mobile-hero__copy" {...mobileReveal()}>
-            <p className="mobile-kicker">{content.hero.eyebrow}</p>
+        <section className="phone-hero" id="m-hero" aria-labelledby="m-hero-title">
+          <motion.div className="phone-hero__copy" {...mobileReveal()}>
+            <p className="phone-eyebrow">{content.hero.eyebrow}</p>
             <h1 id="m-hero-title">{content.hero.title}</h1>
-            <p>{content.hero.lead}</p>
-            <div className="mobile-actions">
-              <a className="mobile-button mobile-button--primary" href="#m-contact">
+            <p>{heroLead}</p>
+            <div className="phone-actions">
+              <a className="phone-button phone-button--primary" href="#m-contact">
                 {content.hero.primaryCta}
               </a>
-              <a className="mobile-button mobile-button--secondary" href="#m-expertise">
+              <a className="phone-button phone-button--ghost" href="#m-studies">
                 {content.hero.secondaryCta}
               </a>
             </div>
           </motion.div>
-          <motion.figure className="mobile-hero__image" {...mobileReveal(0.06)}>
+
+          <motion.figure className="phone-hero__image" {...mobileReveal(0.05)}>
             <Image
               alt=""
               fetchPriority="high"
               fill
               loading="eager"
               priority
-              sizes="100vw"
+              sizes="(max-width: 860px) and (orientation: landscape) 42vw, (max-width: 860px) calc(100vw - 32px), 0vw"
               src="/images/enterprise-data-center.jpg"
             />
           </motion.figure>
-          <motion.div className="mobile-hero__metrics" {...mobileReveal(0.08)}>
-            {content.hero.metrics.map((metric) => (
-              <div key={metric.label}>
-                <span>{metric.label}</span>
-                <strong>{metric.value}</strong>
-              </div>
-            ))}
-          </motion.div>
+
         </section>
 
-        <section className="mobile-section mobile-about" id="m-about" aria-labelledby="m-about-title">
-          <MobileSectionIntro
+        <section className="phone-section phone-about" id="m-about" aria-labelledby="m-about-title">
+          <PhoneSectionHeader
             eyebrow={content.brand.role}
             id="m-about-title"
             lead={content.positioning.lead}
             title={content.positioning.title}
+            tone="quiet"
           />
-          <motion.figure className="mobile-about__image" {...mobileReveal(0.04)}>
-            <Image alt="" fill sizes="100vw" src="/images/architectural-hallway.jpg" />
+          <motion.figure className="phone-about__image" {...mobileReveal(0.04)}>
+            <Image alt="" fill sizes="(max-width: 860px) calc(100vw - 32px), 0vw" src="/images/architectural-hallway.jpg" />
           </motion.figure>
-          <motion.div className="mobile-about__body" {...mobileReveal(0.08)}>
+          <motion.div className="phone-about__copy" {...mobileReveal(0.08)}>
             <p>{renderCopy(content.positioning.body)}</p>
             <ul>
               {content.positioning.notes.map((note) => (
@@ -301,88 +379,59 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
           </motion.div>
         </section>
 
-        <section className="mobile-section mobile-expertise" id="m-expertise" aria-labelledby="m-expertise-title">
-          <MobileSectionIntro
+        <section className="phone-section phone-expertise" id="m-expertise" aria-labelledby="m-expertise-title">
+          <PhoneSectionHeader
             eyebrow={content.labels.expertise}
             id="m-expertise-title"
             lead={content.expertise.lead}
             title={content.expertise.title}
           />
-          <motion.div className="mobile-expertise__selector" role="tablist" aria-label={content.labels.expertise} {...mobileReveal(0.04)}>
+          <motion.div className="phone-card-rail phone-expertise__rail" {...mobileReveal(0.04)}>
             {content.expertise.items.map((item, index) => (
-              <div className="mobile-expertise__item" key={item.name}>
-                <button
-                  aria-controls="mobile-expertise-panel"
-                  aria-selected={activeExpertise === index}
-                  onClick={() => setActiveExpertise(index)}
-                  role="tab"
-                  type="button"
-                >
-                  <span>{formatIndex(index, locale)}</span>
-                  <strong>{item.name}</strong>
-                  <small>{item.short}</small>
-                </button>
-                <AnimatePresence initial={false}>
-                  {activeExpertise === index ? (
-                    <motion.article
-                      animate={{ opacity: 1, height: "auto" }}
-                      className="mobile-expertise__panel"
-                      exit={{ opacity: 0, height: 0 }}
-                      id="mobile-expertise-panel"
-                      initial={{ opacity: 0.001, height: 0 }}
-                      role="tabpanel"
-                      transition={{ duration: 0.28, ease: "easeOut" }}
-                    >
-                      <h3>{activeExpertiseItem.focus}</h3>
-                      <p>{activeExpertiseItem.value}</p>
-                      <div>
-                        {activeExpertiseItem.signals.map((signal) => (
-                          <small key={signal}>{signal}</small>
-                        ))}
-                      </div>
-                    </motion.article>
-                  ) : null}
-                </AnimatePresence>
-              </div>
+              <article className="phone-expertise-card" key={item.name}>
+                <span>{formatIndex(index, locale)}</span>
+                <h3>{item.name}</h3>
+                <p>{item.short}</p>
+                <strong>{item.focus}</strong>
+                <div>
+                  {item.signals.map((signal) => (
+                    <small key={signal}>{signal}</small>
+                  ))}
+                </div>
+              </article>
             ))}
           </motion.div>
         </section>
 
-        <section className="mobile-section mobile-capabilities" id="m-capabilities" aria-labelledby="m-capabilities-title">
-          <MobileSectionIntro
+        <section className="phone-section phone-capabilities" id="m-capabilities" aria-labelledby="m-capabilities-title">
+          <PhoneSectionHeader
             eyebrow={content.labels.capabilities}
             id="m-capabilities-title"
             lead={content.capabilities.lead}
             title={content.capabilities.title}
+            tone="quiet"
           />
-          <div className="mobile-capability-list">
-            {content.capabilities.groups.map((group, index) => (
-              <motion.article className="mobile-capability" key={group.title} {...mobileReveal(index * 0.03)}>
-                <span>{formatIndex(index, locale)}</span>
-                <h3>{group.title}</h3>
-                <p>{group.intro}</p>
-                <ul>
-                  {group.capabilities.map((capability) => (
-                    <li key={capability}>{capability}</li>
-                  ))}
-                </ul>
-              </motion.article>
-            ))}
-          </div>
+          <CapabilityAccordion
+            activeIndex={activeCapability}
+            groups={content.capabilities.groups}
+            locale={locale}
+            setActiveIndex={setActiveCapability}
+          />
         </section>
 
-        <section className="mobile-section mobile-approach" id="m-approach" aria-labelledby="m-approach-title">
-          <MobileSectionIntro
+        <section className="phone-section phone-approach" id="m-approach" aria-labelledby="m-approach-title">
+          <PhoneSectionHeader
             eyebrow={content.labels.approach}
             id="m-approach-title"
             lead={content.approach.lead}
             title={content.approach.title}
+            tone="monument"
           />
-          <ol className="mobile-approach__steps">
+          <ol className="phone-timeline">
             {content.approach.steps.map((step, index) => (
-              <motion.li className="mobile-step" key={step.number} {...mobileReveal(index * 0.03)}>
-                <span className="mobile-step__index">{localizeNumerals(step.number, locale)}</span>
-                <div className="mobile-step__copy">
+              <motion.li className="phone-timeline__item" key={step.number} {...mobileReveal(index * 0.025)}>
+                <span>{localizeNumerals(step.number, locale)}</span>
+                <div>
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
                 </div>
@@ -391,49 +440,56 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
           </ol>
         </section>
 
-        <section className="mobile-section mobile-studies" id="m-studies" aria-labelledby="m-studies-title">
-          <MobileSectionIntro
+        <section className="phone-section phone-studies" id="m-studies" aria-labelledby="m-studies-title">
+          <PhoneSectionHeader
             eyebrow={content.labels.studies}
             id="m-studies-title"
             lead={content.studies.lead}
             title={content.studies.title}
           />
-          <motion.div className="mobile-study-selector" role="tablist" aria-label={content.labels.studies} {...mobileReveal(0.04)}>
+          <motion.div className="phone-study-rail" role="tablist" aria-label={content.labels.studies} {...mobileReveal(0.04)}>
             {content.studies.items.map((study, index) => (
               <button
-                aria-controls="mobile-study-detail"
+                aria-controls="m-study-detail"
                 aria-selected={activeStudy === index}
+                className="phone-study-card"
                 key={study.title}
                 onClick={() => setActiveStudy(index)}
                 role="tab"
                 type="button"
               >
+                <figure>
+                  <Image alt="" fill sizes="(max-width: 860px) calc(100vw - 56px), 0vw" src={study.image} />
+                </figure>
                 <span>{study.label}</span>
                 <strong>{study.title}</strong>
+                <small>{study.summary}</small>
               </button>
             ))}
           </motion.div>
-          <div id="mobile-study-detail">
-            <StudyDetail
-              activeStudy={activeStudyItem}
-              labels={{
-                challenge: content.labels.challenge,
-                structure: content.labels.structure,
-              }}
-            />
-          </div>
         </section>
 
-        <section className="mobile-section mobile-insights" id="m-insights" aria-labelledby="m-insights-title">
-          <MobileSectionIntro
+        <section className="phone-section phone-study-story" id="m-study-detail" aria-label={storyLabel}>
+          <StudyDetail
+            activeStudy={activeStudyItem}
+            labels={{
+              challenge: content.labels.challenge,
+              structure: content.labels.structure,
+            }}
+          />
+        </section>
+
+        <section className="phone-section phone-insights" id="m-insights" aria-labelledby="m-insights-title">
+          <PhoneSectionHeader
             eyebrow={content.labels.insights}
             id="m-insights-title"
             lead={content.insights.lead}
             title={content.insights.title}
+            tone="quiet"
           />
-          <div className="mobile-insight-list">
+          <div className="phone-insight-stack">
             {content.insights.items.map((insight, index) => (
-              <motion.article className="mobile-insight" key={insight.title} {...mobileReveal(index * 0.03)}>
+              <motion.article className="phone-insight" key={insight.title} {...mobileReveal(index * 0.03)}>
                 <span>{formatIndex(index, locale)}</span>
                 <h3>{insight.title}</h3>
                 <p>{insight.body}</p>
@@ -442,34 +498,33 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
           </div>
         </section>
 
-        <section className="mobile-contact" id="m-contact" aria-labelledby="m-contact-title">
-          <motion.figure className="mobile-contact__image" {...mobileReveal()}>
-            <Image alt="" fill sizes="100vw" src="/images/architectural-hallway.jpg" />
-          </motion.figure>
-          <motion.div className="mobile-contact__copy" {...mobileReveal(0.04)}>
-            <Image alt="" height={64} src={logoPath} width={64} />
+        <section className="phone-contact" id="m-contact" aria-labelledby="m-contact-title">
+          <motion.div className="phone-contact__copy" {...mobileReveal()}>
+            <p className="phone-eyebrow">{contactActionLabel}</p>
             <h2 id="m-contact-title">{content.contact.title}</h2>
             <p>{content.contact.lead}</p>
-            <div className="mobile-contact__actions">
-              <a href={getWhatsAppHref()} target="_blank" rel="noreferrer">
-                <span>{content.contact.whatsappLabel}</span>
-                <strong>{temporaryContactConfig.whatsapp.display}</strong>
-              </a>
-              <a href={getMailtoHref(content.contact.subject)}>
-                <span>{content.contact.emailLabel}</span>
-                <strong>{temporaryContactConfig.email.address}</strong>
-              </a>
-            </div>
+          </motion.div>
+          <motion.div className="phone-contact__actions" {...mobileReveal(0.04)}>
+            <a href={getWhatsAppHref()} target="_blank" rel="noreferrer">
+              <span>{content.contact.whatsappLabel}</span>
+              <strong>{temporaryContactConfig.whatsapp.display}</strong>
+            </a>
+            <a href={getMailtoHref(content.contact.subject)}>
+              <span>{content.contact.emailLabel}</span>
+              <strong>{temporaryContactConfig.email.address}</strong>
+            </a>
           </motion.div>
         </section>
 
-        <footer className="mobile-footer">
-          <a className="mobile-footer__brand" href="#m-top">
-            <Image alt="" height={44} src={logoPath} width={44} />
-            <span className="brand-name" dir="ltr">{content.brand.name}</span>
+        <footer className="phone-footer">
+          <a className="phone-footer__brand" href="#m-top">
+            <Image alt="" height={38} src={logoPath} width={38} />
+            <span className="brand-name" dir="ltr">
+              {content.brand.name}
+            </span>
           </a>
           <p>{content.footer.statement}</p>
-          <nav aria-label="Mobile footer navigation">
+          <nav aria-label={locale === "ar" ? "تنقل التذييل" : "Footer navigation"}>
             {mobileNav.map((item) => (
               <a href={mobileHref(item.href)} key={item.href}>
                 {item.label}
