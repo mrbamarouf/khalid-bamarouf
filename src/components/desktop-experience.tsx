@@ -283,7 +283,10 @@ function StudyExhibition({
         role="tabpanel"
         transition={{ duration: 0.45, ease: "easeOut" }}
       >
-        <p className="study-panel__summary">{activeStudy.summary}</p>
+        <div className="study-panel__heading">
+          <p className="study-panel__summary">{activeStudy.summary}</p>
+          <p className="study-panel__support">{activeStudy.title}</p>
+        </div>
         <div className="study-panel__split">
           <div>
             <span>{labels.challenge}</span>
