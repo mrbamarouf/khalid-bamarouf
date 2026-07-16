@@ -42,7 +42,6 @@ export function ArabicDesktopExperience() {
             sizes="50vw"
             src="/images/enterprise-data-center.jpg"
           />
-          <div className={styles.heroBlueprint} />
         </div>
 
         <div className={styles.heroContent}>
@@ -58,7 +57,7 @@ export function ArabicDesktopExperience() {
 
       <section className={`${styles.chapter} ${styles.about}`} id="arabic-about">
         <div className={styles.aboutVisual} aria-hidden="true">
-          <div className={styles.systemTrace} />
+          <Image alt="" fill sizes="42vw" src="/images/architectural-hallway.jpg" />
         </div>
         <div className={styles.aboutContent}>
           <p>{content.brand.role}</p>
@@ -81,7 +80,6 @@ export function ArabicDesktopExperience() {
         </div>
 
         <div className={styles.expertiseSystem}>
-          <div className={styles.expertiseDiagram} aria-hidden="true" />
           <div className={styles.expertiseList}>
             {content.expertise.items.map((item) => (
               <article key={item.name}>
@@ -95,7 +93,6 @@ export function ArabicDesktopExperience() {
       </section>
 
       <section className={`${styles.chapter} ${styles.capabilities}`} id="arabic-capabilities">
-        <div className={styles.capabilityMap} aria-hidden="true" />
         <div className={styles.chapterTitle}>
           <p>{content.labels.capabilities}</p>
           <h2>{content.capabilities.title}</h2>

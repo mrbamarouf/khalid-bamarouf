@@ -41,7 +41,7 @@ function getReveal(distance = 56, direction: TextDirection = "ltr", axis: Reveal
   return {
     initial,
     whileInView,
-    viewport: { once: true, amount: 0.22 },
+    viewport: { once: true, amount: 0.16 },
     transition: revealTransition,
   };
 }
@@ -77,419 +77,6 @@ function localizeNumerals(value: string, locale: Locale) {
 
 function formatIndex(index: number, locale: Locale) {
   return localizeNumerals(String(index + 1).padStart(2, "0"), locale);
-}
-
-type BlueprintVariant =
-  | "hero"
-  | "positioning"
-  | "expertise"
-  | "capabilities"
-  | "approach"
-  | "studies"
-  | "why"
-  | "insights"
-  | "contact";
-
-type BlueprintRoute = {
-  d: string;
-  tone?: "gold" | "sage" | "soft";
-};
-
-type BlueprintNode = {
-  label: string;
-  x: number;
-  y: number;
-  core?: boolean;
-};
-
-type BlueprintPlan = {
-  code: string;
-  label: string;
-  leftMeasure: string;
-  rightMeasure: string;
-  axes: string[];
-  routes: BlueprintRoute[];
-  nodes: BlueprintNode[];
-};
-
-const blueprintPlans: Record<BlueprintVariant, BlueprintPlan> = {
-  hero: {
-    code: "KB-CONST/01",
-    label: "LOGO GEOMETRY",
-    leftMeasure: "A 42",
-    rightMeasure: "R 04",
-    axes: ["M500 72V448", "M160 378H840", "M500 72L840 378", "M500 72L160 378"],
-    routes: [
-      { d: "M160 378L500 72L840 378", tone: "gold" },
-      { d: "M302 248H698M500 72V448", tone: "soft" },
-    ],
-    nodes: [
-      { label: "APEX", x: 500, y: 72, core: true },
-      { label: "BASE", x: 160, y: 378 },
-      { label: "BASE", x: 840, y: 378 },
-    ],
-  },
-  positioning: {
-    code: "KB-AXIS/02",
-    label: "BUSINESS TO OPERATIONS",
-    leftMeasure: "INTENT",
-    rightMeasure: "RUN",
-    axes: ["M122 392H878", "M500 76V444", "M250 112V408", "M750 112V408"],
-    routes: [
-      { d: "M126 392C248 94 388 128 500 260S736 432 874 112", tone: "gold" },
-      { d: "M126 132C292 240 370 308 500 260S690 172 874 392", tone: "sage" },
-    ],
-    nodes: [
-      { label: "BUS", x: 126, y: 392 },
-      { label: "ARCH", x: 500, y: 260, core: true },
-      { label: "OPS", x: 874, y: 112 },
-      { label: "API", x: 126, y: 132 },
-      { label: "AI", x: 874, y: 392 },
-    ],
-  },
-  expertise: {
-    code: "KB-MAP/03",
-    label: "DOMAIN BOUNDARIES",
-    leftMeasure: "DOM",
-    rightMeasure: "CTL",
-    axes: ["M138 150H862", "M138 278H862", "M138 406H862", "M306 80V440", "M694 80V440"],
-    routes: [
-      { d: "M138 406H282C330 406 330 278 380 278H500C548 278 548 150 596 150H862", tone: "gold" },
-      { d: "M138 150H268C342 150 314 348 402 348H620C706 348 658 214 862 214", tone: "sage" },
-    ],
-    nodes: [
-      { label: "EA", x: 138, y: 406 },
-      { label: "BE", x: 380, y: 278 },
-      { label: "OPS", x: 596, y: 150 },
-      { label: "AI", x: 620, y: 348 },
-      { label: "API", x: 862, y: 214 },
-    ],
-  },
-  capabilities: {
-    code: "KB-TOPO/04",
-    label: "CAPABILITY INTERFACES",
-    leftMeasure: "05 DOM",
-    rightMeasure: "14 IF",
-    axes: ["M500 82V420", "M188 198H812", "M304 420L812 198", "M696 420L188 198"],
-    routes: [
-      { d: "M500 82L812 198L696 420H304L188 198Z", tone: "gold" },
-      { d: "M500 82L304 420M188 198L696 420M812 198H188", tone: "soft" },
-    ],
-    nodes: [
-      { label: "KB", x: 500, y: 250, core: true },
-      { label: "EA", x: 500, y: 82 },
-      { label: "BE", x: 812, y: 198 },
-      { label: "OPS", x: 696, y: 420 },
-      { label: "AI", x: 304, y: 420 },
-      { label: "API", x: 188, y: 198 },
-    ],
-  },
-  approach: {
-    code: "KB-SEQ/05",
-    label: "MEASURED PATH",
-    leftMeasure: "DISCOVER",
-    rightMeasure: "EVOLVE",
-    axes: ["M120 260H880", "M120 130V390", "M310 130V390", "M500 130V390", "M690 130V390", "M880 130V390"],
-    routes: [
-      { d: "M120 260C218 152 286 366 384 260S512 150 610 260S748 360 880 174", tone: "gold" },
-      { d: "M120 314H312C358 314 354 220 410 220H582C638 220 628 314 690 314H880", tone: "sage" },
-    ],
-    nodes: [
-      { label: "01", x: 120, y: 260 },
-      { label: "02", x: 310, y: 260 },
-      { label: "03", x: 500, y: 260, core: true },
-      { label: "04", x: 690, y: 260 },
-      { label: "05", x: 880, y: 174 },
-    ],
-  },
-  studies: {
-    code: "KB-FLOW/06",
-    label: "INTEGRATION STUDY",
-    leftMeasure: "SRC",
-    rightMeasure: "OPS",
-    axes: ["M126 160H874", "M126 302H874", "M248 86V408", "M500 86V408", "M752 86V408"],
-    routes: [
-      { d: "M126 228H344C426 228 386 126 500 126H874", tone: "gold" },
-      { d: "M126 338H432C506 338 494 238 574 238H874", tone: "sage" },
-      { d: "M344 228C432 228 410 338 500 338", tone: "soft" },
-    ],
-    nodes: [
-      { label: "SRC", x: 126, y: 228 },
-      { label: "API", x: 500, y: 126, core: true },
-      { label: "EVT", x: 574, y: 238 },
-      { label: "OPS", x: 874, y: 126 },
-    ],
-  },
-  why: {
-    code: "KB-RUN/07",
-    label: "CONTROL GEOMETRY",
-    leftMeasure: "CLARITY",
-    rightMeasure: "CARE",
-    axes: ["M500 72V448", "M146 260H854", "M250 114L750 406", "M750 114L250 406"],
-    routes: [
-      { d: "M500 104L568 260L500 416L432 260Z", tone: "gold" },
-      { d: "M258 260A242 184 0 1 0 742 260A242 184 0 1 0 258 260", tone: "soft" },
-    ],
-    nodes: [
-      { label: "01", x: 500, y: 104 },
-      { label: "02", x: 568, y: 260, core: true },
-      { label: "03", x: 500, y: 416 },
-      { label: "04", x: 432, y: 260 },
-    ],
-  },
-  insights: {
-    code: "KB-NOTE/08",
-    label: "OPERATING NOTES",
-    leftMeasure: "READ",
-    rightMeasure: "DECIDE",
-    axes: ["M160 126V424", "M500 126V424", "M840 126V424", "M96 274H904"],
-    routes: [
-      { d: "M160 190H310M500 190H650M840 190H904", tone: "gold" },
-      { d: "M96 358H332M410 358H660M744 358H904", tone: "sage" },
-    ],
-    nodes: [
-      { label: "01", x: 160, y: 190 },
-      { label: "02", x: 500, y: 190 },
-      { label: "03", x: 840, y: 190 },
-    ],
-  },
-  contact: {
-    code: "KB-SIGNAL/09",
-    label: "REQUEST TO SYSTEM",
-    leftMeasure: "REQ",
-    rightMeasure: "RUN",
-    axes: ["M112 260H888", "M500 92V428", "M112 162H888", "M112 358H888"],
-    routes: [
-      { d: "M112 260C232 84 340 436 500 260S730 84 888 260", tone: "gold" },
-      { d: "M112 358C254 232 358 288 500 162S744 246 888 162", tone: "sage" },
-    ],
-    nodes: [
-      { label: "REQ", x: 112, y: 260 },
-      { label: "ARCH", x: 500, y: 260, core: true },
-      { label: "RUN", x: 888, y: 260 },
-    ],
-  },
-};
-
-function BlueprintField({ variant }: { variant: BlueprintVariant }) {
-  const plan = blueprintPlans[variant];
-
-  return (
-    <div className={`blueprint-field blueprint-field--${variant} decorative-layer`} aria-hidden="true">
-      <svg viewBox="0 0 1000 520">
-        <path className="blueprint-field__frame" d="M72 58H928V462H72Z" />
-        <path className="blueprint-field__grid" d="M72 160H928M72 260H928M72 360H928" />
-        <path className="blueprint-field__grid" d="M196 58V462M500 58V462M804 58V462" />
-        <path className="blueprint-field__measure" d="M72 34V82M196 42V74M500 34V82M804 42V74M928 34V82" />
-        <path className="blueprint-field__measure" d="M48 58H96M56 160H88M48 260H96M56 360H88M48 462H96" />
-        {plan.axes.map((axis, index) => (
-          <path className="blueprint-field__axis" d={axis} key={`axis-${index}`} />
-        ))}
-        {plan.routes.map((route, index) => (
-          <path
-            className={`blueprint-field__route blueprint-field__route--${route.tone ?? "soft"}`}
-            d={route.d}
-            key={`route-${index}`}
-          />
-        ))}
-        {plan.nodes.map((node) => (
-          <g className={node.core ? "blueprint-field__node blueprint-field__node--core" : "blueprint-field__node"} key={`${node.label}-${node.x}-${node.y}`}>
-            <circle cx={node.x} cy={node.y} r={node.core ? 18 : 10} />
-            <text x={node.x} y={node.y + (node.core ? 38 : 30)}>
-              {node.label}
-            </text>
-          </g>
-        ))}
-        <text className="blueprint-field__code" x="72" y="32">
-          {plan.code}
-        </text>
-        <text className="blueprint-field__label" x="928" y="494">
-          {plan.label}
-        </text>
-        <text className="blueprint-field__measure-label" x="72" y="494">
-          {plan.leftMeasure}
-        </text>
-        <text className="blueprint-field__measure-label blueprint-field__measure-label--end" x="928" y="32">
-          {plan.rightMeasure}
-        </text>
-      </svg>
-    </div>
-  );
-}
-
-function SystemLineDiagram({ activeIndex }: { activeIndex: number }) {
-  const reduceMotion = useReducedMotion();
-  const activeCode = `KB.${String(activeIndex + 1).padStart(2, "0")}`;
-
-  return (
-    <svg className="system-line-diagram decorative-layer" viewBox="0 0 600 260" aria-hidden="true">
-      <defs>
-        <linearGradient id="system-line-gold" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stopColor="rgba(215, 185, 124, 0.9)" />
-          <stop offset="100%" stopColor="rgba(142, 157, 136, 0.34)" />
-        </linearGradient>
-      </defs>
-      <path className="diagram-grid" d="M40 44H560M40 126H560M40 208H560" />
-      <path className="diagram-grid" d="M110 22V236M250 22V236M390 22V236M510 22V236" />
-      <text className="diagram-signature" x="44" y="34">
-        {activeCode}
-      </text>
-      <text className="diagram-signature diagram-signature--right" x="556" y="236">
-        SYS MAP
-      </text>
-      <motion.path
-        key={`primary-${activeIndex}`}
-        className="diagram-route diagram-route--primary"
-        d="M68 196C136 74 222 74 292 136S438 219 532 54"
-        initial={reduceMotion ? false : { pathLength: 0, opacity: 0.2 }}
-        animate={reduceMotion ? undefined : { pathLength: 1, opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-      />
-      <motion.path
-        key={`secondary-${activeIndex}`}
-        className="diagram-route diagram-route--secondary"
-        d="M82 72C166 145 258 204 350 116S472 84 536 158"
-        initial={reduceMotion ? false : { pathLength: 0, opacity: 0.2 }}
-        animate={reduceMotion ? undefined : { pathLength: 1, opacity: 0.65 }}
-        transition={{ duration: 1.2, delay: 0.12, ease: "easeOut" }}
-      />
-      {[68, 182, 292, 414, 532].map((x, index) => (
-        <motion.circle
-          key={`${x}-${activeIndex}`}
-          cx={x}
-          cy={[196, 88, 136, 214, 54][index]}
-          r={index === activeIndex % 5 ? 9 : 5}
-          initial={reduceMotion ? false : { scale: 0, opacity: 0 }}
-          animate={reduceMotion ? undefined : { scale: 1, opacity: 1 }}
-          transition={{ duration: 0.45, delay: 0.2 + index * 0.05 }}
-        />
-      ))}
-    </svg>
-  );
-}
-
-function HeroCalibration() {
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <motion.div
-      aria-hidden="true"
-      className="hero-calibration decorative-layer"
-      initial={reduceMotion ? false : { opacity: 0.001, clipPath: "inset(0 100% 0 0)" }}
-      animate={reduceMotion ? undefined : { opacity: 1, clipPath: "inset(0 0% 0 0)" }}
-      transition={{ duration: 1.1, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <div className="hero-calibration__readout">
-        <span>KB-SYS-01</span>
-        <span>Δ 27.32</span>
-        <span>R 04</span>
-      </div>
-      <svg viewBox="0 0 520 420">
-        <path className="calibration-grid" d="M26 46H494M26 146H494M26 246H494M26 346H494" />
-        <path className="calibration-grid" d="M74 26V390M194 26V390M314 26V390M434 26V390" />
-        <motion.path
-          className="calibration-mark"
-          d="M96 332L262 86L424 332M160 240H356M262 86V384"
-          initial={reduceMotion ? false : { pathLength: 0 }}
-          animate={reduceMotion ? undefined : { pathLength: 1 }}
-          transition={{ duration: 1.35, delay: 0.35, ease: "easeOut" }}
-        />
-        <motion.circle
-          className="calibration-node"
-          cx="262"
-          cy="86"
-          r="7"
-          initial={reduceMotion ? false : { scale: 0 }}
-          animate={reduceMotion ? undefined : { scale: 1 }}
-          transition={{ duration: 0.4, delay: 1 }}
-        />
-        <motion.circle
-          className="calibration-node"
-          cx="160"
-          cy="240"
-          r="4"
-          initial={reduceMotion ? false : { scale: 0 }}
-          animate={reduceMotion ? undefined : { scale: 1 }}
-          transition={{ duration: 0.4, delay: 1.08 }}
-        />
-        <motion.circle
-          className="calibration-node"
-          cx="356"
-          cy="240"
-          r="4"
-          initial={reduceMotion ? false : { scale: 0 }}
-          animate={reduceMotion ? undefined : { scale: 1 }}
-          transition={{ duration: 0.4, delay: 1.16 }}
-        />
-      </svg>
-    </motion.div>
-  );
-}
-
-function DecisionMap() {
-  return (
-    <motion.div className="decision-map decorative-layer" {...getReveal(26)} aria-hidden="true">
-      <svg viewBox="0 0 520 320">
-        <path className="decision-map__grid" d="M36 52H486M36 160H486M36 268H486" />
-        <path className="decision-map__grid" d="M96 34V286M260 34V286M424 34V286" />
-        <path className="decision-map__route" d="M94 238C146 88 234 90 260 160S374 270 426 82" />
-        <path className="decision-map__route decision-map__route--soft" d="M96 82C158 162 212 214 260 160S348 100 424 238" />
-        {[
-          ["BUS", 94, 238],
-          ["ARCH", 260, 160],
-          ["OPS", 426, 82],
-          ["AI", 424, 238],
-          ["API", 96, 82],
-        ].map(([label, x, y]) => (
-          <g key={label}>
-            <circle cx={x} cy={y} r="13" />
-            <text x={x} y={Number(y) + 34}>
-              {label}
-            </text>
-          </g>
-        ))}
-      </svg>
-      <div className="decision-map__plate">
-        <span>KB/DR-04</span>
-        <strong>05 / 14 / 03</strong>
-      </div>
-    </motion.div>
-  );
-}
-
-function CapabilityTopology() {
-  const nodes = [
-    { code: "EA", x: 260, y: 56 },
-    { code: "BE", x: 426, y: 140 },
-    { code: "OPS", x: 374, y: 286 },
-    { code: "AI", x: 146, y: 286 },
-    { code: "API", x: 94, y: 140 },
-  ];
-
-  return (
-    <motion.div className="capability-topology decorative-layer" {...getReveal(32)} aria-hidden="true">
-      <svg viewBox="0 0 520 340">
-        <path className="topology-ring" d="M260 56L426 140L374 286H146L94 140Z" />
-        <path className="topology-axis" d="M260 56V286M94 140H426M146 286L426 140M374 286L94 140" />
-        <circle className="topology-core" cx="260" cy="188" r="34" />
-        <text className="topology-core-text" x="260" y="193">
-          KB
-        </text>
-        {nodes.map((node) => (
-          <g key={node.code} className="topology-node">
-            <circle cx={node.x} cy={node.y} r="21" />
-            <text x={node.x} y={node.y + 5}>
-              {node.code}
-            </text>
-          </g>
-        ))}
-      </svg>
-      <div>
-        <span>KB-TOPOLOGY</span>
-        <strong>05 DOM / 14 IF / 03 CTRL</strong>
-      </div>
-    </motion.div>
-  );
 }
 
 function ApproachBlueprint({
@@ -533,90 +120,6 @@ function ApproachBlueprint({
           <span key={step.number}>{step.title}</span>
         ))}
       </div>
-    </motion.div>
-  );
-}
-
-function StudyFlowMap({ activeIndex }: { activeIndex: number }) {
-  const variants = [
-    ["SRC", "API", "EVT", "OPS"],
-    ["REQ", "CTRL", "AUTO", "AUD"],
-    ["DATA", "RAG", "EVAL", "HUM"],
-  ];
-  const labels = variants[activeIndex] ?? variants[0];
-
-  return (
-    <div className="study-flow-map decorative-layer" aria-hidden="true">
-      <svg viewBox="0 0 420 180">
-        <path className="study-flow-map__grid" d="M38 52H382M38 128H382" />
-        <path className="study-flow-map__grid" d="M72 28V154M180 28V154M288 28V154" />
-        <path className="study-flow-map__route" d="M58 92H158C186 92 176 54 212 54H362" />
-        <path className="study-flow-map__route study-flow-map__route--soft" d="M58 126H188C214 126 218 92 244 92H362" />
-        {labels.map((label, index) => {
-          const x = 58 + index * 102;
-          const y = index % 2 === 0 ? 92 : 54;
-          return (
-            <g key={label}>
-              <circle cx={x} cy={y} r="16" />
-              <text x={x} y={y + 5}>
-                {label}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
-      <span>KB-FLOW/{String(activeIndex + 1).padStart(2, "0")}</span>
-    </div>
-  );
-}
-
-function OperatingCompass() {
-  return (
-    <motion.div className="operating-compass decorative-layer" {...getReveal(34)} aria-hidden="true">
-      <svg viewBox="0 0 360 360">
-        <circle className="operating-compass__ring" cx="180" cy="180" r="138" />
-        <circle className="operating-compass__ring operating-compass__ring--inner" cx="180" cy="180" r="78" />
-        <path className="operating-compass__axis" d="M180 42V318M42 180H318M82 82L278 278M278 82L82 278" />
-        <path className="operating-compass__needle" d="M180 64L208 180L180 296L152 180Z" />
-        <text x="180" y="28">
-          KB/RUN
-        </text>
-        <text x="180" y="184">
-          04
-        </text>
-        <text x="180" y="346">
-          CTRL
-        </text>
-      </svg>
-    </motion.div>
-  );
-}
-
-function InsightAnnotation({ index }: { index: number }) {
-  return (
-    <div className="insight-annotation decorative-layer" aria-hidden="true">
-      <span>KB.{String(index + 1).padStart(2, "0")}</span>
-      <i />
-      <i />
-      <i />
-    </div>
-  );
-}
-
-function ContactSignal() {
-  return (
-    <motion.div className="contact-signal decorative-layer" {...getReveal(28)} aria-hidden="true">
-      <svg viewBox="0 0 420 180">
-        <path className="contact-signal__axis" d="M48 90H372M210 30V150" />
-        <path className="contact-signal__pulse" d="M48 90C98 18 146 162 210 90S306 18 372 90" />
-        <circle cx="48" cy="90" r="8" />
-        <circle cx="210" cy="90" r="14" />
-        <circle cx="372" cy="90" r="8" />
-        <text x="48" y="128">REQ</text>
-        <text x="210" y="128">ARCH</text>
-        <text x="372" y="128">RUN</text>
-      </svg>
-      <span>KB-SIGNAL / OPEN</span>
     </motion.div>
   );
 }
@@ -698,7 +201,6 @@ function ExpertiseBoard({
             ))}
           </div>
         </div>
-        <SystemLineDiagram activeIndex={activeIndex} />
       </motion.article>
     </motion.div>
   );
@@ -735,7 +237,6 @@ function StudyExhibition({
           />
         </motion.div>
         <div className="study-stage__shade" aria-hidden="true" />
-        <StudyFlowMap activeIndex={activeIndex} />
         <div className="study-stage__caption content-protected">
           <span>{activeStudy.label}</span>
           <h3>{activeStudy.title}</h3>
@@ -798,7 +299,6 @@ export function DesktopExperience() {
   const content = siteContent[locale];
   const heroImageY = useTransform(scrollYProgress, [0, 0.22], [0, 110]);
   const heroCopyY = useTransform(scrollYProgress, [0, 0.18], [0, 68]);
-  const heroMarkY = useTransform(scrollYProgress, [0, 0.22], [0, -86]);
 
   function handleLanguageSwitch() {
     if (!arabicReleaseEnabled) {
@@ -866,7 +366,6 @@ export function DesktopExperience() {
         </header>
 
         <section className="hero" aria-labelledby="hero-title">
-          <BlueprintField variant="hero" />
           <motion.div
             className="hero__image decorative-layer"
             style={reduceMotion ? undefined : { y: heroImageY }}
@@ -882,19 +381,6 @@ export function DesktopExperience() {
           </motion.div>
           <div className="hero__shadow decorative-layer" aria-hidden="true" />
           <div className="hero__architectural-mask decorative-layer" aria-hidden="true" />
-          <motion.div
-            className="hero__logo decorative-layer"
-            style={reduceMotion ? undefined : { y: heroMarkY }}
-          >
-            <Image
-              alt={content.brand.logoAlt}
-              height={640}
-              priority
-              src={logoPath}
-              width={640}
-            />
-          </motion.div>
-          <HeroCalibration />
 
           <motion.div
             className="hero__content content-protected"
@@ -941,7 +427,6 @@ export function DesktopExperience() {
         </section>
 
         <section className="positioning chapter" id="positioning" aria-labelledby="positioning-title">
-          <BlueprintField variant="positioning" />
           <motion.div className="positioning__statement content-protected" {...getReveal(50, content.direction, "x")}>
             <p>{content.brand.role}</p>
             <h2 id="positioning-title">{content.positioning.title}</h2>
@@ -955,19 +440,9 @@ export function DesktopExperience() {
               ))}
             </ul>
           </motion.div>
-          <DecisionMap />
-          <motion.div className="positioning__image decorative-layer" {...getReveal(36)}>
-            <Image
-              alt=""
-              fill
-              sizes="(min-width: 1200px) 32vw, 100vw"
-              src="/images/architectural-hallway.jpg"
-            />
-          </motion.div>
         </section>
 
         <section className="expertise chapter" id="expertise" aria-labelledby="expertise-title">
-          <BlueprintField variant="expertise" />
           <SectionHeading
             eyebrow={content.labels.expertise}
             id="expertise-title"
@@ -984,7 +459,6 @@ export function DesktopExperience() {
         </section>
 
         <section className="capabilities chapter" id="capabilities" aria-labelledby="capabilities-title">
-          <BlueprintField variant="capabilities" />
           <SectionHeading
             eyebrow={content.labels.capabilities}
             id="capabilities-title"
@@ -992,7 +466,6 @@ export function DesktopExperience() {
             title={content.capabilities.title}
             tone="technical"
           />
-          <CapabilityTopology />
           <motion.div className="capability-matrix" {...getReveal(44)}>
             {content.capabilities.groups.map((group, groupIndex) => (
               <article className="capability-group content-protected" key={group.title}>
@@ -1023,7 +496,6 @@ export function DesktopExperience() {
             />
           </div>
           <div className="approach__shade decorative-layer" aria-hidden="true" />
-          <BlueprintField variant="approach" />
           <SectionHeading
             eyebrow={content.labels.approach}
             id="approach-title"
@@ -1047,7 +519,6 @@ export function DesktopExperience() {
         </section>
 
         <section className="studies chapter" id="studies" aria-labelledby="studies-title">
-          <BlueprintField variant="studies" />
           <SectionHeading
             eyebrow={content.labels.studies}
             id="studies-title"
@@ -1067,12 +538,10 @@ export function DesktopExperience() {
         </section>
 
         <section className="why chapter" id="why" aria-labelledby="why-title">
-          <BlueprintField variant="why" />
           <motion.div className="why__title content-protected" {...getReveal(48)}>
             <p>{content.why.lead}</p>
             <h2 id="why-title">{content.why.title}</h2>
           </motion.div>
-          <OperatingCompass />
           <motion.div className="why__principles content-protected" {...getReveal(40)}>
             {content.why.principles.map((principle, index) => (
               <article key={principle.title}>
@@ -1085,7 +554,6 @@ export function DesktopExperience() {
         </section>
 
         <section className="insights chapter" id="insights" aria-labelledby="insights-title">
-          <BlueprintField variant="insights" />
           <SectionHeading
             eyebrow={content.labels.insights}
             id="insights-title"
@@ -1094,9 +562,8 @@ export function DesktopExperience() {
             tone="editorial"
           />
           <motion.div className="insight-row" {...getReveal(40)}>
-            {content.insights.items.map((insight, index) => (
+            {content.insights.items.map((insight) => (
               <article className="content-protected" key={insight.title}>
-                <InsightAnnotation index={index} />
                 <h3>{insight.title}</h3>
                 <p>{insight.body}</p>
               </article>
@@ -1114,7 +581,6 @@ export function DesktopExperience() {
             />
           </div>
           <div className="contact__shade decorative-layer" aria-hidden="true" />
-          <BlueprintField variant="contact" />
           <motion.div className="contact__statement content-protected" {...getReveal(52, content.direction, "x")}>
             <Image
               alt=""
@@ -1122,7 +588,6 @@ export function DesktopExperience() {
               src={logoPath}
               width={92}
             />
-            <ContactSignal />
             <h2 id="contact-title">{content.contact.title}</h2>
             <p>{content.contact.lead}</p>
           </motion.div>

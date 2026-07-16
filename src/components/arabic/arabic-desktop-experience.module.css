@@ -116,6 +116,7 @@
 }
 
 .heroVisual,
+.aboutVisual,
 .studyImage,
 .approachVisual {
   position: relative;
@@ -125,22 +126,11 @@
 }
 
 .heroVisual img,
+.aboutVisual img,
 .studyImage img,
 .approachVisual img {
   object-fit: cover;
   opacity: 0.52;
-}
-
-.heroBlueprint,
-.systemTrace,
-.expertiseDiagram,
-.capabilityMap {
-  min-height: 280px;
-  border: 1px solid rgba(200, 169, 106, 0.22);
-  background:
-    linear-gradient(90deg, rgba(200, 169, 106, 0.18) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(200, 169, 106, 0.12) 1px, transparent 1px);
-  background-size: 72px 72px;
 }
 
 .heroContent h1 {
@@ -205,8 +195,7 @@
 
 .expertiseSystem {
   display: grid;
-  grid-template-columns: minmax(300px, 0.58fr) minmax(0, 1fr);
-  gap: var(--ar-column-gap);
+  grid-template-columns: 1fr;
   align-items: start;
 }
 
@@ -230,16 +219,12 @@
 }
 
 .capabilities {
-  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 0.92fr);
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "visual title"
-    "rows rows";
+    "title"
+    "rows";
   align-items: end;
   background: #181d17;
-}
-
-.capabilityMap {
-  grid-area: visual;
 }
 
 .capabilities .chapterTitle {
@@ -372,7 +357,6 @@
   .aboutContent,
   .approach .chapterTitle,
   .contactContent,
-  .capabilityMap,
   .capabilities .chapterTitle,
   .capabilityRows {
     grid-area: auto;
