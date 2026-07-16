@@ -494,6 +494,7 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
               alt=""
               fill
               fetchPriority="high"
+              loading="eager"
               priority
               sizes="(max-width: 960px) and (max-height: 520px) 42vw, (max-width: 860px) 100vw, 0vw"
               src="/images/enterprise-data-center.jpg"
