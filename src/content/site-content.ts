@@ -718,7 +718,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     why: {
-      title: "لماذا يستعين العملاء الجادون بـ Khalid Bamarouf.",
+      title: "لماذا يستعين العملاء الجادون بخالد.",
       lead:
         "القيمة ليست في كتابة الكود أو رسم المعمارية فقط. بل في معرفة البنية المهمة قبل أن يتجمد المال والوقت حول خيار خاطئ.",
       principles: [

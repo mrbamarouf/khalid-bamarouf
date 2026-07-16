@@ -3763,6 +3763,48 @@ html[data-kb-intro="play"] .kb-intro {
   white-space: nowrap;
 }
 
+@media (min-width: 1181px) {
+  .is-rtl .study-panel {
+    align-items: start;
+    gap: clamp(22px, 3.2vw, 48px);
+    padding-block-start: clamp(18px, 2.5vw, 34px);
+  }
+
+  .is-rtl .study-panel__summary {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .is-rtl .study-panel__split {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    gap: clamp(18px, 2vw, 26px);
+  }
+
+  .is-rtl .study-panel__value {
+    grid-column: 1;
+    grid-row: 2;
+    margin-block-start: clamp(6px, 1vw, 14px);
+  }
+
+  .is-rtl .why {
+    gap: clamp(24px, 3.6vw, 56px);
+  }
+
+  .is-rtl .why__title {
+    gap: 22px;
+  }
+
+  .is-rtl .insights .section-heading--editorial {
+    margin-block-start: clamp(22px, 2.2vw, 40px);
+  }
+
+  .is-rtl .insight-row {
+    margin-block-start: clamp(12px, 1.4vw, 24px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
