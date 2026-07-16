@@ -18,6 +18,7 @@ import {
 } from "@/content/site-content";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
+const arabicReleaseEnabled = false;
 type TextDirection = "ltr" | "rtl";
 type RevealAxis = "x" | "y";
 
@@ -800,6 +801,10 @@ export function DesktopExperience() {
   const heroMarkY = useTransform(scrollYProgress, [0, 0.22], [0, -86]);
 
   function handleLanguageSwitch() {
+    if (!arabicReleaseEnabled) {
+      return;
+    }
+
     setLocale((current) => (current === "en" ? "ar" : "en"));
   }
 
@@ -849,7 +854,9 @@ export function DesktopExperience() {
 
           <button
             aria-label={content.language.switchLabel}
+            aria-disabled={!arabicReleaseEnabled}
             className="language-switch"
+            disabled={!arabicReleaseEnabled}
             onClick={handleLanguageSwitch}
             type="button"
           >
