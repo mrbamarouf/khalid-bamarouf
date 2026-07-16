@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Geist_Mono, Sora } from "next/font/google";
+import {
+  Bodoni_Moda,
+  Geist_Mono,
+  Noto_Naskh_Arabic,
+  Noto_Sans_Arabic,
+  Sora,
+} from "next/font/google";
 import "./globals.css";
 
 const display = Bodoni_Moda({
@@ -11,6 +17,20 @@ const display = Bodoni_Moda({
 const sans = Sora({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const arabicDisplay = Noto_Naskh_Arabic({
+  variable: "--font-arabic-display",
+  subsets: ["arabic"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+const arabicSans = Noto_Sans_Arabic({
+  variable: "--font-arabic-sans",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -43,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${arabicDisplay.variable} ${arabicSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">{children}</body>
     </html>

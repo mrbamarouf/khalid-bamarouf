@@ -18,19 +18,35 @@ import {
 } from "@/content/site-content";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
+type TextDirection = "ltr" | "rtl";
+type RevealAxis = "x" | "y";
 
 const revealTransition = {
   duration: 1,
   ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
 };
 
-function getReveal(distance = 56) {
+function getReveal(distance = 56, direction: TextDirection = "ltr", axis: RevealAxis = "y") {
+  const signedDistance = direction === "rtl" ? -distance : distance;
+  const initial =
+    axis === "x"
+      ? { x: signedDistance, opacity: 0.001, filter: "blur(12px)" }
+      : { y: distance, opacity: 0.001, filter: "blur(12px)" };
+  const whileInView =
+    axis === "x"
+      ? { x: 0, opacity: 1, filter: "blur(0px)" }
+      : { y: 0, opacity: 1, filter: "blur(0px)" };
+
   return {
-    initial: { y: distance, opacity: 0.001, filter: "blur(12px)" },
-    whileInView: { y: 0, opacity: 1, filter: "blur(0px)" },
+    initial,
+    whileInView,
     viewport: { once: true, amount: 0.22 },
     transition: revealTransition,
   };
+}
+
+function oppositeDirection(direction: TextDirection) {
+  return direction === "rtl" ? "ltr" : "rtl";
 }
 
 function getFormValue(formData: FormData, name: string) {
@@ -46,6 +62,20 @@ function buildInquiryBody(formData: FormData, content: SiteContent) {
   });
 
   return lines.join("\n\n");
+}
+
+const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+
+function localizeNumerals(value: string, locale: Locale) {
+  if (locale !== "ar") {
+    return value;
+  }
+
+  return value.replace(/\d/g, (digit) => arabicDigits[Number(digit)] ?? digit);
+}
+
+function formatIndex(index: number, locale: Locale) {
+  return localizeNumerals(String(index + 1).padStart(2, "0"), locale);
 }
 
 type BlueprintVariant =
@@ -461,27 +491,44 @@ function CapabilityTopology() {
   );
 }
 
-function ApproachBlueprint({ steps }: { steps: { number: string; title: string }[] }) {
+function ApproachBlueprint({
+  direction,
+  locale,
+  steps,
+}: {
+  direction: TextDirection;
+  locale: Locale;
+  steps: { number: string; title: string }[];
+}) {
+  const labels = direction === "rtl" ? [...steps].reverse() : steps;
+
   return (
     <motion.div className="approach-blueprint" {...getReveal(28)} aria-hidden="true">
       <svg viewBox="0 0 960 170">
         <path className="approach-blueprint__rail" d="M70 92H890" />
         <path className="approach-blueprint__measure" d="M70 58V128M275 58V128M480 58V128M685 58V128M890 58V128" />
-        <path className="approach-blueprint__trace" d="M70 92C174 24 250 160 340 92S454 24 552 92S710 164 890 58" />
+        <path
+          className="approach-blueprint__trace"
+          d={
+            direction === "rtl"
+              ? "M890 92C786 24 710 160 620 92S506 24 408 92S250 164 70 58"
+              : "M70 92C174 24 250 160 340 92S454 24 552 92S710 164 890 58"
+          }
+        />
         {steps.map((step, index) => {
-          const x = 70 + index * 205;
+          const x = direction === "rtl" ? 890 - index * 205 : 70 + index * 205;
           return (
             <g key={step.number}>
               <circle cx={x} cy="92" r="10" />
               <text x={x} y="38">
-                {step.number}
+                {localizeNumerals(step.number, locale)}
               </text>
             </g>
           );
         })}
       </svg>
       <div className="approach-blueprint__labels">
-        {steps.map((step) => (
+        {labels.map((step) => (
           <span key={step.number}>{step.title}</span>
         ))}
       </div>
@@ -599,10 +646,12 @@ function SectionHeading({
 function ExpertiseBoard({
   items,
   activeIndex,
+  locale,
   setActiveIndex,
 }: {
   items: ExpertiseItem[];
   activeIndex: number;
+  locale: Locale;
   setActiveIndex: (index: number) => void;
 }) {
   const activeItem = items[activeIndex];
@@ -620,7 +669,7 @@ function ExpertiseBoard({
             role="tab"
             type="button"
           >
-            <span>{String(index + 1).padStart(2, "0")}</span>
+            <span>{formatIndex(index, locale)}</span>
             <strong>{item.name}</strong>
             <small>{item.short}</small>
           </button>
@@ -767,8 +816,10 @@ export function DesktopExperience() {
     <MotionConfig reducedMotion="user">
       <main
         className={`experience-shell ${content.direction === "rtl" ? "is-rtl" : ""}`}
+        data-locale={content.locale}
         dir={content.direction}
         id="top"
+        lang={content.locale}
       >
         <div className="ambient-grid" aria-hidden="true" />
         <header className="topbar">
@@ -838,8 +889,17 @@ export function DesktopExperience() {
 
           <motion.div
             className="hero__content"
-            initial={reduceMotion ? false : { opacity: 0.001, y: 54, filter: "blur(12px)" }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={
+              reduceMotion
+                ? false
+                : {
+                    opacity: 0.001,
+                    x: content.direction === "rtl" ? -42 : 42,
+                    y: 30,
+                    filter: "blur(12px)",
+                  }
+            }
+            animate={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
             transition={revealTransition}
             style={reduceMotion ? undefined : { y: heroCopyY }}
           >
@@ -873,11 +933,11 @@ export function DesktopExperience() {
 
         <section className="positioning chapter" id="positioning" aria-labelledby="positioning-title">
           <BlueprintField variant="positioning" />
-          <motion.div className="positioning__statement" {...getReveal(50)}>
+          <motion.div className="positioning__statement" {...getReveal(50, content.direction, "x")}>
             <p>{content.brand.role}</p>
             <h2 id="positioning-title">{content.positioning.title}</h2>
           </motion.div>
-          <motion.div className="positioning__body" {...getReveal(42)}>
+          <motion.div className="positioning__body" {...getReveal(42, oppositeDirection(content.direction), "x")}>
             <p className="positioning__lead">{content.positioning.lead}</p>
             <p>{content.positioning.body}</p>
             <ul>
@@ -908,6 +968,7 @@ export function DesktopExperience() {
           <ExpertiseBoard
             activeIndex={activeExpertise}
             items={content.expertise.items}
+            locale={locale}
             setActiveIndex={setActiveExpertise}
           />
         </section>
@@ -925,7 +986,7 @@ export function DesktopExperience() {
             {content.capabilities.groups.map((group, groupIndex) => (
               <article className="capability-group" key={group.title}>
                 <div className="capability-group__number">
-                  {String(groupIndex + 1).padStart(2, "0")}
+                  {formatIndex(groupIndex, locale)}
                 </div>
                 <div className="capability-group__copy">
                   <h3>{group.title}</h3>
@@ -957,11 +1018,15 @@ export function DesktopExperience() {
             lead={content.approach.lead}
             title={content.approach.title}
           />
-          <ApproachBlueprint steps={content.approach.steps} />
+          <ApproachBlueprint
+            direction={content.direction}
+            locale={locale}
+            steps={content.approach.steps}
+          />
           <motion.div className="approach-rail" {...getReveal(40)}>
             {content.approach.steps.map((step) => (
               <article className="approach-step" key={step.number}>
-                <span>{step.number}</span>
+                <span>{localizeNumerals(step.number, locale)}</span>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </article>
@@ -998,7 +1063,7 @@ export function DesktopExperience() {
           <motion.div className="why__principles" {...getReveal(40)}>
             {content.why.principles.map((principle, index) => (
               <article key={principle.title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{formatIndex(index, locale)}</span>
                 <h3>{principle.title}</h3>
                 <p>{principle.body}</p>
               </article>
@@ -1036,7 +1101,7 @@ export function DesktopExperience() {
           </div>
           <div className="contact__shade" aria-hidden="true" />
           <BlueprintField variant="contact" />
-          <motion.div className="contact__statement" {...getReveal(52)}>
+          <motion.div className="contact__statement" {...getReveal(52, content.direction, "x")}>
             <Image
               alt=""
               height={92}
@@ -1048,7 +1113,11 @@ export function DesktopExperience() {
             <p>{content.contact.lead}</p>
           </motion.div>
 
-          <motion.form className="contact-form" onSubmit={handleInquirySubmit} {...getReveal(44)}>
+          <motion.form
+            className="contact-form"
+            onSubmit={handleInquirySubmit}
+            {...getReveal(44, oppositeDirection(content.direction), "x")}
+          >
             {content.contact.fields.map((field) => (
               <label key={field.name}>
                 <span>{field.label}</span>
