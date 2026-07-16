@@ -1687,6 +1687,9 @@ img {
 .contact {
   display: grid;
   grid-template-columns: minmax(0, 0.86fr) minmax(320px, 0.62fr);
+  grid-template-areas:
+    "statement form"
+    "channels channels";
   gap: clamp(36px, 8vw, 122px);
   min-height: 100svh;
   align-items: end;
@@ -1705,6 +1708,7 @@ img {
 
 .contact__statement {
   position: relative;
+  grid-area: statement;
   z-index: var(--content-z);
   display: grid;
   gap: 26px;
@@ -1767,6 +1771,7 @@ img {
 
 .contact-form {
   position: relative;
+  grid-area: form;
   z-index: var(--content-z);
   display: grid;
   gap: 18px;
@@ -1823,6 +1828,7 @@ img {
 
 .contact-channels {
   position: relative;
+  grid-area: channels;
   z-index: var(--content-z);
   grid-column: 1 / -1;
   display: grid;
@@ -1853,6 +1859,7 @@ img {
 .footer {
   display: grid;
   grid-template-columns: minmax(200px, 0.5fr) minmax(260px, 1fr) auto;
+  grid-template-areas: "brand statement nav";
   gap: 24px;
   align-items: center;
   padding: 28px var(--page-gutter);
@@ -1862,6 +1869,7 @@ img {
 }
 
 .footer__brand {
+  grid-area: brand;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -1876,6 +1884,7 @@ img {
 }
 
 .footer nav {
+  grid-area: nav;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -1887,6 +1896,10 @@ img {
 
 .footer nav a {
   padding: 8px;
+}
+
+.footer p {
+  grid-area: statement;
 }
 
 .is-rtl {
@@ -1948,13 +1961,19 @@ img {
 
 .is-rtl :where(
   .topbar,
+  .hero,
   .positioning,
+  .expertise,
   .expertise-board,
   .expertise-panel,
+  .capabilities,
   .capability-group,
+  .approach,
+  .studies,
   .study-exhibition,
   .study-panel,
   .why,
+  .insights,
   .contact,
   .footer
 ) {
@@ -2050,10 +2069,12 @@ img {
 
 .is-rtl .section-heading {
   justify-items: end;
-  margin-inline-start: auto;
+  margin-right: 0;
+  margin-left: auto;
   max-width: min(760px, 100%);
   --heading-max: 11ch;
   --paragraph-max: 54ch;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2068,6 +2089,7 @@ img {
 }
 
 .is-rtl .hero {
+  direction: ltr;
   grid-template-columns: minmax(320px, 0.64fr) minmax(0, 0.96fr);
   grid-template-areas:
     "visual content"
@@ -2089,8 +2111,8 @@ img {
 
 .is-rtl .hero__image {
   inset-block: -7vh 0;
-  inset-inline-start: -3vw;
-  inset-inline-end: 46vw;
+  right: 46vw;
+  left: -3vw;
 }
 
 .is-rtl .hero__shadow {
@@ -2100,10 +2122,10 @@ img {
 }
 
 .is-rtl .hero__architectural-mask {
-  inset-inline-start: auto;
-  inset-inline-end: clamp(24px, 7vw, 120px);
-  border-inline-start: 0;
-  border-inline-end: 1px solid rgba(200, 169, 106, 0.22);
+  right: auto;
+  left: var(--page-gutter);
+  border-inline-start: 1px solid rgba(200, 169, 106, 0.22);
+  border-inline-end: 0;
 }
 
 .is-rtl .hero__content {
@@ -2113,6 +2135,7 @@ img {
   margin: 0;
   --heading-max: 10.5ch;
   --paragraph-max: 56ch;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2132,7 +2155,9 @@ img {
 }
 
 .is-rtl .hero__metrics {
-  margin-inline-start: auto;
+  direction: rtl;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .is-rtl .hero__metrics div {
@@ -2146,13 +2171,13 @@ img {
 }
 
 .is-rtl .hero__logo {
-  inset-inline-start: min(9vw, 130px);
-  inset-inline-end: auto;
+  right: auto;
+  left: min(9vw, 130px);
 }
 
 .is-rtl .hero-calibration {
-  inset-inline-start: clamp(18px, 4vw, 82px);
-  inset-inline-end: auto;
+  right: auto;
+  left: clamp(18px, 4vw, 82px);
 }
 
 .is-rtl .blueprint-field--hero,
@@ -2163,8 +2188,8 @@ img {
 .is-rtl .blueprint-field--studies,
 .is-rtl .blueprint-field--insights,
 .is-rtl .blueprint-field--contact {
-  inset-inline-start: var(--page-gutter);
-  inset-inline-end: auto;
+  right: auto;
+  left: var(--page-gutter);
 }
 
 .is-rtl .blueprint-field--hero {
@@ -2177,10 +2202,11 @@ img {
 }
 
 .is-rtl .positioning {
-  grid-template-columns: minmax(300px, 0.62fr) minmax(0, 0.92fr);
+  direction: ltr;
+  grid-template-columns: minmax(260px, 0.5fr) minmax(0, 0.96fr);
   grid-template-areas:
-    "body statement"
-    "body diagram";
+    "diagram statement"
+    "diagram body";
   background:
     linear-gradient(270deg, rgba(21, 22, 17, 0.94), rgba(24, 29, 23, 0.72)),
     var(--charcoal);
@@ -2189,14 +2215,19 @@ img {
 .is-rtl .positioning__statement {
   grid-area: statement;
   justify-items: end;
+  align-content: end;
   --heading-max: 11ch;
   --paragraph-max: 48ch;
+  direction: rtl;
   text-align: right;
 }
 
 .is-rtl .positioning__body {
   grid-area: body;
+  justify-items: end;
+  padding-block-start: clamp(18px, 4vw, 56px);
   --paragraph-max: 52ch;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2213,15 +2244,15 @@ img {
 }
 
 .is-rtl .positioning__image {
-  inset-inline-start: 0;
-  inset-inline-end: auto;
+  right: auto;
+  left: 0;
 }
 
 .is-rtl .decision-map {
   inset: auto;
-  justify-self: end;
-  margin-inline-start: auto;
-  margin-inline-end: 0;
+  justify-self: start;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .is-rtl .decision-map__plate {
@@ -2230,6 +2261,7 @@ img {
 }
 
 .is-rtl .expertise-board {
+  direction: ltr;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 0.36fr);
   grid-template-areas: "panel index";
 }
@@ -2240,6 +2272,7 @@ img {
 
 .is-rtl .expertise-panel {
   grid-area: panel;
+  direction: ltr;
   grid-template-columns: minmax(320px, 0.68fr) minmax(0, 1.04fr);
   grid-template-areas: "diagram copy";
 }
@@ -2252,6 +2285,8 @@ img {
   grid-area: copy;
   --heading-max: 16ch;
   --paragraph-max: 52ch;
+  justify-items: end;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2267,6 +2302,7 @@ img {
 
 .is-rtl .expertise-index-item {
   grid-template-columns: minmax(0, 1fr) 36px;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2291,11 +2327,12 @@ img {
 
 .is-rtl .capability-topology {
   inset: auto;
-  margin-inline-start: 0;
-  margin-inline-end: auto;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .is-rtl .capability-group {
+  direction: ltr;
   grid-template-columns: minmax(320px, 1fr) minmax(220px, 0.6fr) 86px;
   grid-template-areas: "list copy number";
 }
@@ -2310,6 +2347,7 @@ img {
   grid-area: copy;
   --heading-max: 20ch;
   --paragraph-max: 38ch;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2320,6 +2358,7 @@ img {
 .is-rtl .capability-group li {
   border-inline-start: 0;
   border-inline-end: 1px solid rgba(200, 169, 106, 0.28);
+  direction: rtl;
   text-align: right;
 }
 
@@ -2331,7 +2370,8 @@ img {
 }
 
 .is-rtl .approach-blueprint {
-  margin-inline-start: auto;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .is-rtl .approach-blueprint__labels {
@@ -2349,6 +2389,7 @@ img {
   border-inline-start: 1px solid rgba(238, 233, 220, 0.1);
   --heading-max: 14ch;
   --paragraph-max: 32ch;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2357,9 +2398,10 @@ img {
 }
 
 .is-rtl .study-exhibition {
+  direction: ltr;
   grid-template-columns: minmax(320px, 0.48fr) minmax(0, 1.08fr);
   grid-template-areas:
-    "controls stage"
+    "stage controls"
     "panel panel";
 }
 
@@ -2371,8 +2413,10 @@ img {
 
 .is-rtl .study-stage__caption {
   justify-items: end;
-  margin-inline-start: auto;
+  margin-right: 0;
+  margin-left: auto;
   --heading-max: 12ch;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2382,25 +2426,30 @@ img {
 }
 
 .is-rtl .study-control {
+  direction: rtl;
   text-align: right;
 }
 
 .is-rtl .study-panel {
+  direction: ltr;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.74fr);
 }
 
 .is-rtl .study-panel__summary {
   grid-column: 2;
+  direction: rtl;
   text-align: right;
 }
 
 .is-rtl .study-panel__split,
 .is-rtl .study-panel__value {
   grid-column: 1;
+  direction: rtl;
   text-align: right;
 }
 
 .is-rtl .why {
+  direction: ltr;
   grid-template-columns: minmax(320px, 0.72fr) minmax(160px, 0.24fr) minmax(0, 0.86fr);
   grid-template-areas: "principles compass title";
   background:
@@ -2413,6 +2462,7 @@ img {
   justify-items: end;
   --heading-max: 10ch;
   --paragraph-max: 48ch;
+  direction: rtl;
   text-align: right;
 }
 
@@ -2424,6 +2474,7 @@ img {
   grid-area: principles;
   --heading-max: 24ch;
   --paragraph-max: 44ch;
+  direction: rtl;
 }
 
 .is-rtl .why__principles article {
@@ -2441,12 +2492,25 @@ img {
 }
 
 .is-rtl .insight-row {
-  direction: rtl;
+  direction: ltr;
   grid-template-columns: 1fr 0.82fr 1.2fr;
 }
 
 .is-rtl .insight-row article {
+  direction: rtl;
   text-align: right;
+}
+
+.is-rtl .insight-row article:nth-child(1) {
+  grid-column: 3;
+}
+
+.is-rtl .insight-row article:nth-child(2) {
+  grid-column: 2;
+}
+
+.is-rtl .insight-row article:nth-child(3) {
+  grid-column: 1;
 }
 
 .is-rtl .insight-row h3 {
@@ -2458,6 +2522,7 @@ img {
 }
 
 .is-rtl .contact {
+  direction: ltr;
   grid-template-columns: minmax(320px, 0.62fr) minmax(0, 0.86fr);
   grid-template-areas: "form statement";
 }
@@ -2467,11 +2532,13 @@ img {
   justify-items: end;
   --heading-max: 10ch;
   --paragraph-max: 56ch;
+  direction: rtl;
   text-align: right;
 }
 
 .is-rtl .contact-form {
   grid-area: form;
+  direction: rtl;
 }
 
 .is-rtl .contact__statement h2 {
@@ -2508,6 +2575,7 @@ img {
 }
 
 .is-rtl .footer {
+  direction: ltr;
   grid-template-columns: auto minmax(260px, 1fr) minmax(200px, 0.5fr);
   grid-template-areas: "nav statement brand";
 }
@@ -2520,38 +2588,54 @@ img {
 
 .is-rtl .footer p {
   grid-area: statement;
+  direction: rtl;
   text-align: right;
 }
 
-  .is-rtl .footer nav {
-    grid-area: nav;
-    direction: rtl;
-    justify-content: flex-start;
+.is-rtl .footer nav {
+  grid-area: nav;
+  direction: rtl;
+  justify-content: flex-start;
+}
+
+@media (min-width: 1181px) {
+  .is-rtl .approach-rail {
+    direction: ltr;
   }
+
+  .is-rtl .approach-step:nth-child(1) {
+    grid-column: 5;
+  }
+
+  .is-rtl .approach-step:nth-child(2) {
+    grid-column: 4;
+  }
+
+  .is-rtl .approach-step:nth-child(3) {
+    grid-column: 3;
+  }
+
+  .is-rtl .approach-step:nth-child(4) {
+    grid-column: 2;
+  }
+
+  .is-rtl .approach-step:nth-child(5) {
+    grid-column: 1;
+  }
+}
 
 @media (max-width: 1320px) {
   .positioning__image {
     display: none;
   }
 
-  .expertise-panel {
+  .experience-shell:not(.is-rtl) .expertise-panel {
     grid-template-columns: 1fr;
   }
 
-  .system-line-diagram {
+  .experience-shell:not(.is-rtl) .system-line-diagram {
     justify-self: start;
     max-width: 520px;
-  }
-
-  .is-rtl .expertise-panel {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "copy"
-      "diagram";
-  }
-
-  .is-rtl .expertise-panel .system-line-diagram {
-    justify-self: end;
   }
 }
 
@@ -2751,9 +2835,9 @@ img {
 
   .is-rtl .decision-map {
     inset: auto;
-    justify-self: end;
-    margin-inline-start: auto;
-    margin-inline-end: 0;
+    justify-self: start;
+    margin-right: auto;
+    margin-left: 0;
   }
 
   .is-rtl .expertise-board,
@@ -2767,8 +2851,8 @@ img {
 
   .is-rtl .capability-topology {
     inset: auto;
-    margin-inline-start: 0;
-    margin-inline-end: auto;
+    margin-right: auto;
+    margin-left: 0;
   }
 
   .is-rtl .study-exhibition {
@@ -3001,6 +3085,17 @@ img {
 
   .is-rtl .insight-row {
     grid-template-columns: 1fr;
+  }
+
+  .is-rtl .insight-row article:nth-child(1),
+  .is-rtl .insight-row article:nth-child(2),
+  .is-rtl .insight-row article:nth-child(3),
+  .is-rtl .approach-step:nth-child(1),
+  .is-rtl .approach-step:nth-child(2),
+  .is-rtl .approach-step:nth-child(3),
+  .is-rtl .approach-step:nth-child(4),
+  .is-rtl .approach-step:nth-child(5) {
+    grid-column: auto;
   }
 
   .is-rtl .footer {
