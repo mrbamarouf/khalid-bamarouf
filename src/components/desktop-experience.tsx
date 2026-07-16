@@ -48,6 +48,244 @@ function buildInquiryBody(formData: FormData, content: SiteContent) {
   return lines.join("\n\n");
 }
 
+type BlueprintVariant =
+  | "hero"
+  | "positioning"
+  | "expertise"
+  | "capabilities"
+  | "approach"
+  | "studies"
+  | "why"
+  | "insights"
+  | "contact";
+
+type BlueprintRoute = {
+  d: string;
+  tone?: "gold" | "sage" | "soft";
+};
+
+type BlueprintNode = {
+  label: string;
+  x: number;
+  y: number;
+  core?: boolean;
+};
+
+type BlueprintPlan = {
+  code: string;
+  label: string;
+  leftMeasure: string;
+  rightMeasure: string;
+  axes: string[];
+  routes: BlueprintRoute[];
+  nodes: BlueprintNode[];
+};
+
+const blueprintPlans: Record<BlueprintVariant, BlueprintPlan> = {
+  hero: {
+    code: "KB-CONST/01",
+    label: "LOGO GEOMETRY",
+    leftMeasure: "A 42",
+    rightMeasure: "R 04",
+    axes: ["M500 72V448", "M160 378H840", "M500 72L840 378", "M500 72L160 378"],
+    routes: [
+      { d: "M160 378L500 72L840 378", tone: "gold" },
+      { d: "M302 248H698M500 72V448", tone: "soft" },
+    ],
+    nodes: [
+      { label: "APEX", x: 500, y: 72, core: true },
+      { label: "BASE", x: 160, y: 378 },
+      { label: "BASE", x: 840, y: 378 },
+    ],
+  },
+  positioning: {
+    code: "KB-AXIS/02",
+    label: "BUSINESS TO OPERATIONS",
+    leftMeasure: "INTENT",
+    rightMeasure: "RUN",
+    axes: ["M122 392H878", "M500 76V444", "M250 112V408", "M750 112V408"],
+    routes: [
+      { d: "M126 392C248 94 388 128 500 260S736 432 874 112", tone: "gold" },
+      { d: "M126 132C292 240 370 308 500 260S690 172 874 392", tone: "sage" },
+    ],
+    nodes: [
+      { label: "BUS", x: 126, y: 392 },
+      { label: "ARCH", x: 500, y: 260, core: true },
+      { label: "OPS", x: 874, y: 112 },
+      { label: "API", x: 126, y: 132 },
+      { label: "AI", x: 874, y: 392 },
+    ],
+  },
+  expertise: {
+    code: "KB-MAP/03",
+    label: "DOMAIN BOUNDARIES",
+    leftMeasure: "DOM",
+    rightMeasure: "CTL",
+    axes: ["M138 150H862", "M138 278H862", "M138 406H862", "M306 80V440", "M694 80V440"],
+    routes: [
+      { d: "M138 406H282C330 406 330 278 380 278H500C548 278 548 150 596 150H862", tone: "gold" },
+      { d: "M138 150H268C342 150 314 348 402 348H620C706 348 658 214 862 214", tone: "sage" },
+    ],
+    nodes: [
+      { label: "EA", x: 138, y: 406 },
+      { label: "BE", x: 380, y: 278 },
+      { label: "OPS", x: 596, y: 150 },
+      { label: "AI", x: 620, y: 348 },
+      { label: "API", x: 862, y: 214 },
+    ],
+  },
+  capabilities: {
+    code: "KB-TOPO/04",
+    label: "CAPABILITY INTERFACES",
+    leftMeasure: "05 DOM",
+    rightMeasure: "14 IF",
+    axes: ["M500 82V420", "M188 198H812", "M304 420L812 198", "M696 420L188 198"],
+    routes: [
+      { d: "M500 82L812 198L696 420H304L188 198Z", tone: "gold" },
+      { d: "M500 82L304 420M188 198L696 420M812 198H188", tone: "soft" },
+    ],
+    nodes: [
+      { label: "KB", x: 500, y: 250, core: true },
+      { label: "EA", x: 500, y: 82 },
+      { label: "BE", x: 812, y: 198 },
+      { label: "OPS", x: 696, y: 420 },
+      { label: "AI", x: 304, y: 420 },
+      { label: "API", x: 188, y: 198 },
+    ],
+  },
+  approach: {
+    code: "KB-SEQ/05",
+    label: "MEASURED PATH",
+    leftMeasure: "DISCOVER",
+    rightMeasure: "EVOLVE",
+    axes: ["M120 260H880", "M120 130V390", "M310 130V390", "M500 130V390", "M690 130V390", "M880 130V390"],
+    routes: [
+      { d: "M120 260C218 152 286 366 384 260S512 150 610 260S748 360 880 174", tone: "gold" },
+      { d: "M120 314H312C358 314 354 220 410 220H582C638 220 628 314 690 314H880", tone: "sage" },
+    ],
+    nodes: [
+      { label: "01", x: 120, y: 260 },
+      { label: "02", x: 310, y: 260 },
+      { label: "03", x: 500, y: 260, core: true },
+      { label: "04", x: 690, y: 260 },
+      { label: "05", x: 880, y: 174 },
+    ],
+  },
+  studies: {
+    code: "KB-FLOW/06",
+    label: "INTEGRATION STUDY",
+    leftMeasure: "SRC",
+    rightMeasure: "OPS",
+    axes: ["M126 160H874", "M126 302H874", "M248 86V408", "M500 86V408", "M752 86V408"],
+    routes: [
+      { d: "M126 228H344C426 228 386 126 500 126H874", tone: "gold" },
+      { d: "M126 338H432C506 338 494 238 574 238H874", tone: "sage" },
+      { d: "M344 228C432 228 410 338 500 338", tone: "soft" },
+    ],
+    nodes: [
+      { label: "SRC", x: 126, y: 228 },
+      { label: "API", x: 500, y: 126, core: true },
+      { label: "EVT", x: 574, y: 238 },
+      { label: "OPS", x: 874, y: 126 },
+    ],
+  },
+  why: {
+    code: "KB-RUN/07",
+    label: "CONTROL GEOMETRY",
+    leftMeasure: "CLARITY",
+    rightMeasure: "CARE",
+    axes: ["M500 72V448", "M146 260H854", "M250 114L750 406", "M750 114L250 406"],
+    routes: [
+      { d: "M500 104L568 260L500 416L432 260Z", tone: "gold" },
+      { d: "M258 260A242 184 0 1 0 742 260A242 184 0 1 0 258 260", tone: "soft" },
+    ],
+    nodes: [
+      { label: "01", x: 500, y: 104 },
+      { label: "02", x: 568, y: 260, core: true },
+      { label: "03", x: 500, y: 416 },
+      { label: "04", x: 432, y: 260 },
+    ],
+  },
+  insights: {
+    code: "KB-NOTE/08",
+    label: "OPERATING NOTES",
+    leftMeasure: "READ",
+    rightMeasure: "DECIDE",
+    axes: ["M160 126V424", "M500 126V424", "M840 126V424", "M96 274H904"],
+    routes: [
+      { d: "M160 190H310M500 190H650M840 190H904", tone: "gold" },
+      { d: "M96 358H332M410 358H660M744 358H904", tone: "sage" },
+    ],
+    nodes: [
+      { label: "01", x: 160, y: 190 },
+      { label: "02", x: 500, y: 190 },
+      { label: "03", x: 840, y: 190 },
+    ],
+  },
+  contact: {
+    code: "KB-SIGNAL/09",
+    label: "REQUEST TO SYSTEM",
+    leftMeasure: "REQ",
+    rightMeasure: "RUN",
+    axes: ["M112 260H888", "M500 92V428", "M112 162H888", "M112 358H888"],
+    routes: [
+      { d: "M112 260C232 84 340 436 500 260S730 84 888 260", tone: "gold" },
+      { d: "M112 358C254 232 358 288 500 162S744 246 888 162", tone: "sage" },
+    ],
+    nodes: [
+      { label: "REQ", x: 112, y: 260 },
+      { label: "ARCH", x: 500, y: 260, core: true },
+      { label: "RUN", x: 888, y: 260 },
+    ],
+  },
+};
+
+function BlueprintField({ variant }: { variant: BlueprintVariant }) {
+  const plan = blueprintPlans[variant];
+
+  return (
+    <div className={`blueprint-field blueprint-field--${variant}`} aria-hidden="true">
+      <svg viewBox="0 0 1000 520">
+        <path className="blueprint-field__frame" d="M72 58H928V462H72Z" />
+        <path className="blueprint-field__grid" d="M72 160H928M72 260H928M72 360H928" />
+        <path className="blueprint-field__grid" d="M196 58V462M500 58V462M804 58V462" />
+        <path className="blueprint-field__measure" d="M72 34V82M196 42V74M500 34V82M804 42V74M928 34V82" />
+        <path className="blueprint-field__measure" d="M48 58H96M56 160H88M48 260H96M56 360H88M48 462H96" />
+        {plan.axes.map((axis, index) => (
+          <path className="blueprint-field__axis" d={axis} key={`axis-${index}`} />
+        ))}
+        {plan.routes.map((route, index) => (
+          <path
+            className={`blueprint-field__route blueprint-field__route--${route.tone ?? "soft"}`}
+            d={route.d}
+            key={`route-${index}`}
+          />
+        ))}
+        {plan.nodes.map((node) => (
+          <g className={node.core ? "blueprint-field__node blueprint-field__node--core" : "blueprint-field__node"} key={`${node.label}-${node.x}-${node.y}`}>
+            <circle cx={node.x} cy={node.y} r={node.core ? 18 : 10} />
+            <text x={node.x} y={node.y + (node.core ? 38 : 30)}>
+              {node.label}
+            </text>
+          </g>
+        ))}
+        <text className="blueprint-field__code" x="72" y="32">
+          {plan.code}
+        </text>
+        <text className="blueprint-field__label" x="928" y="494">
+          {plan.label}
+        </text>
+        <text className="blueprint-field__measure-label" x="72" y="494">
+          {plan.leftMeasure}
+        </text>
+        <text className="blueprint-field__measure-label blueprint-field__measure-label--end" x="928" y="32">
+          {plan.rightMeasure}
+        </text>
+      </svg>
+    </div>
+  );
+}
+
 function SystemLineDiagram({ activeIndex }: { activeIndex: number }) {
   const reduceMotion = useReducedMotion();
   const activeCode = `KB.${String(activeIndex + 1).padStart(2, "0")}`;
@@ -568,6 +806,7 @@ export function DesktopExperience() {
         </header>
 
         <section className="hero" aria-labelledby="hero-title">
+          <BlueprintField variant="hero" />
           <motion.div
             className="hero__image"
             style={reduceMotion ? undefined : { y: heroImageY }}
@@ -633,6 +872,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="positioning chapter" id="positioning" aria-labelledby="positioning-title">
+          <BlueprintField variant="positioning" />
           <motion.div className="positioning__statement" {...getReveal(50)}>
             <p>{content.brand.role}</p>
             <h2 id="positioning-title">{content.positioning.title}</h2>
@@ -658,6 +898,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="expertise chapter" id="expertise" aria-labelledby="expertise-title">
+          <BlueprintField variant="expertise" />
           <SectionHeading
             eyebrow={content.labels.expertise}
             lead={content.expertise.lead}
@@ -672,6 +913,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="capabilities chapter" id="capabilities" aria-labelledby="capabilities-title">
+          <BlueprintField variant="capabilities" />
           <SectionHeading
             eyebrow={content.labels.capabilities}
             lead={content.capabilities.lead}
@@ -709,6 +951,7 @@ export function DesktopExperience() {
             />
           </div>
           <div className="approach__shade" aria-hidden="true" />
+          <BlueprintField variant="approach" />
           <SectionHeading
             eyebrow={content.labels.approach}
             lead={content.approach.lead}
@@ -727,6 +970,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="studies chapter" id="studies" aria-labelledby="studies-title">
+          <BlueprintField variant="studies" />
           <SectionHeading
             eyebrow={content.labels.studies}
             lead={content.studies.lead}
@@ -745,6 +989,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="why chapter" id="why" aria-labelledby="why-title">
+          <BlueprintField variant="why" />
           <motion.div className="why__title" {...getReveal(48)}>
             <p>{content.why.lead}</p>
             <h2 id="why-title">{content.why.title}</h2>
@@ -762,6 +1007,7 @@ export function DesktopExperience() {
         </section>
 
         <section className="insights chapter" id="insights" aria-labelledby="insights-title">
+          <BlueprintField variant="insights" />
           <SectionHeading
             eyebrow={content.labels.insights}
             lead={content.insights.lead}
@@ -789,6 +1035,7 @@ export function DesktopExperience() {
             />
           </div>
           <div className="contact__shade" aria-hidden="true" />
+          <BlueprintField variant="contact" />
           <motion.div className="contact__statement" {...getReveal(52)}>
             <Image
               alt=""
