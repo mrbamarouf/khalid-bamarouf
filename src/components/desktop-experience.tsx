@@ -50,6 +50,7 @@ function buildInquiryBody(formData: FormData, content: SiteContent) {
 
 function SystemLineDiagram({ activeIndex }: { activeIndex: number }) {
   const reduceMotion = useReducedMotion();
+  const activeCode = `KB.${String(activeIndex + 1).padStart(2, "0")}`;
 
   return (
     <svg className="system-line-diagram" viewBox="0 0 600 260" aria-hidden="true">
@@ -61,6 +62,12 @@ function SystemLineDiagram({ activeIndex }: { activeIndex: number }) {
       </defs>
       <path className="diagram-grid" d="M40 44H560M40 126H560M40 208H560" />
       <path className="diagram-grid" d="M110 22V236M250 22V236M390 22V236M510 22V236" />
+      <text className="diagram-signature" x="44" y="34">
+        {activeCode}
+      </text>
+      <text className="diagram-signature diagram-signature--right" x="556" y="236">
+        SYS MAP
+      </text>
       <motion.path
         key={`primary-${activeIndex}`}
         className="diagram-route diagram-route--primary"
@@ -92,17 +99,258 @@ function SystemLineDiagram({ activeIndex }: { activeIndex: number }) {
   );
 }
 
+function HeroCalibration() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="hero-calibration"
+      initial={reduceMotion ? false : { opacity: 0.001, clipPath: "inset(0 100% 0 0)" }}
+      animate={reduceMotion ? undefined : { opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+      transition={{ duration: 1.1, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="hero-calibration__readout">
+        <span>KB-SYS-01</span>
+        <span>Δ 27.32</span>
+        <span>R 04</span>
+      </div>
+      <svg viewBox="0 0 520 420">
+        <path className="calibration-grid" d="M26 46H494M26 146H494M26 246H494M26 346H494" />
+        <path className="calibration-grid" d="M74 26V390M194 26V390M314 26V390M434 26V390" />
+        <motion.path
+          className="calibration-mark"
+          d="M96 332L262 86L424 332M160 240H356M262 86V384"
+          initial={reduceMotion ? false : { pathLength: 0 }}
+          animate={reduceMotion ? undefined : { pathLength: 1 }}
+          transition={{ duration: 1.35, delay: 0.35, ease: "easeOut" }}
+        />
+        <motion.circle
+          className="calibration-node"
+          cx="262"
+          cy="86"
+          r="7"
+          initial={reduceMotion ? false : { scale: 0 }}
+          animate={reduceMotion ? undefined : { scale: 1 }}
+          transition={{ duration: 0.4, delay: 1 }}
+        />
+        <motion.circle
+          className="calibration-node"
+          cx="160"
+          cy="240"
+          r="4"
+          initial={reduceMotion ? false : { scale: 0 }}
+          animate={reduceMotion ? undefined : { scale: 1 }}
+          transition={{ duration: 0.4, delay: 1.08 }}
+        />
+        <motion.circle
+          className="calibration-node"
+          cx="356"
+          cy="240"
+          r="4"
+          initial={reduceMotion ? false : { scale: 0 }}
+          animate={reduceMotion ? undefined : { scale: 1 }}
+          transition={{ duration: 0.4, delay: 1.16 }}
+        />
+      </svg>
+    </motion.div>
+  );
+}
+
+function DecisionMap() {
+  return (
+    <motion.div className="decision-map" {...getReveal(26)} aria-hidden="true">
+      <svg viewBox="0 0 520 320">
+        <path className="decision-map__grid" d="M36 52H486M36 160H486M36 268H486" />
+        <path className="decision-map__grid" d="M96 34V286M260 34V286M424 34V286" />
+        <path className="decision-map__route" d="M94 238C146 88 234 90 260 160S374 270 426 82" />
+        <path className="decision-map__route decision-map__route--soft" d="M96 82C158 162 212 214 260 160S348 100 424 238" />
+        {[
+          ["BUS", 94, 238],
+          ["ARCH", 260, 160],
+          ["OPS", 426, 82],
+          ["AI", 424, 238],
+          ["API", 96, 82],
+        ].map(([label, x, y]) => (
+          <g key={label}>
+            <circle cx={x} cy={y} r="13" />
+            <text x={x} y={Number(y) + 34}>
+              {label}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <div className="decision-map__plate">
+        <span>KB/DR-04</span>
+        <strong>05 / 14 / 03</strong>
+      </div>
+    </motion.div>
+  );
+}
+
+function CapabilityTopology() {
+  const nodes = [
+    { code: "EA", x: 260, y: 56 },
+    { code: "BE", x: 426, y: 140 },
+    { code: "OPS", x: 374, y: 286 },
+    { code: "AI", x: 146, y: 286 },
+    { code: "API", x: 94, y: 140 },
+  ];
+
+  return (
+    <motion.div className="capability-topology" {...getReveal(32)} aria-hidden="true">
+      <svg viewBox="0 0 520 340">
+        <path className="topology-ring" d="M260 56L426 140L374 286H146L94 140Z" />
+        <path className="topology-axis" d="M260 56V286M94 140H426M146 286L426 140M374 286L94 140" />
+        <circle className="topology-core" cx="260" cy="188" r="34" />
+        <text className="topology-core-text" x="260" y="193">
+          KB
+        </text>
+        {nodes.map((node) => (
+          <g key={node.code} className="topology-node">
+            <circle cx={node.x} cy={node.y} r="21" />
+            <text x={node.x} y={node.y + 5}>
+              {node.code}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <div>
+        <span>KB-TOPOLOGY</span>
+        <strong>05 DOM / 14 IF / 03 CTRL</strong>
+      </div>
+    </motion.div>
+  );
+}
+
+function ApproachBlueprint({ steps }: { steps: { number: string; title: string }[] }) {
+  return (
+    <motion.div className="approach-blueprint" {...getReveal(28)} aria-hidden="true">
+      <svg viewBox="0 0 960 170">
+        <path className="approach-blueprint__rail" d="M70 92H890" />
+        <path className="approach-blueprint__measure" d="M70 58V128M275 58V128M480 58V128M685 58V128M890 58V128" />
+        <path className="approach-blueprint__trace" d="M70 92C174 24 250 160 340 92S454 24 552 92S710 164 890 58" />
+        {steps.map((step, index) => {
+          const x = 70 + index * 205;
+          return (
+            <g key={step.number}>
+              <circle cx={x} cy="92" r="10" />
+              <text x={x} y="38">
+                {step.number}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+      <div className="approach-blueprint__labels">
+        {steps.map((step) => (
+          <span key={step.number}>{step.title}</span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function StudyFlowMap({ activeIndex }: { activeIndex: number }) {
+  const variants = [
+    ["SRC", "API", "EVT", "OPS"],
+    ["REQ", "CTRL", "AUTO", "AUD"],
+    ["DATA", "RAG", "EVAL", "HUM"],
+  ];
+  const labels = variants[activeIndex] ?? variants[0];
+
+  return (
+    <div className="study-flow-map" aria-hidden="true">
+      <svg viewBox="0 0 420 180">
+        <path className="study-flow-map__grid" d="M38 52H382M38 128H382" />
+        <path className="study-flow-map__grid" d="M72 28V154M180 28V154M288 28V154" />
+        <path className="study-flow-map__route" d="M58 92H158C186 92 176 54 212 54H362" />
+        <path className="study-flow-map__route study-flow-map__route--soft" d="M58 126H188C214 126 218 92 244 92H362" />
+        {labels.map((label, index) => {
+          const x = 58 + index * 102;
+          const y = index % 2 === 0 ? 92 : 54;
+          return (
+            <g key={label}>
+              <circle cx={x} cy={y} r="16" />
+              <text x={x} y={y + 5}>
+                {label}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+      <span>KB-FLOW/{String(activeIndex + 1).padStart(2, "0")}</span>
+    </div>
+  );
+}
+
+function OperatingCompass() {
+  return (
+    <motion.div className="operating-compass" {...getReveal(34)} aria-hidden="true">
+      <svg viewBox="0 0 360 360">
+        <circle className="operating-compass__ring" cx="180" cy="180" r="138" />
+        <circle className="operating-compass__ring operating-compass__ring--inner" cx="180" cy="180" r="78" />
+        <path className="operating-compass__axis" d="M180 42V318M42 180H318M82 82L278 278M278 82L82 278" />
+        <path className="operating-compass__needle" d="M180 64L208 180L180 296L152 180Z" />
+        <text x="180" y="28">
+          KB/RUN
+        </text>
+        <text x="180" y="184">
+          04
+        </text>
+        <text x="180" y="346">
+          CTRL
+        </text>
+      </svg>
+    </motion.div>
+  );
+}
+
+function InsightAnnotation({ index }: { index: number }) {
+  return (
+    <div className="insight-annotation" aria-hidden="true">
+      <span>KB.{String(index + 1).padStart(2, "0")}</span>
+      <i />
+      <i />
+      <i />
+    </div>
+  );
+}
+
+function ContactSignal() {
+  return (
+    <motion.div className="contact-signal" {...getReveal(28)} aria-hidden="true">
+      <svg viewBox="0 0 420 180">
+        <path className="contact-signal__axis" d="M48 90H372M210 30V150" />
+        <path className="contact-signal__pulse" d="M48 90C98 18 146 162 210 90S306 18 372 90" />
+        <circle cx="48" cy="90" r="8" />
+        <circle cx="210" cy="90" r="14" />
+        <circle cx="372" cy="90" r="8" />
+        <text x="48" y="128">REQ</text>
+        <text x="210" y="128">ARCH</text>
+        <text x="372" y="128">RUN</text>
+      </svg>
+      <span>KB-SIGNAL / OPEN</span>
+    </motion.div>
+  );
+}
+
 function SectionHeading({
   eyebrow,
   title,
   lead,
+  tone,
 }: {
   eyebrow?: string;
   title: string;
   lead: string;
+  tone?: "quiet" | "technical" | "editorial";
 }) {
   return (
-    <motion.div className="section-heading" {...getReveal(44)}>
+    <motion.div
+      className={`section-heading ${tone ? `section-heading--${tone}` : ""}`}
+      {...getReveal(44)}
+    >
       {eyebrow ? <p className="section-heading__eyebrow">{eyebrow}</p> : null}
       <h2>{title}</h2>
       <p>{lead}</p>
@@ -197,6 +445,7 @@ function StudyExhibition({
           />
         </motion.div>
         <div className="study-stage__shade" aria-hidden="true" />
+        <StudyFlowMap activeIndex={activeIndex} />
         <div className="study-stage__caption">
           <span>{activeStudy.label}</span>
           <h3>{activeStudy.title}</h3>
@@ -346,6 +595,7 @@ export function DesktopExperience() {
               width={640}
             />
           </motion.div>
+          <HeroCalibration />
 
           <motion.div
             className="hero__content"
@@ -396,6 +646,7 @@ export function DesktopExperience() {
               ))}
             </ul>
           </motion.div>
+          <DecisionMap />
           <motion.div className="positioning__image" {...getReveal(36)}>
             <Image
               alt=""
@@ -411,6 +662,7 @@ export function DesktopExperience() {
             eyebrow={content.labels.expertise}
             lead={content.expertise.lead}
             title={content.expertise.title}
+            tone="quiet"
           />
           <ExpertiseBoard
             activeIndex={activeExpertise}
@@ -424,7 +676,9 @@ export function DesktopExperience() {
             eyebrow={content.labels.capabilities}
             lead={content.capabilities.lead}
             title={content.capabilities.title}
+            tone="technical"
           />
+          <CapabilityTopology />
           <motion.div className="capability-matrix" {...getReveal(44)}>
             {content.capabilities.groups.map((group, groupIndex) => (
               <article className="capability-group" key={group.title}>
@@ -460,6 +714,7 @@ export function DesktopExperience() {
             lead={content.approach.lead}
             title={content.approach.title}
           />
+          <ApproachBlueprint steps={content.approach.steps} />
           <motion.div className="approach-rail" {...getReveal(40)}>
             {content.approach.steps.map((step) => (
               <article className="approach-step" key={step.number}>
@@ -476,6 +731,7 @@ export function DesktopExperience() {
             eyebrow={content.labels.studies}
             lead={content.studies.lead}
             title={content.studies.title}
+            tone="quiet"
           />
           <StudyExhibition
             activeIndex={activeStudy}
@@ -493,6 +749,7 @@ export function DesktopExperience() {
             <p>{content.why.lead}</p>
             <h2 id="why-title">{content.why.title}</h2>
           </motion.div>
+          <OperatingCompass />
           <motion.div className="why__principles" {...getReveal(40)}>
             {content.why.principles.map((principle, index) => (
               <article key={principle.title}>
@@ -509,10 +766,12 @@ export function DesktopExperience() {
             eyebrow={content.labels.insights}
             lead={content.insights.lead}
             title={content.insights.title}
+            tone="editorial"
           />
           <motion.div className="insight-row" {...getReveal(40)}>
-            {content.insights.items.map((insight) => (
+            {content.insights.items.map((insight, index) => (
               <article key={insight.title}>
+                <InsightAnnotation index={index} />
                 <h3>{insight.title}</h3>
                 <p>{insight.body}</p>
               </article>
@@ -537,6 +796,7 @@ export function DesktopExperience() {
               src={logoPath}
               width={92}
             />
+            <ContactSignal />
             <h2 id="contact-title">{content.contact.title}</h2>
             <p>{content.contact.lead}</p>
           </motion.div>
