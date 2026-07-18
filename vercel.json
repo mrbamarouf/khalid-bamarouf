@@ -2,5 +2,18 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "buildCommand": "npm run build"
+  "buildCommand": "npm run build",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "khaledbamarouf.com"
+        }
+      ],
+      "destination": "https://www.khaledbamarouf.com/:path*",
+      "permanent": true
+    }
+  ]
 }
