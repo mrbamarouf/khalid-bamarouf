@@ -5,6 +5,17 @@
   "buildCommand": "npm run build",
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "khaledbamarouf.com"
+        }
+      ],
+      "destination": "https://www.khaledbamarouf.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
