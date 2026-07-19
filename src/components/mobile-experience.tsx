@@ -20,6 +20,8 @@ import {
 import styles from "./mobile-experience.module.css";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
+const studioFooterMarkPath = "/brand/bamarouf-studio-footer.png";
+const studioSymbolPath = "/brand/bamarouf-studio-symbol.png";
 const brandName = "Khalid Bamarouf";
 const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
 
@@ -96,6 +98,7 @@ function MobileHeader({
   navigation,
   onClose,
   onToggle,
+  studio,
   switchLabel,
 }: {
   locale: Locale;
@@ -103,6 +106,7 @@ function MobileHeader({
   navigation: NavigationItem[];
   onClose: () => void;
   onToggle: () => void;
+  studio: { url: string; label: string; ariaLabel: string };
   switchLabel: string;
 }) {
   const menuLabel = locale === "ar" ? "القائمة" : "Open menu";
@@ -175,6 +179,15 @@ function MobileHeader({
                     <strong>{item.label}</strong>
                   </a>
                 ))}
+                <a
+                  aria-label={studio.ariaLabel}
+                  className={styles.studioMenuLink}
+                  href={studio.url}
+                  onClick={onClose}
+                >
+                  <Image alt="" height={30} src={studioSymbolPath} width={30} />
+                  <strong>{studio.label}</strong>
+                </a>
               </nav>
             </motion.aside>
           </>
@@ -480,6 +493,7 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
           navigation={mobileNavigation}
           onClose={() => setMenuOpen(false)}
           onToggle={() => setMenuOpen((open) => !open)}
+          studio={content.studio}
           switchLabel={content.language.switchLabel}
         />
 
@@ -677,6 +691,20 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
             </strong>
           </a>
           <p>{content.footer.statement}</p>
+          <a
+            aria-label={content.studio.ariaLabel}
+            className={styles.footerStudio}
+            href={content.studio.url}
+          >
+            <Image
+              alt=""
+              height={26}
+              loading="eager"
+              src={studioFooterMarkPath}
+              width={26}
+            />
+            <span>{content.studio.footerSignature}</span>
+          </a>
           <small>© {new Date().getFullYear()} {brandName}</small>
         </footer>
       </main>

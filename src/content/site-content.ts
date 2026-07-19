@@ -74,6 +74,12 @@ export type SiteContent = {
     alternate: string;
     switchLabel: string;
   };
+  studio: {
+    url: string;
+    label: string;
+    ariaLabel: string;
+    footerSignature: string;
+  };
   labels: {
     expertise: string;
     capabilities: string;
@@ -162,6 +168,12 @@ export const siteContent: Record<Locale, SiteContent> = {
       current: "EN",
       alternate: "AR",
       switchLabel: "Switch language",
+    },
+    studio: {
+      url: "https://bamaroufstudio.com",
+      label: "BAMAROUF STUDIO",
+      ariaLabel: "Visit BAMAROUF STUDIO",
+      footerSignature: "AN INDEPENDENT WORLD OF BAMAROUF STUDIO",
     },
     labels: {
       expertise: "Expertise",
@@ -501,6 +513,12 @@ export const siteContent: Record<Locale, SiteContent> = {
       current: "AR",
       alternate: "EN",
       switchLabel: "تغيير اللغة",
+    },
+    studio: {
+      url: "https://bamaroufstudio.com",
+      label: "بامعروف استديو",
+      ariaLabel: "زيارة بامعروف استديو",
+      footerSignature: "عالم مستقل ضمن بامعروف استديو",
     },
     labels: {
       expertise: "الخبرات",

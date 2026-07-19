@@ -22,6 +22,8 @@ import {
 } from "@/content/site-content";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
+const studioHeaderMarkPath = "/brand/bamarouf-studio-header.png";
+const studioFooterMarkPath = "/brand/bamarouf-studio-footer.png";
 const brandName = "Khalid Bamarouf";
 type TextDirection = "ltr" | "rtl";
 type RevealAxis = "x" | "y";
@@ -346,6 +348,19 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
                 {item.label}
               </a>
             ))}
+            <a
+              aria-label={content.studio.ariaLabel}
+              className="studio-nav-link"
+              href={content.studio.url}
+              title={content.studio.ariaLabel}
+            >
+              <Image
+                alt=""
+                height={24}
+                src={studioHeaderMarkPath}
+                width={24}
+              />
+            </a>
           </nav>
 
           <Link
@@ -604,7 +619,23 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
             <Image alt="" height={52} src={logoPath} width={52} />
             <span className="brand-name" dir="ltr">{content.brand.name}</span>
           </a>
-          <p>{content.footer.statement}</p>
+          <div className="footer__copy">
+            <p>{content.footer.statement}</p>
+            <a
+              aria-label={content.studio.ariaLabel}
+              className="footer__studio-signature"
+              href={content.studio.url}
+            >
+              <Image
+                alt=""
+                height={24}
+                loading="eager"
+                src={studioFooterMarkPath}
+                width={24}
+              />
+              <span>{content.studio.footerSignature}</span>
+            </a>
+          </div>
           <nav aria-label="Footer navigation">
             {content.nav.map((item) => (
               <a href={item.href} key={item.href}>
