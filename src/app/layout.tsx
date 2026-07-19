@@ -8,6 +8,7 @@ import {
   Sora,
 } from "next/font/google";
 import { IntroExperience } from "@/components/intro-experience";
+import { MobileIntroExperience } from "@/components/mobile-intro-experience";
 import { contactConfig, getWhatsAppHref } from "@/content/contact-config";
 import "./globals.css";
 
@@ -132,6 +133,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full">
+        <MobileIntroExperience />
         <IntroExperience />
         {children}
         <Script

@@ -1,0 +1,316 @@
+.shell {
+  display: none;
+}
+
+@media (max-width: 860px), (max-width: 960px) and (max-height: 520px) {
+  .shell {
+    position: fixed;
+    z-index: 121;
+    inset: 0;
+    display: grid;
+    overflow: hidden;
+    visibility: hidden;
+    place-items: center;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(200, 169, 106, 0.14), transparent 14rem),
+      #000;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  :global(html[data-kb-intro="play"]) .shell {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    animation: introShell 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .codeField {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: codeReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .codeField span {
+    position: absolute;
+    color: rgba(103, 208, 138, 0.42);
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .codeField span:nth-child(1) {
+    inset-block-start: 18%;
+    inset-inline-start: 9%;
+  }
+
+  .codeField span:nth-child(2) {
+    inset-block-start: 38%;
+    inset-inline-end: 8%;
+  }
+
+  .codeField span:nth-child(3) {
+    inset-block-end: 22%;
+    inset-inline-start: 12%;
+  }
+
+  .construction {
+    position: absolute;
+    width: min(320px, 86vw);
+    height: auto;
+    overflow: visible;
+  }
+
+  .axis,
+  .frame,
+  .ring,
+  .signal {
+    fill: none;
+    stroke-linecap: round;
+    opacity: 0;
+  }
+
+  .axis,
+  .frame {
+    stroke: rgba(200, 169, 106, 0.38);
+    stroke-width: 0.8;
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+    animation: lineReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .ring {
+    stroke: rgba(238, 233, 220, 0.14);
+    stroke-width: 0.8;
+    stroke-dasharray: 8 12;
+    transform-origin: center;
+    animation: ringReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .signal {
+    stroke: rgba(103, 208, 138, 0.4);
+    stroke-width: 1;
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+    animation: signalReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .logoStage {
+    position: relative;
+    display: grid;
+    width: 166px;
+    height: 194px;
+    place-items: center;
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(0.96);
+    animation: logoReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .logoStage > span {
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(200, 169, 106, 0.28);
+    border-radius: 8px;
+    opacity: 0;
+    animation: guideReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .logoStage img {
+    width: 108px;
+    height: 108px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 28px rgba(200, 169, 106, 0.42));
+  }
+
+  .logoStage strong {
+    position: absolute;
+    inset-block-end: 18px;
+    color: rgba(228, 199, 133, 0.82);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+
+  .skip {
+    position: absolute;
+    inset-inline-end: max(18px, env(safe-area-inset-right));
+    inset-block-end: max(18px, env(safe-area-inset-bottom));
+    min-width: 64px;
+    min-height: 44px;
+    border: 1px solid rgba(238, 233, 220, 0.14);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.28);
+    color: rgba(238, 233, 220, 0.68);
+    cursor: pointer;
+    font-size: 11px;
+    opacity: 0;
+    animation: skipReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .skip:focus-visible {
+    outline: 2px solid rgba(228, 199, 133, 0.72);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .codeField,
+  .axis,
+  .frame,
+  .ring,
+  .signal,
+  .logoStage,
+  .logoStage > span,
+  .skip {
+    animation: none;
+  }
+}
+
+@keyframes introShell {
+  0%,
+  86% {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@keyframes codeReveal {
+  0%,
+  8% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  20%,
+  42% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  64%,
+  100% {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+}
+
+@keyframes lineReveal {
+  0%,
+  14% {
+    opacity: 0;
+    stroke-dashoffset: 360;
+  }
+
+  34%,
+  62% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  78%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ringReveal {
+  0%,
+  24% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  43%,
+  64% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes signalReveal {
+  0%,
+  28% {
+    opacity: 0;
+    stroke-dashoffset: 360;
+  }
+
+  48%,
+  62% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  76%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes logoReveal {
+  0%,
+  30% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(0.96);
+  }
+
+  54%,
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes guideReveal {
+  0%,
+  38% {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+
+  52%,
+  68% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  82%,
+  100% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes skipReveal {
+  0%,
+  28% {
+    opacity: 0;
+  }
+
+  38%,
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
