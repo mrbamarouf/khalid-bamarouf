@@ -155,7 +155,7 @@ export const siteContent: Record<Locale, SiteContent> = {
     direction: "ltr",
     brand: {
       name: "Khalid Bamarouf",
-      role: "Systems Architect and Technical Consultant",
+      role: "AI Automation Engineer & Builder",
       logoAlt: "Khalid Bamarouf gold monogram",
     },
     nav: [
@@ -176,109 +176,100 @@ export const siteContent: Record<Locale, SiteContent> = {
       footerSignature: "AN INDEPENDENT WORLD OF BAMAROUF STUDIO",
     },
     labels: {
-      expertise: "Expertise",
-      capabilities: "Capability System",
+      expertise: "What I Do",
+      capabilities: "Capabilities",
       approach: "Approach",
-      studies: "Exhibition",
-      insights: "Insights",
+      studies: "System Study",
+      insights: "Operating Notes",
       challenge: "Challenge",
       structure: "Structure",
     },
     hero: {
-      eyebrow: "Systems architecture for serious technical decisions",
-      title: "Complex systems. Clearly engineered.",
+      eyebrow: "Khalid Bamarouf",
+      title: "AI Automation Engineer & Builder",
       lead:
-        "Enterprise architecture, backend platforms, automation, AI operating layers, cloud infrastructure, and integration work shaped for organizations where failure is expensive.",
+        "AI automations that solve the problems you have right now — and make things run better. I build custom AI apps and automations shaped around how you actually work. From fixing a broken daily workflow to shipping a full AI-powered product, the goal is simple: your current issues, solved by AI, in a way that fits your preferences.",
       primaryCta: "Start a conversation",
-      secondaryCta: "Explore expertise",
-      metrics: [
-        { label: "Discipline", value: "Architecture to execution" },
-        { label: "Focus", value: "Critical systems and operations" },
-        { label: "Mode", value: "Advisory, design, and build" },
-      ],
+      secondaryCta: "See what I build",
+      metrics: [],
     },
     positioning: {
-      title: "A technical partner for systems that carry real business weight.",
+      title: "AI automations built around the way you actually work.",
       lead:
-        "Khalid works where business intent, engineering depth, and operating reality meet.",
+        "I'm an AI automation engineer. My focus is simple: take the problems you're dealing with right now and solve them with AI — then make the rest of your work run better.",
       body:
-        "The work begins by making the invisible structure visible: dependencies, flows, risks, interfaces, ownership, governance, and the decisions that will either strengthen a system or trap it.",
+        "I build custom AI apps and automations shaped around how you actually operate. Not a generic bot, not an off-the-shelf template that half-fits. If you have a repetitive task, a slow handoff, or tooling that doesn't match the way you work, that's where I start — with the real issue, not a feature list.",
       notes: [
-        "Clarifies complex technical landscapes for decision-makers.",
-        "Designs architecture that can be operated, measured, and evolved.",
-        "Connects strategy to backend engineering, automation, cloud, data, and AI.",
+        "From there I design and build the automation or app, wire it into the tools you already use, and keep it running reliably so it improves over time. Everything is customized to your preferences: your stack, your workflow, and the outcomes you care about.",
+        "The point of AI here isn't novelty — it's removing friction. If an automation needs more babysitting than the manual process it replaced, it's wrong. The win is a system that fits how you work and quietly makes things better.",
       ],
     },
     expertise: {
-      title: "Expertise with structural consequence.",
+      title: "What I do.",
       lead:
-        "Each discipline is treated as part of one operating system, not as a decorative service line.",
+        "AI Automation is the core service. The supporting technical capabilities give each automation a reliable place to live.",
       items: [
         {
-          name: "Enterprise Architecture",
-          short: "Decision systems, platform maps, and technical operating models.",
-          focus:
-            "Turns business goals into architecture, domains, integration boundaries, governance, and investment sequence.",
+          name: "AI Automation",
+          short:
+            "Workflow automation, AI agents, and intelligent operations tailored to your needs.",
+          focus: "CORE SERVICE",
           value:
-            "Leaders see what should be built, what should be removed, and which decisions must be protected.",
-          signals: ["Domain boundaries", "Capability maps", "Platform strategy"],
+            "Workflow automation, AI agents, and intelligent operations tailored to your needs.",
+          signals: ["Custom AI apps", "AI agents", "Intelligent operations"],
+        },
+        {
+          name: "Enterprise Architecture",
+          short:
+            "Structuring systems and decisions so automation has a solid home.",
+          focus: "Supporting capability",
+          value:
+            "Structuring systems and decisions so automation has a solid home.",
+          signals: ["System structure", "Decision clarity", "Operating model"],
         },
         {
           name: "Backend Engineering",
-          short: "Reliable services, APIs, data flows, and operational foundations.",
-          focus:
-            "Shapes services around ownership, data integrity, latency, resilience, observability, and future change.",
+          short:
+            "Reliable services, APIs, and data flows that power the automation.",
+          focus: "Supporting capability",
           value:
-            "Teams gain systems that are easier to reason about, scale, secure, and maintain.",
-          signals: ["Service design", "API contracts", "Observability"],
+            "Reliable services, APIs, and data flows that power the automation.",
+          signals: ["Services", "APIs", "Data flows"],
         },
         {
-          name: "Automation and Operations",
-          short: "Workflow automation, controls, telemetry, and process intelligence.",
-          focus:
-            "Identifies repeated operational pressure and designs automation with clear human control and audit trails.",
-          value:
-            "Operations become faster and calmer without losing accountability or judgment.",
-          signals: ["Workflow logic", "Control points", "Operational telemetry"],
+          name: "Automation & Operations",
+          short: "Controls, telemetry, and process intelligence.",
+          focus: "Supporting capability",
+          value: "Controls, telemetry, and process intelligence.",
+          signals: ["Controls", "Telemetry", "Process intelligence"],
         },
         {
-          name: "AI-Enabled Systems",
-          short: "Model placement, orchestration, data readiness, and governance.",
-          focus:
-            "Places AI inside useful workflows with retrieval, permissions, evaluation, escalation, and measurable outcomes.",
-          value:
-            "AI becomes an accountable system capability instead of an isolated experiment.",
-          signals: ["Model orchestration", "Evaluation loops", "Human escalation"],
-        },
-        {
-          name: "Cloud, APIs, and Integration",
-          short: "Infrastructure patterns, integration design, and platform connectivity.",
-          focus:
-            "Connects platforms through deliberate contracts, secure infrastructure, deployment paths, and lifecycle controls.",
-          value:
-            "The organization gains a cleaner technical spine for products, teams, and data movement.",
-          signals: ["Cloud foundations", "Integration patterns", "Security posture"],
+          name: "Cloud, APIs & Integration",
+          short: "Infrastructure and connectivity that tie it all together.",
+          focus: "Supporting capability",
+          value: "Infrastructure and connectivity that tie it all together.",
+          signals: ["Cloud", "APIs", "Integration"],
         },
       ],
     },
     capabilities: {
-      title: "Capabilities built for difficult systems.",
+      title: "Capabilities shaped for AI automation.",
       lead:
-        "The offering is not a menu of disconnected tasks. It is a way to bring clarity, architecture, and execution into one disciplined engagement.",
+        "The work connects custom AI apps, reliable engineering, and technical strategy so the automation fits the client's actual workflow.",
       groups: [
         {
-          title: "Architecture and Strategy",
-          intro: "For organizations deciding what the system must become.",
+          title: "AI Apps & Automations",
+          intro: "Build",
           capabilities: [
-            "Enterprise architecture assessment",
-            "Digital operating model design",
-            "Platform and capability roadmaps",
-            "Technical decision frameworks",
+            "Custom AI assistants and agents",
+            "Workflow automation",
+            "AI operating platforms and evaluation loops",
+            "Monitoring, escalation and control",
           ],
         },
         {
-          title: "Engineering and Integration",
-          intro: "For teams that need the architecture to survive implementation.",
+          title: "Engineering & Integration",
+          intro: "Make it real",
           capabilities: [
             "Backend service architecture",
             "API and integration design",
@@ -287,212 +278,155 @@ export const siteContent: Record<Locale, SiteContent> = {
           ],
         },
         {
-          title: "Automation and AI Infrastructure",
-          intro: "For operations that need intelligence, control, and scale.",
+          title: "Strategy & Architecture",
+          intro: "Keep it sane",
           capabilities: [
-            "Workflow automation architecture",
-            "AI operating platform design",
-            "Evaluation and governance loops",
-            "Monitoring, escalation, and control design",
+            "Problem framing and solution design",
+            "Platform and capability roadmaps",
+            "Technical decision frameworks",
+            "Governance for AI systems",
           ],
         },
       ],
     },
     approach: {
-      title: "A measured path from ambiguity to architecture.",
+      title: "From current issue to working AI automation.",
       lead:
-        "The method is calm because the systems are demanding. Each phase reduces risk, sharpens decisions, and moves the work closer to operation.",
+        "The process keeps the problem, the workflow, the tools, and the controls visible from the first conversation through ongoing improvement.",
       steps: [
         {
           number: "01",
           title: "Discover",
           body:
-            "Expose goals, constraints, risks, dependencies, existing systems, and the real operating pressure behind the request.",
+            "Find the real issue — the goal, the constraint, the pain, and what \"better\" looks like for you.",
         },
         {
           number: "02",
           title: "Architect",
           body:
-            "Define the target structure, domains, interfaces, information flows, controls, and the decisions that need executive alignment.",
+            "Design the automation — what AI does, where it plugs in, what stays human, and the controls around it.",
         },
         {
           number: "03",
-          title: "Engineer",
+          title: "Build",
           body:
-            "Convert architecture into services, platforms, automations, data paths, and measurable technical behavior.",
+            "Engineer the app or automation — services, models, data paths, and measurable behavior.",
         },
         {
           number: "04",
           title: "Integrate",
           body:
-            "Connect systems through stable contracts, secure operations, observability, and change paths that teams can sustain.",
+            "Connect it to your tools through stable contracts, secure ops, and observability your team can trust.",
         },
         {
           number: "05",
           title: "Evolve",
           body:
-            "Measure the system in use, tune decisions, strengthen controls, and prepare the next layer of capability.",
+            "Run it, measure it, tune it, and grow the next layer of capability.",
         },
       ],
     },
     studies: {
-      title: "Selected system studies.",
+      title: "Intelligent Operations & Automation.",
       lead:
-        "Conceptual studies show how Khalid frames difficult technical work when client details are confidential.",
+        "An anonymized system study showing how AI automation can reduce manual handoffs across disconnected tools.",
       items: [
         {
-          label: "Integration Architecture",
-          title: "Enterprise Integration Architecture",
-          image: "/images/integration-cabling.jpg",
-          summary:
-            "A target architecture for connecting fragmented business platforms through governed APIs, events, data boundaries, and operational ownership.",
-          challenge:
-            "A growing organization depends on multiple systems that move at different speeds, with weak visibility into data ownership and integration risk.",
-          structure: [
-            "Capability map tied to business domains",
-            "API and event boundaries with ownership rules",
-            "Integration governance, monitoring, and release control",
-          ],
-          value:
-            "A technical foundation that makes cross-platform work more predictable for leadership and delivery teams.",
-        },
-        {
-          label: "Operations and Automation",
-          title: "Intelligent Operations and Automation",
+          label: "Anonymized system study",
+          title: "Intelligent Operations & Automation",
           image: "/images/automation-control-panel.jpg",
           summary:
-            "A workflow architecture for reducing repeated manual work while preserving human control, exception handling, and auditability.",
+            "A team was losing hours to repetitive, manual handoffs across disconnected tools, with no visibility into where work stalled.",
           challenge:
-            "Operational teams spend attention on repeated decisions, handoffs, and checks that hide risk and slow the business.",
+            "A team was losing hours to repetitive, manual handoffs across disconnected tools, with no visibility into where work stalled.",
           structure: [
-            "Workflow inventory with control and exception points",
-            "Automation patterns connected to telemetry",
-            "Human review loops for sensitive decisions",
+            "Mapped the actual workflow and friction points.",
+            "Designed an AI automation handling repetitive steps and routing exceptions to humans.",
+            "Integrated into the existing stack with monitoring and control.",
           ],
           value:
-            "A calmer operating rhythm where automation removes repetition without removing responsibility.",
-        },
-        {
-          label: "AI Operating Platform",
-          title: "AI-Enabled Operating Platform",
-          image: "/images/compute-cooling.jpg",
-          summary:
-            "A governed AI layer that connects models, knowledge sources, permissions, evaluation, and escalation into useful business workflows.",
-          challenge:
-            "The organization wants AI capability, but the useful work depends on data quality, access control, evaluation, and integration with existing systems.",
-          structure: [
-            "Retrieval, permissions, and model routing",
-            "Evaluation harnesses and performance review",
-            "Escalation paths connected to human teams",
-          ],
-          value:
-            "AI becomes part of the operating platform, with accountability, measurement, and room to improve.",
+            "Less manual work, fewer stalls, an automation shaped to how the team already operates.",
         },
       ],
     },
     why: {
-      title: "Why serious clients bring Khalid in.",
+      title: "Why work with me.",
       lead:
-        "The value is not only writing code or drawing architecture. It is knowing which structure matters before money and time harden around the wrong one.",
+        "Serious clients need AI automation that begins with the real problem and keeps working after it ships.",
       principles: [
         {
-          title: "Business clarity first",
-          body:
-            "Technical choices are tied to business pressure, operational reality, and leadership decisions.",
+          title: "Problem-first",
+          body: "We start from your current issue, not a feature list.",
         },
         {
-          title: "Architecture that can run",
+          title: "Built for you",
           body:
-            "Every diagram is judged by whether teams can build it, operate it, secure it, and change it.",
+            "Every automation is customized to your tools and preferences.",
         },
         {
-          title: "Confidential work handled with care",
+          title: "Ships and runs",
           body:
-            "Sensitive systems can be discussed through patterns, abstractions, and decision logic without exposing private details.",
+            "Judged by whether it works in real life, day after day.",
         },
         {
           title: "Calm execution",
-          body:
-            "The work favors clear sequencing, visible tradeoffs, and fewer surprises during implementation.",
+          body: "Clear steps, visible tradeoffs, fewer surprises.",
         },
       ],
     },
     insights: {
       title: "Operating notes.",
       lead:
-        "Short positions on the decisions that shape durable systems.",
+        "The principles behind AI automation that fits the work instead of creating more friction.",
       items: [
         {
-          title: "Architecture is a business instrument",
+          title: "AI should remove friction, not add it.",
           body:
-            "The architecture should reveal investment sequence, operating risk, ownership, and the cost of delay.",
+            "If the automation needs more babysitting than the manual process, it's wrong.",
         },
         {
-          title: "AI needs a control room",
+          title: "Customization is the point.",
           body:
-            "Useful AI systems depend on permissions, evaluation, human escalation, and a place in the workflow.",
+            "The best automation fits how you work, not the other way around.",
         },
         {
-          title: "Integration is where strategy becomes real",
+          title: "AI needs a control room.",
           body:
-            "Every interface exposes a decision about data, responsibility, timing, and trust.",
+            "Permissions, evaluation, human escalation, and a real place in the workflow.",
+        },
+        {
+          title: "Integration is where intent becomes real.",
+          body:
+            "Every connection is a decision about data, responsibility, and trust.",
         },
       ],
     },
     contact: {
-      title: "Bring the hard system into focus.",
+      title: "Start a conversation.",
       lead:
-        "For architecture reviews, platform decisions, integration strategy, automation programs, or AI operating layers, start with the problem that is becoming too important to leave unclear.",
-      email: "hello@khalidbamarouf.com",
-      subject: "Project inquiry for Khalid Bamarouf",
+        "Bring the workflow, handoff, tool, or product problem that needs to run better. The conversation starts with what is happening now and what AI should solve.",
+      email: "kbamarouf@gmail.com",
+      subject: "AI automation conversation with Khalid Bamarouf",
       whatsappLabel: "WhatsApp",
       emailLabel: "Email",
-      button: "Send project inquiry",
+      button: "Start a conversation",
       channels: [
         {
-          label: "Email",
-          value: "hello@khalidbamarouf.com",
-          href: "mailto:hello@khalidbamarouf.com",
-        },
-        {
-          label: "Direct contact",
-          value: "Architecture and systems inquiry",
-          href: "mailto:hello@khalidbamarouf.com?subject=Systems%20architecture%20inquiry",
-        },
-        {
-          label: "Location",
-          value: "Saudi Arabia, available for remote engagements",
-        },
-      ],
-      fields: [
-        {
-          label: "Name",
-          name: "name",
-          type: "text",
-          placeholder: "Your name",
+          label: "WhatsApp",
+          value: "+966596969687",
+          href: "https://wa.me/966596969687",
         },
         {
           label: "Email",
-          name: "email",
-          type: "email",
-          placeholder: "you@company.com",
-        },
-        {
-          label: "System challenge",
-          name: "challenge",
-          type: "textarea",
-          placeholder: "What system, platform, integration, automation, or AI decision needs clarity?",
-        },
-        {
-          label: "What must be true six months from now?",
-          name: "outcome",
-          type: "textarea",
-          placeholder: "Describe the operational or business outcome that matters.",
+          value: "kbamarouf@gmail.com",
+          href: "mailto:kbamarouf@gmail.com",
         },
       ],
+      fields: [],
     },
     footer: {
-      statement: "Systems architecture, backend engineering, automation, AI, cloud, APIs, and integration.",
+      statement:
+        "AI automation, custom AI apps, agents, backend engineering, cloud, APIs, and integration.",
     },
   },
   ar: {
@@ -500,7 +434,7 @@ export const siteContent: Record<Locale, SiteContent> = {
     direction: "rtl",
     brand: {
       name: "Khalid Bamarouf",
-      role: "معماري أنظمة ومستشار تقني",
+      role: "مهندس أتمتة بالذكاء الاصطناعي وبانٍ للحلول",
       logoAlt: "شعار Khalid Bamarouf الذهبي",
     },
     nav: [
@@ -521,323 +455,253 @@ export const siteContent: Record<Locale, SiteContent> = {
       footerSignature: "عالم مستقل ضمن بامعروف استديو",
     },
     labels: {
-      expertise: "الخبرات",
-      capabilities: "نظام القدرات",
+      expertise: "ما أقدمه",
+      capabilities: "القدرات",
       approach: "المنهج",
-      studies: "المعرض",
-      insights: "الرؤى",
+      studies: "دراسة نظام",
+      insights: "ملاحظات تشغيلية",
       challenge: "التحدي",
       structure: "البنية",
     },
     hero: {
-      eyebrow: "معمارية أنظمة للقرارات التقنية الحساسة",
-      title: "أنظمة معقدة. بهندسة واضحة.",
+      eyebrow: "Khalid Bamarouf",
+      title: "مهندس أتمتة بالذكاء الاصطناعي وبانٍ للحلول",
       lead:
-        "معمارية مؤسسية، منصات خلفية، أتمتة، طبقات تشغيل مدعومة بالذكاء الاصطناعي، بنية سحابية، وتكامل أنظمة للمؤسسات التي تكون فيها الأعطال مكلفة.",
+        "أتمتة بالذكاء الاصطناعي تحل المشكلات التي تواجهها الآن — وتجعل العمل يسير بصورة أفضل. أبني تطبيقات وأتمتات ذكاء اصطناعي مخصصة حسب طريقة عملك الفعلية. من إصلاح مسار يومي متعطل إلى إطلاق منتج كامل مدعوم بالذكاء الاصطناعي، الهدف بسيط: مشكلاتك الحالية محلولة بالذكاء الاصطناعي، بطريقة تناسب تفضيلاتك.",
       primaryCta: "ابدأ المحادثة",
-      secondaryCta: "استكشف الخبرات",
-      metrics: [
-        { label: "الانضباط", value: "من المعمارية إلى التنفيذ" },
-        { label: "التركيز", value: "أنظمة وعمليات حرجة" },
-        { label: "نمط العمل", value: "استشارة وتصميم وبناء" },
-      ],
+      secondaryCta: "شاهد ما أبنيه",
+      metrics: [],
     },
     positioning: {
-      title: "شريك تقني للأنظمة التي تحمل وزنا تجاريا حقيقيا.",
+      title: "أتمتة بالذكاء الاصطناعي مبنية حول طريقة عملك الفعلية.",
       lead:
-        "يعمل Khalid Bamarouf عند نقطة التقاء نية الأعمال، وعمق الهندسة، وواقع التشغيل.",
+        "أنا مهندس أتمتة بالذكاء الاصطناعي. تركيزي بسيط: أخذ المشكلات التي تتعامل معها الآن وحلها بالذكاء الاصطناعي — ثم جعل بقية عملك تسير بصورة أفضل.",
       body:
-        "تبدأ المهمة بجعل البنية غير المرئية واضحة: الاعتماديات، التدفقات، المخاطر، الواجهات، الملكية، الحوكمة، والقرارات التي تقوي النظام أو تقيده.",
+        "أبني تطبيقات وأتمتات ذكاء اصطناعي مخصصة حول الطريقة التي تعمل بها فعليا. ليست روبوتا عاما، ولا قالبا جاهزا يناسب نصف احتياجك. إذا كانت لديك مهمة متكررة، أو تسليم بطيء، أو أدوات لا تطابق طريقة عملك، فهنا أبدأ — من المشكلة الحقيقية، لا من قائمة مزايا.",
       notes: [
-        "يوضح المشهد التقني المعقد لصناع القرار.",
-        "يصمم معمارية يمكن تشغيلها وقياسها وتطويرها.",
-        "يربط الاستراتيجية بالهندسة الخلفية، والأتمتة، والسحابة، والبيانات، والذكاء الاصطناعي.",
+        "بعد ذلك أصمم وأبني الأتمتة أو التطبيق، وأربطه بالأدوات التي تستخدمها بالفعل، وأبقيه يعمل بثبات حتى يتحسن مع الوقت. كل شيء مخصص لتفضيلاتك: تقنياتك، ومسار عملك، والنتائج التي تهمك.",
+        "قيمة الذكاء الاصطناعي هنا ليست في الجدة — بل في إزالة الاحتكاك. إذا كانت الأتمتة تحتاج متابعة أكثر من العملية اليدوية التي استبدلتها، فهي خاطئة. المكسب هو نظام يناسب طريقة عملك ويجعل الأمور أفضل بهدوء.",
       ],
     },
     expertise: {
-      title: "خبرات لها أثر بنيوي.",
+      title: "ما أقدمه.",
       lead:
-        "كل تخصص يعامل كجزء من نظام تشغيل واحد، وليس كخدمة منفصلة.",
+        "أتمتة الذكاء الاصطناعي هي الخدمة الأساسية. أما القدرات التقنية الداعمة فتمنح كل أتمتة مكانا موثوقا تعيش فيه.",
       items: [
         {
-          name: "المعمارية المؤسسية",
-          short: "أنظمة قرار، خرائط منصات، ونماذج تشغيل تقنية.",
-          focus:
-            "تحول أهداف الأعمال إلى معمارية، ونطاقات، وحدود تكامل، وحوكمة، وتسلسل استثمار.",
+          name: "أتمتة الذكاء الاصطناعي",
+          short:
+            "أتمتة مسارات العمل، ووكلاء الذكاء الاصطناعي، وعمليات ذكية مخصصة لاحتياجك.",
+          focus: "الخدمة الأساسية",
           value:
-            "يرى القادة ما يجب بناؤه، وما يجب إزالته، والقرارات التي يجب حمايتها.",
-          signals: ["حدود النطاقات", "خرائط القدرات", "استراتيجية المنصات"],
+            "أتمتة مسارات العمل، ووكلاء الذكاء الاصطناعي، وعمليات ذكية مخصصة لاحتياجك.",
+          signals: ["تطبيقات ذكاء اصطناعي مخصصة", "وكلاء ذكاء اصطناعي", "عمليات ذكية"],
+        },
+        {
+          name: "المعمارية المؤسسية",
+          short: "تنظيم الأنظمة والقرارات حتى تجد الأتمتة بيتا صلبا.",
+          focus: "قدرة داعمة",
+          value: "تنظيم الأنظمة والقرارات حتى تجد الأتمتة بيتا صلبا.",
+          signals: ["بنية النظام", "وضوح القرار", "نموذج التشغيل"],
         },
         {
           name: "الهندسة الخلفية",
-          short: "خدمات موثوقة، واجهات، تدفقات بيانات، وأسس تشغيلية.",
-          focus:
-            "تشكل الخدمات حول الملكية، وسلامة البيانات، والزمن، والمرونة، والمراقبة، وقابلية التغيير.",
+          short:
+            "خدمات موثوقة، وواجهات برمجية، وتدفقات بيانات تشغل الأتمتة.",
+          focus: "قدرة داعمة",
           value:
-            "تحصل الفرق على أنظمة أسهل في الفهم، والتوسع، والتأمين، والصيانة.",
-          signals: ["تصميم الخدمات", "عقود الواجهات", "المراقبة"],
+            "خدمات موثوقة، وواجهات برمجية، وتدفقات بيانات تشغل الأتمتة.",
+          signals: ["الخدمات", "الواجهات البرمجية", "تدفقات البيانات"],
         },
         {
           name: "الأتمتة والعمليات",
-          short: "أتمتة مسارات العمل، ضوابط، قياس، وذكاء تشغيلي.",
-          focus:
-            "تحدد الضغط التشغيلي المتكرر وتصمم أتمتة مع تحكم بشري واضح ومسارات تدقيق.",
-          value:
-            "تصبح العمليات أسرع وأكثر هدوءا من دون فقدان المسؤولية أو الحكم.",
-          signals: ["منطق العمل", "نقاط التحكم", "قياس تشغيلي"],
-        },
-        {
-          name: "أنظمة مدعومة بالذكاء الاصطناعي",
-          short: "موضع النماذج، التنسيق، جاهزية البيانات، والحوكمة.",
-          focus:
-            "تضع الذكاء الاصطناعي داخل مسارات عمل نافعة مع استرجاع، صلاحيات، تقييم، وتصعيد قابل للقياس.",
-          value:
-            "يصبح الذكاء الاصطناعي قدرة نظامية مسؤولة بدلا من تجربة منعزلة.",
-          signals: ["تنسيق النماذج", "دوائر التقييم", "التصعيد البشري"],
+          short: "ضوابط، وقياس، وذكاء للعمليات.",
+          focus: "قدرة داعمة",
+          value: "ضوابط، وقياس، وذكاء للعمليات.",
+          signals: ["الضوابط", "القياس", "ذكاء العمليات"],
         },
         {
           name: "السحابة والواجهات والتكامل",
-          short: "أنماط بنية، تصميم تكامل، وربط منصات.",
-          focus:
-            "يربط المنصات بعقود واضحة، وبنية آمنة، ومسارات نشر، وضوابط دورة حياة.",
-          value:
-            "تحصل المؤسسة على عمود تقني أوضح للمنتجات والفرق وحركة البيانات.",
-          signals: ["أسس سحابية", "أنماط تكامل", "وضع أمني"],
+          short: "بنية تحتية واتصال يربطان كل شيء معا.",
+          focus: "قدرة داعمة",
+          value: "بنية تحتية واتصال يربطان كل شيء معا.",
+          signals: ["السحابة", "الواجهات البرمجية", "التكامل"],
         },
       ],
     },
     capabilities: {
-      title: "قدرات مصممة للأنظمة الصعبة.",
+      title: "قدرات مصممة لأتمتة الذكاء الاصطناعي.",
       lead:
-        "العرض ليس قائمة مهام منفصلة. إنه أسلوب يجمع الوضوح، والمعمارية، والتنفيذ في مهمة واحدة منضبطة.",
+        "يربط العمل بين تطبيقات الذكاء الاصطناعي المخصصة، والهندسة الموثوقة، والاستراتيجية التقنية حتى تناسب الأتمتة مسار العمل الفعلي لدى العميل.",
       groups: [
         {
-          title: "المعمارية والاستراتيجية",
-          intro: "للمؤسسات التي تقرر ما يجب أن يصبح عليه النظام.",
+          title: "تطبيقات وأتمتات الذكاء الاصطناعي",
+          intro: "بناء",
           capabilities: [
-            "تقييم المعمارية المؤسسية",
-            "تصميم نموذج التشغيل الرقمي",
-            "خرائط المنصات والقدرات",
-            "أطر القرار التقني",
+            "مساعدون ووكلاء ذكاء اصطناعي مخصصون",
+            "أتمتة مسارات العمل",
+            "منصات تشغيل ذكاء اصطناعي وحلقات تقييم",
+            "مراقبة وتصعيد وتحكم",
           ],
         },
         {
           title: "الهندسة والتكامل",
-          intro: "للفرق التي تحتاج أن تنجو المعمارية داخل التنفيذ.",
+          intro: "جعلها حقيقية",
           capabilities: [
-            "معمارية الخدمات الخلفية",
+            "معمارية خدمات خلفية",
             "تصميم الواجهات والتكامل",
             "تخطيط البنية السحابية",
             "حركة البيانات وحدود الأنظمة",
           ],
         },
         {
-          title: "الأتمتة وبنية الذكاء الاصطناعي",
-          intro: "للعمليات التي تحتاج ذكاء وتحكما وقدرة على التوسع.",
+          title: "الاستراتيجية والمعمارية",
+          intro: "إبقاؤها منضبطة",
           capabilities: [
-            "معمارية أتمتة مسارات العمل",
-            "تصميم منصة تشغيل ذكاء اصطناعي",
-            "دوائر التقييم والحوكمة",
-            "تصميم المراقبة والتصعيد والتحكم",
+            "تأطير المشكلة وتصميم الحل",
+            "خرائط طريق المنصات والقدرات",
+            "أطر القرار التقني",
+            "حوكمة أنظمة الذكاء الاصطناعي",
           ],
         },
       ],
     },
     approach: {
-      title: "مسار موزون من الغموض إلى المعمارية.",
+      title: "من المشكلة الحالية إلى أتمتة ذكاء اصطناعي تعمل.",
       lead:
-        "المنهج هادئ لأن الأنظمة متطلبة. كل مرحلة تقلل المخاطر، وتصقل القرارات، وتدفع العمل نحو التشغيل.",
+        "يحافظ المنهج على وضوح المشكلة، ومسار العمل، والأدوات، والضوابط من أول محادثة حتى التحسين المستمر.",
       steps: [
         {
           number: "01",
           title: "اكتشاف",
           body:
-            "كشف الأهداف، والقيود، والمخاطر، والاعتماديات، والأنظمة الحالية، والضغط التشغيلي الحقيقي خلف الطلب.",
+            "العثور على المشكلة الحقيقية — الهدف، والقيد، والألم، وما يعنيه أن تصبح الأمور أفضل بالنسبة لك.",
         },
         {
           number: "02",
-          title: "تصميم معماري",
+          title: "تصميم",
           body:
-            "تعريف البنية المستهدفة، والنطاقات، والواجهات، وتدفقات المعلومات، والضوابط، والقرارات التي تحتاج توافقا تنفيذيا.",
+            "تصميم الأتمتة — ما الذي يفعله الذكاء الاصطناعي، وأين يتصل، وما الذي يبقى بشريا، وما الضوابط المحيطة به.",
         },
         {
           number: "03",
-          title: "هندسة",
+          title: "بناء",
           body:
-            "تحويل المعمارية إلى خدمات، ومنصات، وأتمتة، ومسارات بيانات، وسلوك تقني قابل للقياس.",
+            "هندسة التطبيق أو الأتمتة — الخدمات، والنماذج، ومسارات البيانات، والسلوك القابل للقياس.",
         },
         {
           number: "04",
           title: "تكامل",
           body:
-            "ربط الأنظمة عبر عقود مستقرة، وعمليات آمنة، ومراقبة، ومسارات تغيير تستطيع الفرق تحملها.",
+            "ربطه بأدواتك من خلال عقود مستقرة، وتشغيل آمن، ومراقبة يمكن لفريقك الوثوق بها.",
         },
         {
           number: "05",
           title: "تطوير",
           body:
-            "قياس النظام أثناء الاستخدام، وضبط القرارات، وتقوية الضوابط، وتجهيز طبقة القدرة التالية.",
+            "تشغيله، وقياسه، وضبطه، وتنمية طبقة القدرة التالية.",
         },
       ],
     },
     studies: {
-      title: "دراسات أنظمة مختارة.",
+      title: "عمليات ذكية وأتمتة.",
       lead:
-        "توضح الدراسات المفاهيمية كيف يؤطر Khalid Bamarouf الأعمال التقنية الصعبة عندما تكون تفاصيل العملاء سرية.",
+        "دراسة نظام مجهولة الهوية توضح كيف يمكن لأتمتة الذكاء الاصطناعي تقليل التسليمات اليدوية بين أدوات منفصلة.",
       items: [
         {
-          label: "معمارية التكامل",
-          title: "معمارية تكامل مؤسسية",
-          image: "/images/integration-cabling.jpg",
-          summary:
-            "معمارية مستهدفة لربط منصات أعمال متفرقة عبر واجهات وأحداث وحدود بيانات وملكية تشغيلية محكومة.",
-          challenge:
-            "مؤسسة نامية تعتمد على أنظمة متعددة تتحرك بسرعات مختلفة، مع ضعف في رؤية ملكية البيانات ومخاطر التكامل.",
-          structure: [
-            "خريطة قدرات مرتبطة بنطاقات الأعمال",
-            "حدود واجهات وأحداث مع قواعد ملكية",
-            "حوكمة تكامل ومراقبة وتحكم بالإصدارات",
-          ],
-          value:
-            "أساس تقني يجعل العمل بين المنصات أكثر قابلية للتوقع لدى القيادة وفرق التسليم.",
-        },
-        {
-          label: "العمليات والأتمتة",
+          label: "دراسة نظام مجهولة الهوية",
           title: "عمليات ذكية وأتمتة",
           image: "/images/automation-control-panel.jpg",
           summary:
-            "معمارية مسار عمل تقلل العمل اليدوي المتكرر مع الحفاظ على التحكم البشري، ومعالجة الاستثناءات، وقابلية التدقيق.",
+            "كان فريق يفقد ساعات بسبب تسليمات يدوية متكررة عبر أدوات منفصلة، من دون رؤية واضحة لمواضع تعطل العمل.",
           challenge:
-            "تقضي فرق التشغيل انتباهها في قرارات وتسليمات وفحوص متكررة تخفي المخاطر وتبطئ الأعمال.",
+            "كان فريق يفقد ساعات بسبب تسليمات يدوية متكررة عبر أدوات منفصلة، من دون رؤية واضحة لمواضع تعطل العمل.",
           structure: [
-            "جرد مسارات العمل مع نقاط التحكم والاستثناء",
-            "أنماط أتمتة متصلة بالقياس",
-            "دوائر مراجعة بشرية للقرارات الحساسة",
+            "رسم مسار العمل الفعلي ونقاط الاحتكاك.",
+            "تصميم أتمتة ذكاء اصطناعي تتولى الخطوات المتكررة وتوجه الاستثناءات إلى البشر.",
+            "دمجها في الأدوات الحالية مع المراقبة والتحكم.",
           ],
           value:
-            "إيقاع تشغيلي أكثر هدوءا حيث تزيل الأتمتة التكرار من دون إزالة المسؤولية.",
-        },
-        {
-          label: "منصة تشغيل ذكاء اصطناعي",
-          title: "منصة تشغيل مدعومة بالذكاء الاصطناعي",
-          image: "/images/compute-cooling.jpg",
-          summary:
-            "طبقة ذكاء اصطناعي محكومة تربط النماذج، ومصادر المعرفة، والصلاحيات، والتقييم، والتصعيد داخل مسارات عمل نافعة.",
-          challenge:
-            "تريد المؤسسة قدرة ذكاء اصطناعي، لكن العمل المفيد يعتمد على جودة البيانات، والتحكم بالوصول، والتقييم، والتكامل مع الأنظمة الحالية.",
-          structure: [
-            "استرجاع وصلاحيات وتوجيه نماذج",
-            "أدوات تقييم ومراجعة أداء",
-            "مسارات تصعيد مرتبطة بفرق بشرية",
-          ],
-          value:
-            "يصبح الذكاء الاصطناعي جزءا من منصة التشغيل، مع مسؤولية وقياس ومساحة للتحسن.",
+            "عمل يدوي أقل، وتعطلات أقل، وأتمتة مصممة حسب الطريقة التي يعمل بها الفريق بالفعل.",
         },
       ],
     },
     why: {
-      title: "لماذا يستعين العملاء الجادون بخالد.",
+      title: "لماذا تعمل معي.",
       lead:
-        "القيمة ليست في كتابة الكود أو رسم المعمارية فقط. بل في معرفة البنية المهمة قبل أن يتجمد المال والوقت حول خيار خاطئ.",
+        "العملاء الجادون يحتاجون أتمتة ذكاء اصطناعي تبدأ من المشكلة الحقيقية وتبقى عاملة بعد إطلاقها.",
       principles: [
         {
-          title: "وضوح الأعمال أولا",
-          body:
-            "الخيارات التقنية مرتبطة بضغط الأعمال، وواقع التشغيل، وقرارات القيادة.",
+          title: "المشكلة أولا",
+          body: "نبدأ من مشكلتك الحالية، لا من قائمة مزايا.",
         },
         {
-          title: "معمارية قابلة للتشغيل",
-          body:
-            "كل رسم يحاكم بقدرة الفرق على بنائه وتشغيله وتأمينه وتغييره.",
+          title: "مصممة لك",
+          body: "كل أتمتة مخصصة لأدواتك وتفضيلاتك.",
         },
         {
-          title: "تعامل دقيق مع الأعمال السرية",
-          body:
-            "يمكن مناقشة الأنظمة الحساسة عبر الأنماط، والتجريدات، ومنطق القرار من دون كشف التفاصيل الخاصة.",
+          title: "تطلق وتعمل",
+          body: "تُحكم بقيمتها عندما تعمل في الواقع، يوما بعد يوم.",
         },
         {
           title: "تنفيذ هادئ",
-          body:
-            "يفضل العمل التسلسل الواضح، والمفاضلات المرئية، ومفاجآت أقل أثناء التنفيذ.",
+          body: "خطوات واضحة، ومفاضلات مرئية، ومفاجآت أقل.",
         },
       ],
     },
     insights: {
       title: "ملاحظات تشغيلية.",
       lead:
-        "مواقف قصيرة حول القرارات التي تشكل الأنظمة المتينة.",
+        "المبادئ التي تجعل أتمتة الذكاء الاصطناعي مناسبة للعمل بدلا من إضافة احتكاك جديد.",
       items: [
         {
-          title: "المعمارية أداة أعمال",
+          title: "يجب أن يزيل الذكاء الاصطناعي الاحتكاك، لا أن يضيفه.",
           body:
-            "يجب أن تكشف المعمارية تسلسل الاستثمار، ومخاطر التشغيل، والملكية، وتكلفة التأخير.",
+            "إذا كانت الأتمتة تحتاج متابعة أكثر من العملية اليدوية، فهي خاطئة.",
         },
         {
-          title: "الذكاء الاصطناعي يحتاج غرفة تحكم",
+          title: "التخصيص هو الفكرة.",
           body:
-            "تعتمد أنظمة الذكاء الاصطناعي النافعة على الصلاحيات، والتقييم، والتصعيد البشري، ومكان داخل مسار العمل.",
+            "أفضل أتمتة تناسب طريقة عملك، لا العكس.",
         },
         {
-          title: "التكامل هو المكان الذي تصبح فيه الاستراتيجية واقعا",
+          title: "الذكاء الاصطناعي يحتاج غرفة تحكم.",
           body:
-            "كل واجهة تكشف قرارا عن البيانات، والمسؤولية، والتوقيت، والثقة.",
+            "صلاحيات، وتقييم، وتصعيد بشري، ومكان حقيقي داخل مسار العمل.",
+        },
+        {
+          title: "التكامل هو المكان الذي تصبح فيه النية واقعا.",
+          body:
+            "كل اتصال هو قرار حول البيانات، والمسؤولية، والثقة.",
         },
       ],
     },
     contact: {
-      title: "اجعل النظام الصعب واضحا.",
+      title: "ابدأ المحادثة.",
       lead:
-        "لمراجعات المعمارية، وقرارات المنصات، واستراتيجية التكامل، وبرامج الأتمتة، أو طبقات تشغيل الذكاء الاصطناعي، ابدأ بالمشكلة التي أصبحت أهم من أن تبقى غامضة.",
-      email: "hello@khalidbamarouf.com",
-      subject: "استفسار مشروع لـ Khalid Bamarouf",
+        "اجلب مشكلة مسار العمل، أو التسليم، أو الأداة، أو المنتج التي تحتاج أن تعمل بصورة أفضل. تبدأ المحادثة مما يحدث الآن وما يجب أن يحله الذكاء الاصطناعي.",
+      email: "kbamarouf@gmail.com",
+      subject: "محادثة أتمتة ذكاء اصطناعي مع Khalid Bamarouf",
       whatsappLabel: "واتساب",
       emailLabel: "البريد الإلكتروني",
-      button: "إرسال استفسار مشروع",
+      button: "ابدأ المحادثة",
       channels: [
         {
-          label: "البريد",
-          value: "hello@khalidbamarouf.com",
-          href: "mailto:hello@khalidbamarouf.com",
-        },
-        {
-          label: "تواصل مباشر",
-          value: "استفسار معمارية وأنظمة",
-          href: "mailto:hello@khalidbamarouf.com?subject=Systems%20architecture%20inquiry",
-        },
-        {
-          label: "الموقع",
-          value: "المملكة العربية السعودية، متاح لمهام عن بعد",
-        },
-      ],
-      fields: [
-        {
-          label: "الاسم",
-          name: "name",
-          type: "text",
-          placeholder: "اسمك",
+          label: "واتساب",
+          value: "+966596969687",
+          href: "https://wa.me/966596969687",
         },
         {
           label: "البريد الإلكتروني",
-          name: "email",
-          type: "email",
-          placeholder: "you@company.com",
-        },
-        {
-          label: "تحدي النظام",
-          name: "challenge",
-          type: "textarea",
-          placeholder: "ما النظام أو المنصة أو التكامل أو الأتمتة أو قرار الذكاء الاصطناعي الذي يحتاج وضوحا؟",
-        },
-        {
-          label: "ما الذي يجب أن يكون صحيحا بعد ستة أشهر؟",
-          name: "outcome",
-          type: "textarea",
-          placeholder: "صف النتيجة التشغيلية أو التجارية المهمة.",
+          value: "kbamarouf@gmail.com",
+          href: "mailto:kbamarouf@gmail.com",
         },
       ],
+      fields: [],
     },
     footer: {
-      statement: "معمارية أنظمة، هندسة خلفية، أتمتة، ذكاء اصطناعي، سحابة، واجهات، وتكامل.",
+      statement:
+        "أتمتة بالذكاء الاصطناعي، تطبيقات ذكاء اصطناعي مخصصة، وكلاء، هندسة خلفية، سحابة، واجهات، وتكامل.",
     },
   },
 };

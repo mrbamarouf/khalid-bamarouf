@@ -6,15 +6,15 @@ brand
 
 ## Audience
 
-The primary audience is senior business and technical decision-makers evaluating Khalid Bamarouf for difficult systems work: enterprise architecture, backend engineering, automation, AI operating layers, cloud infrastructure, API design, integration, and technical consulting.
+The primary audience is business and technical decision-makers evaluating Khalid Bamarouf for AI automation work: custom AI apps, AI agents, workflow automation, backend engineering, cloud infrastructure, API design, integration, and supporting enterprise architecture.
 
-Visitors should feel that Khalid can bring order to complex technical pressure. The experience must be quiet, serious, and conversion-focused without becoming a generic consultancy page.
+Visitors should feel that Khalid can solve the problems they are facing right now with AI automation that fits their workflow, tools, and preferences. The experience must be quiet, serious, and conversion-focused without becoming a generic consultancy page.
 
 ## Purpose
 
-The experience positions Khalid as a systems architect who can clarify, design, and engineer complex platforms. It must help a serious client think: this is the person to call when the system is too important to remain unclear.
+The experience positions Khalid as an AI Automation Engineer & Builder who can clarify, design, build, integrate, and evolve custom AI automations. It must help a serious client think: this is the person to call when current work is too slow, manual, fragmented, or hard to operate.
 
-The page presents capabilities, operating principles, conceptual system studies, and a direct project inquiry path. The studies communicate method and judgment while keeping sensitive work appropriately abstract.
+The page presents capabilities, operating principles, an anonymized system study, and a direct conversation path. The study communicates method and judgment while keeping sensitive work appropriately abstract.
 
 ## Brand Personality
 
@@ -33,7 +33,7 @@ The voice should be confident and specific. It explains architecture as business
 
 ## Conversion Goals
 
-- Encourage serious architecture and systems inquiries.
+- Encourage serious AI automation conversations.
 - Make the scope of expertise immediately legible.
 - Communicate trust without relying on public client names.
 - Give visitors a clear path to start a conversation.

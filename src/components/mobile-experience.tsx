@@ -7,7 +7,7 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import {
   getMailtoHref,
   getWhatsAppHref,
-  temporaryContactConfig,
+  contactConfig,
 } from "@/content/contact-config";
 import {
   siteContent,
@@ -542,16 +542,16 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
               alt=""
               fill
               sizes="(max-width: 960px) and (max-height: 520px) 720px, (max-width: 860px) calc(100vw - 32px), 0vw"
-              src="/images/architectural-hallway.jpg"
+              src="/images/automation-control-panel.jpg"
             />
           </motion.figure>
           <motion.div className={styles.aboutBody} {...reveal}>
             <p>{renderCopy(content.positioning.body)}</p>
-            <ul>
+            <div className={styles.aboutParagraphs}>
               {content.positioning.notes.map((note) => (
-                <li key={note}>{renderCopy(note)}</li>
+                <p key={note}>{renderCopy(note)}</p>
               ))}
-            </ul>
+            </div>
           </motion.div>
         </section>
 
@@ -672,12 +672,12 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
           <motion.div className={styles.contactActions} {...reveal}>
             <a href={getWhatsAppHref()} rel="noreferrer" target="_blank">
               <span>{content.contact.whatsappLabel}</span>
-              <strong>{temporaryContactConfig.whatsapp.display}</strong>
+              <strong>{contactConfig.whatsapp.display}</strong>
               <i aria-hidden="true">↗</i>
             </a>
             <a href={getMailtoHref(content.contact.subject)}>
               <span>{content.contact.emailLabel}</span>
-              <strong>{temporaryContactConfig.email.address}</strong>
+              <strong>{contactConfig.email.address}</strong>
               <i aria-hidden="true">↗</i>
             </a>
           </motion.div>

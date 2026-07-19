@@ -8,6 +8,7 @@ import {
   Sora,
 } from "next/font/google";
 import { IntroExperience } from "@/components/intro-experience";
+import { contactConfig, getWhatsAppHref } from "@/content/contact-config";
 import "./globals.css";
 
 const introDecisionScript = `
@@ -58,18 +59,64 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.khaledbamarouf.com"),
   title: {
-    default: "Khalid Bamarouf | Systems Architect",
+    default: "Khalid Bamarouf | AI Automation Engineer & Builder",
     template: "%s | Khalid Bamarouf",
   },
   description:
-    "Systems architecture, backend engineering, automation, AI operating layers, cloud infrastructure, APIs, and integration for serious technical decisions.",
+    "Custom AI apps and automations built around the client's actual workflow, tools, preferences, and current operating problems.",
   openGraph: {
-    title: "Khalid Bamarouf | Systems Architect",
+    title: "Khalid Bamarouf | AI Automation Engineer & Builder",
     description:
-      "Complex systems clearly engineered through enterprise architecture, backend platforms, automation, AI, cloud, APIs, and integration.",
+      "AI automations that solve the problems clients have right now and make daily work run better.",
+    url: "https://www.khaledbamarouf.com",
+    siteName: "Khalid Bamarouf",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Khalid Bamarouf | AI Automation Engineer & Builder",
+    description:
+      "Custom AI apps and automations shaped around real workflows, tools, preferences, and current operating problems.",
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      ar: "/ar",
+    },
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Khalid Bamarouf",
+  jobTitle: "AI Automation Engineer & Builder",
+  url: "https://www.khaledbamarouf.com",
+  email: contactConfig.email.address,
+  telephone: contactConfig.whatsapp.display,
+  sameAs: ["https://bamaroufstudio.com"],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      telephone: contactConfig.whatsapp.display,
+      url: getWhatsAppHref(),
+      email: contactConfig.email.address,
+    },
+  ],
+  knowsAbout: [
+    "AI automation",
+    "Custom AI apps",
+    "AI agents",
+    "Workflow automation",
+    "Backend engineering",
+    "API integration",
+    "Cloud infrastructure",
+    "Enterprise architecture",
+  ],
 };
 
 export default function RootLayout({
@@ -87,6 +134,11 @@ export default function RootLayout({
       <body className="min-h-full">
         <IntroExperience />
         {children}
+        <Script
+          id="kb-structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <Script id="kb-intro-decision" strategy="beforeInteractive">
           {introDecisionScript}
         </Script>

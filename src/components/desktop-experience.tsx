@@ -12,7 +12,7 @@ import {
 import {
   getMailtoHref,
   getWhatsAppHref,
-  temporaryContactConfig,
+  contactConfig,
 } from "@/content/contact-config";
 import {
   siteContent,
@@ -416,19 +416,21 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
             </div>
           </motion.div>
 
-          <motion.div
-            className="hero__metrics content-protected"
-            initial={{ opacity: 0.001, y: 34 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...revealTransition, delay: 0.25 }}
-          >
-            {content.hero.metrics.map((metric) => (
-              <div key={metric.label}>
-                <span>{metric.label}</span>
-                <strong>{metric.value}</strong>
-              </div>
-            ))}
-          </motion.div>
+          {content.hero.metrics.length > 0 ? (
+            <motion.div
+              className="hero__metrics content-protected"
+              initial={{ opacity: 0.001, y: 34 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...revealTransition, delay: 0.25 }}
+            >
+              {content.hero.metrics.map((metric) => (
+                <div key={metric.label}>
+                  <span>{metric.label}</span>
+                  <strong>{metric.value}</strong>
+                </div>
+              ))}
+            </motion.div>
+          ) : null}
         </section>
 
         <section className="positioning chapter" id="positioning" aria-labelledby="positioning-title">
@@ -439,11 +441,11 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
           <motion.div className="positioning__body content-protected" {...getReveal(42, oppositeDirection(content.direction), "x")}>
             <p className="positioning__lead">{renderCopy(content.positioning.lead)}</p>
             <p>{renderCopy(content.positioning.body)}</p>
-            <ul>
+            <div className="positioning__paragraphs">
               {content.positioning.notes.map((note) => (
-                <li key={note}>{renderCopy(note)}</li>
+                <p key={note}>{renderCopy(note)}</p>
               ))}
-            </ul>
+            </div>
           </motion.div>
         </section>
 
@@ -584,7 +586,7 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
               alt=""
               fill
               sizes="100vw"
-              src="/images/architectural-hallway.jpg"
+              src="/images/automation-control-panel.jpg"
             />
           </div>
           <div className="contact__shade decorative-layer" aria-hidden="true" />
@@ -605,11 +607,11 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
           >
             <a href={getWhatsAppHref()} target="_blank" rel="noreferrer">
               <span>{content.contact.whatsappLabel}</span>
-              <strong>{temporaryContactConfig.whatsapp.display}</strong>
+              <strong>{contactConfig.whatsapp.display}</strong>
             </a>
             <a href={getMailtoHref(content.contact.subject)}>
               <span>{content.contact.emailLabel}</span>
-              <strong>{temporaryContactConfig.email.address}</strong>
+              <strong>{contactConfig.email.address}</strong>
             </a>
           </motion.div>
         </section>

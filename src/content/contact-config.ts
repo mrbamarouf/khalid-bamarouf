@@ -1,19 +1,19 @@
-export const temporaryContactConfig = {
+export const contactConfig = {
   whatsapp: {
-    number: "966500000000",
-    display: "+966 50 000 0000",
+    number: "966596969687",
+    display: "+966596969687",
   },
   email: {
-    address: "hello@khalidbamarouf.com",
+    address: "kbamarouf@gmail.com",
   },
 } as const;
 
 export function getWhatsAppHref() {
-  return `https://wa.me/${temporaryContactConfig.whatsapp.number}`;
+  return `https://wa.me/${contactConfig.whatsapp.number}`;
 }
 
 export function getMailtoHref(subject?: string) {
   const suffix = subject ? `?subject=${encodeURIComponent(subject)}` : "";
 
-  return `mailto:${temporaryContactConfig.email.address}${suffix}`;
+  return `mailto:${contactConfig.email.address}${suffix}`;
 }

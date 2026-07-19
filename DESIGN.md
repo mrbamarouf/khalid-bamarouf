@@ -2,7 +2,7 @@
 
 ## Direction
 
-This is a collectible desktop experience for systems architecture. It should feel closer to an architectural exhibition than to a conventional website.
+This is a collectible desktop experience for AI automation engineering. It should feel closer to a private technical operating room than to a conventional website.
 
 The visual language combines infrastructure, control rooms, enterprise systems, and restrained architectural luxury. It should be quiet, confident, timeless, and precise.
 
@@ -29,7 +29,7 @@ Use a high-contrast display serif for monumental statements and Sora for technic
 
 ## Imagery
 
-Imagery must show real infrastructure and architectural atmosphere: enterprise data center, cooling and compute hardware, network cabling, automation controls, and cinematic architecture. All images are local and documented in `IMAGE-SOURCES.md`.
+Imagery must show real infrastructure and intelligent operations: enterprise data center, cooling and compute hardware, network cabling, automation controls, APIs, integration flows, and controlled technical environments. All images are local and documented in `IMAGE-SOURCES.md`.
 
 ## Layout
 

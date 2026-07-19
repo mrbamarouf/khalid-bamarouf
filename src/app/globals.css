@@ -872,6 +872,17 @@ html[data-kb-intro="play"] .kb-intro {
   line-height: 1.38 !important;
 }
 
+.positioning__paragraphs {
+  display: grid;
+  gap: 18px;
+}
+
+.positioning__paragraphs p {
+  color: rgba(238, 233, 220, 0.68);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
 .positioning__body ul,
 .study-panel ul {
   display: grid;
@@ -2293,13 +2304,13 @@ html[data-kb-intro="play"] .kb-intro {
 }
 
 .is-rtl .contact-form input[type="email"],
-.is-rtl .contact-channels a[href="mailto:hello@khalidbamarouf.com"] {
+.is-rtl .contact-channels a[href="mailto:kbamarouf@gmail.com"] {
   direction: ltr;
   text-align: left;
   unicode-bidi: plaintext;
 }
 
-.is-rtl .contact-channels a[href^="mailto"]:not([href="mailto:hello@khalidbamarouf.com"]) {
+.is-rtl .contact-channels a[href^="mailto"]:not([href="mailto:kbamarouf@gmail.com"]) {
   direction: rtl;
   text-align: right;
   unicode-bidi: plaintext;

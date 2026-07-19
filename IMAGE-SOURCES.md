@@ -20,10 +20,6 @@ All production imagery is stored locally in `public/images/`. Remote image hotli
   Raymond Sime, Unsplash: https://unsplash.com/photos/an-open-electrical-control-panel-with-numerous-wires-and-components-dtbSMLkwVCI  
   License: https://unsplash.com/license
 
-- `public/images/architectural-hallway.jpg`  
-  Johnny Ho, Unsplash: https://unsplash.com/photos/concrete-hallway-with-dramatic-light-and-shadow-Nmr7gGlfOXg  
-  License: https://unsplash.com/license
-
 ## Brand
 
 - `public/brand/khalid-bamarouf-logo-transparent.png` is derived from `brand-assets/khalid-bamarouf-logo.png` by removing the dark background while preserving the original mark.

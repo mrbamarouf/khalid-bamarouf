@@ -1,8 +1,8 @@
-# Khalid Bamarouf Systems Experience
+# Khalid Bamarouf AI Automation Experience
 
-A desktop-led digital experience for Khalid Bamarouf, positioned around systems architecture, backend engineering, automation, AI operating layers, cloud infrastructure, APIs, and integration.
+A desktop-led digital experience for Khalid Bamarouf, positioned around AI automation, custom AI apps, agents, backend engineering, cloud infrastructure, APIs, and integration.
 
-The project uses Next.js, TypeScript, Tailwind CSS, and Framer Motion. Content lives in `src/content/site-content.ts` so English, Arabic, navigation, contact channels, and project inquiry fields can be edited from one place.
+The project uses Next.js, TypeScript, Tailwind CSS, and Framer Motion. Content lives in `src/content/site-content.ts`, with WhatsApp and email stored in `src/content/contact-config.ts` so English, Arabic, navigation, and contact details can be edited from one place.
 
 ## Getting Started
 
