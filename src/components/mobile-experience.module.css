@@ -31,7 +31,7 @@
     --m-type-header-name: clamp(10px, 3vw, 12px);
     --m-type-header-role: clamp(7px, 2.15vw, 9px);
     --m-type-label: clamp(9px, 2.65vw, 11px);
-    --m-type-hero: clamp(37px, 11.3vw, 49px);
+    --m-type-hero: clamp(28px, 8.9vw, 38px);
     --m-type-section: clamp(30px, 8.9vw, 39px);
     --m-type-lead: clamp(16px, 4.55vw, 18px);
     --m-type-body: clamp(14px, 4vw, 16px);
@@ -39,7 +39,7 @@
     --m-type-title: clamp(16px, 4.8vw, 20px);
     --m-type-button: clamp(11px, 3.1vw, 13px);
     --m-type-contact: clamp(14px, 4.1vw, 17px);
-    --m-leading-hero: 1.04;
+    --m-leading-hero: 1.08;
     --m-leading-section: 1.12;
     --m-leading-lead: 1.64;
     --m-leading-body: 1.72;
@@ -58,13 +58,13 @@
   }
 
   .shell[data-locale="ar"] {
-    --m-type-hero: clamp(34px, 10.2vw, 44px);
+    --m-type-hero: clamp(28px, 8.35vw, 36px);
     --m-type-section: clamp(29px, 8.4vw, 37px);
     --m-type-lead: clamp(16px, 4.6vw, 19px);
     --m-type-body: clamp(15px, 4.15vw, 17px);
     --m-type-support: clamp(13px, 3.6vw, 15px);
     --m-type-title: clamp(17px, 4.9vw, 21px);
-    --m-leading-hero: 1.26;
+    --m-leading-hero: 1.28;
     --m-leading-section: 1.35;
     --m-leading-lead: 1.9;
     --m-leading-body: 1.92;
@@ -204,7 +204,7 @@
     z-index: 90;
     inset-block-start: 0;
     width: 100%;
-    min-height: calc(76px + env(safe-area-inset-top));
+    min-height: calc(64px + env(safe-area-inset-top));
     border-block-end: 1px solid rgba(238, 233, 220, 0.09);
     background: rgba(4, 6, 4, 0.94);
     backdrop-filter: blur(14px) saturate(112%);
@@ -213,18 +213,18 @@
   .headerInner {
     position: relative;
     width: min(100%, var(--m-content));
-    min-height: calc(76px + env(safe-area-inset-top));
+    min-height: calc(64px + env(safe-area-inset-top));
     margin-inline: auto;
-    padding: max(8px, env(safe-area-inset-top)) var(--m-gutter) 7px;
+    padding: max(6px, env(safe-area-inset-top)) var(--m-gutter) 3px;
   }
 
   .identity {
     display: grid;
     width: 100%;
     min-width: 0;
-    min-height: 60px;
-    grid-template-columns: 36px minmax(0, 1fr);
-    grid-template-rows: 36px 18px;
+    min-height: 52px;
+    grid-template-columns: 32px minmax(0, 1fr);
+    grid-template-rows: 31px 15px;
     align-items: center;
     gap: 0 9px;
     color: var(--m-paper);
@@ -233,8 +233,8 @@
   .identity img {
     grid-column: 1;
     grid-row: 1;
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
     transform: scale(1.72);
     transform-origin: center;
@@ -267,7 +267,7 @@
     grid-column: 1 / -1;
     grid-row: 2;
     color: var(--m-muted);
-    font-size: max(8px, var(--m-type-header-role));
+    font-size: clamp(7px, 1.95vw, 8px);
     font-weight: 500;
     line-height: 1.25;
     white-space: nowrap;
@@ -275,7 +275,7 @@
 
   .headerControls {
     position: absolute;
-    inset-block-start: max(8px, env(safe-area-inset-top));
+    inset-block-start: max(6px, env(safe-area-inset-top));
     inset-inline-end: var(--m-gutter);
     display: inline-flex;
     align-items: center;
@@ -460,8 +460,8 @@
     display: grid;
     width: min(100%, var(--m-content));
     margin-inline: auto;
-    padding: clamp(40px, 11vw, 58px) var(--m-gutter) 34px;
-    gap: 18px;
+    padding: clamp(20px, 6vw, 28px) var(--m-gutter) clamp(18px, 5vw, 24px);
+    gap: 11px;
   }
 
   .heroLabel,
@@ -490,50 +490,50 @@
   }
 
   .hero h1 {
-    max-width: 12ch;
+    max-width: 100%;
     font-size: var(--m-type-hero);
     line-height: var(--m-leading-hero);
+    text-wrap: balance;
   }
 
   .shell[data-locale="ar"] .hero h1 {
-    max-width: 13ch;
+    max-width: 100%;
+    text-align: right;
   }
 
   .heroLead {
-    display: grid;
-    max-width: 43ch;
-    gap: 10px;
-  }
-
-  .heroLead p:first-child {
+    max-width: 39ch;
     color: rgba(238, 233, 220, 0.94);
-    font-size: var(--m-type-lead);
-    line-height: var(--m-leading-lead);
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 1.58;
+    text-wrap: pretty;
   }
 
-  .heroLead p:not(:first-child) {
-    color: var(--m-muted);
-    font-size: var(--m-type-support);
-    line-height: var(--m-leading-support);
+  .heroClose {
+    display: grid;
+    width: min(100%, var(--m-content));
+    margin-inline: auto;
+    padding: 16px var(--m-gutter) 30px;
+    gap: 16px;
   }
 
   .heroActions {
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
-    margin-block-start: 4px;
   }
 
   .primaryAction,
   .secondaryAction {
     display: flex;
-    min-height: 54px;
-    padding: 11px 15px;
+    height: 48px;
+    min-height: 48px;
+    padding: 9px 12px;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 9px;
     border-radius: 4px;
-    font-size: var(--m-type-button);
+    font-size: clamp(9.5px, 2.8vw, 11px);
     font-weight: 650;
     line-height: 1.4;
   }
@@ -547,26 +547,39 @@
   .secondaryAction {
     border: 1px solid rgba(238, 233, 220, 0.18);
     color: var(--m-paper);
+    font-size: clamp(9px, 2.65vw, 10px);
   }
 
-  .primaryAction i,
-  .secondaryAction i {
+  .primaryAction span,
+  .secondaryAction span {
+    white-space: nowrap;
+  }
+
+  .primaryAction svg,
+  .secondaryAction svg {
+    width: 16px;
+    height: 16px;
     flex: 0 0 auto;
-    color: inherit;
-    font-size: 15px;
-    font-style: normal;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    stroke-width: 1.35;
   }
 
-  .shell[data-locale="ar"] .primaryAction i,
-  .shell[data-locale="ar"] .secondaryAction i {
-    transform: scaleX(-1);
+  .heroContinuation {
+    max-width: 47ch;
+    padding-block-start: 14px;
+    border-block-start: 1px solid var(--m-line);
+    color: var(--m-muted);
+    font-size: var(--m-type-support);
+    line-height: var(--m-leading-support);
   }
 
   .heroSystem {
     position: relative;
-    display: grid;
     width: 100%;
-    min-height: clamp(430px, 124vw, 540px);
+    min-height: clamp(310px, 86vw, 372px);
     overflow: hidden;
     background: #060906;
     isolation: isolate;
@@ -582,11 +595,13 @@
   }
 
   .heroSystem::before {
-    background: linear-gradient(180deg, #040604 0%, transparent 18%, transparent 64%, #040604 100%);
+    background: linear-gradient(180deg, #040604 0%, transparent 17%, transparent 72%, #040604 100%);
   }
 
   .heroSystem::after {
-    background: radial-gradient(circle at 50% 46%, transparent 0 18%, rgba(4, 6, 4, 0.34) 64%, rgba(4, 6, 4, 0.82) 100%);
+    background:
+      radial-gradient(circle at 50% 48%, transparent 0 16%, rgba(4, 6, 4, 0.16) 43%, rgba(4, 6, 4, 0.72) 100%),
+      linear-gradient(90deg, rgba(4, 6, 4, 0.66), transparent 28% 72%, rgba(4, 6, 4, 0.66));
   }
 
   .heroSystemImage {
@@ -596,90 +611,305 @@
 
   .heroSystemImage img {
     object-fit: cover;
-    object-position: 58% center;
-    filter: brightness(0.48) contrast(1.12) saturate(0.72);
+    object-position: 57% center;
+    filter: brightness(0.38) contrast(1.16) saturate(0.7);
   }
 
   .systemCoreMap {
-    position: relative;
+    position: absolute;
     z-index: 3;
     display: grid;
-    width: min(calc(100% - (var(--m-gutter) * 2)), 430px);
-    margin: auto;
-    padding: 18px;
-    gap: 18px;
-    border-block: 1px solid rgba(200, 169, 106, 0.28);
-    background: rgba(5, 9, 6, 0.78);
+    inset: 13px max(10px, var(--m-gutter)) 38px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    border-block: 1px solid rgba(200, 169, 106, 0.23);
+    background: rgba(5, 9, 6, 0.54);
+    backdrop-filter: blur(2px);
+  }
+
+  .systemTelemetry,
+  .systemCommand {
+    display: flex;
+    min-height: 32px;
+    padding-inline: 9px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: rgba(238, 233, 220, 0.56);
+    font-family: var(--font-mono);
+    font-size: clamp(6px, 1.9vw, 8px);
+    white-space: nowrap;
+  }
+
+  .systemTelemetry {
+    border-block-end: 1px solid rgba(238, 233, 220, 0.08);
+  }
+
+  .systemTelemetry strong,
+  .systemCommand strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #a7cbaa;
+    font-size: inherit;
+    font-weight: 550;
+  }
+
+  .systemTelemetry strong i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--m-green);
+    box-shadow: 0 0 7px rgba(116, 164, 125, 0.78);
+    animation: systemNodePulse 2.4s ease-in-out infinite;
+  }
+
+  .systemTopology {
+    position: relative;
+    min-height: 224px;
+    overflow: hidden;
+  }
+
+  .systemPaths {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .systemPaths path {
+    fill: none;
+    stroke: rgba(200, 169, 106, 0.42);
+    stroke-dasharray: 3 7;
+    stroke-linecap: square;
+    stroke-width: 0.8;
+    vector-effect: non-scaling-stroke;
+    animation: systemPathFlow 5.4s linear infinite;
+  }
+
+  .systemPaths path:nth-child(even) {
+    stroke: rgba(116, 164, 125, 0.42);
+    animation-direction: reverse;
+  }
+
+  .systemCodeLayer {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    color: rgba(116, 164, 125, 0.22);
+    font-family: var(--font-mono);
+    font-size: clamp(5px, 1.5vw, 7px);
+    pointer-events: none;
+  }
+
+  .systemCodeLayer code {
+    position: absolute;
+    white-space: nowrap;
+    animation: systemCodeDrift 7s ease-in-out infinite;
+  }
+
+  .systemCodeLayer code:nth-child(1) {
+    inset-block-start: 17%;
+    inset-inline-start: 29%;
+  }
+
+  .systemCodeLayer code:nth-child(2) {
+    inset-block-start: 36%;
+    inset-inline-end: 25%;
+    animation-delay: -1.8s;
+  }
+
+  .systemCodeLayer code:nth-child(3) {
+    inset-block-end: 29%;
+    inset-inline-start: 23%;
+    animation-delay: -3.6s;
+  }
+
+  .systemCodeLayer code:nth-child(4) {
+    inset-block-end: 12%;
+    inset-inline-end: 21%;
+    animation-delay: -5.2s;
   }
 
   .systemCoreIdentity {
-    display: flex;
+    position: absolute;
+    z-index: 4;
+    inset-block-start: 50%;
+    left: 50%;
+    display: grid;
+    width: clamp(98px, 29vw, 118px);
+    aspect-ratio: 1;
+    padding: 12px 8px 10px;
+    place-items: center;
+    align-content: center;
     align-items: center;
-    gap: 13px;
+    gap: 2px;
+    border: 1px solid rgba(200, 169, 106, 0.42);
+    border-radius: 4px;
+    background: rgba(4, 8, 5, 0.88);
+    box-shadow: inset 0 0 0 1px rgba(238, 233, 220, 0.025);
+    transform: translate(-50%, -50%);
   }
 
   .systemCoreIdentity img {
-    width: 58px;
-    height: 58px;
-    flex: 0 0 58px;
+    width: clamp(45px, 13vw, 54px);
+    height: clamp(45px, 13vw, 54px);
     object-fit: contain;
-    filter: drop-shadow(0 0 18px rgba(200, 169, 106, 0.32));
-    transform: scale(1.62);
+    filter: drop-shadow(0 0 12px rgba(200, 169, 106, 0.34));
+    transform: scale(1.58);
     transform-origin: center;
   }
 
-  .systemCoreIdentity span {
+  .systemCoreIdentity strong {
     color: var(--m-gold-light);
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: clamp(6px, 1.8vw, 8px);
+    font-weight: 550;
   }
 
-  .systemStateList {
-    display: grid;
-    border-block-start: 1px solid rgba(238, 233, 220, 0.1);
+  .systemCoreIdentity small {
+    color: rgba(116, 164, 125, 0.72);
+    font-family: var(--font-mono);
+    font-size: clamp(4px, 1.25vw, 6px);
+    white-space: nowrap;
   }
 
-  .systemStateList > div {
+  .systemCoreIndicator {
+    position: absolute;
+    inset-block-start: 7px;
+    inset-inline-end: 7px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--m-gold-light);
+    box-shadow: 0 0 8px rgba(228, 199, 133, 0.72);
+    animation: systemNodePulse 2.2s ease-in-out infinite;
+  }
+
+  .systemStateOrbit {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+  }
+
+  .systemStateOrbit > div {
     --state-index: 0;
-    display: grid;
-    min-height: 36px;
-    grid-template-columns: auto minmax(14px, 1fr) auto;
-    align-items: center;
-    gap: 9px;
-    border-block-end: 1px solid rgba(238, 233, 220, 0.07);
+    position: absolute;
+    display: flex;
+    width: clamp(70px, 22vw, 94px);
+    min-height: 31px;
+    flex-direction: column;
+    justify-content: center;
     color: rgba(238, 233, 220, 0.66);
     font-family: var(--font-mono);
-    font-size: clamp(7px, 2.1vw, 9px);
+    font-size: clamp(5px, 1.65vw, 7px);
     opacity: 0.58;
-    animation: heroState 6.8s ease-in-out calc(var(--state-index) * 460ms) infinite;
+    animation: heroState 6.4s ease-in-out calc(var(--state-index) * 420ms) infinite;
   }
 
-  .systemStateList i {
+  .systemStateOrbit span,
+  .systemStateOrbit strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .systemStateOrbit strong {
+    margin-block-start: 2px;
+    color: #9dc5a4;
+    font-size: inherit;
+    font-weight: 550;
+  }
+
+  .systemStateOrbit i {
+    position: absolute;
+    inset-block-start: 50%;
+    width: 5px;
+    height: 5px;
+    border: 1px solid var(--m-green);
+    border-radius: 50%;
+    background: #071009;
+    box-shadow: 0 0 7px rgba(116, 164, 125, 0.56);
+    transform: translateY(-50%);
+    animation: systemNodePulse 2.6s ease-in-out calc(var(--state-index) * 300ms) infinite;
+  }
+
+  .systemStateOrbit [data-position="1"] {
+    inset-block-start: 6px;
+    inset-inline-start: 8px;
+    text-align: end;
+  }
+
+  .systemStateOrbit [data-position="2"] {
+    inset-block-start: 76px;
+    inset-inline-start: 0;
+    text-align: end;
+  }
+
+  .systemStateOrbit [data-position="3"] {
+    inset-block-end: 4px;
+    inset-inline-start: 8px;
+    text-align: end;
+  }
+
+  .systemStateOrbit [data-position="4"] {
+    inset-block-start: 6px;
+    inset-inline-end: 8px;
+    text-align: start;
+  }
+
+  .systemStateOrbit [data-position="5"] {
+    inset-block-start: 76px;
+    inset-inline-end: 0;
+    text-align: start;
+  }
+
+  .systemStateOrbit [data-position="6"] {
+    inset-block-end: 4px;
+    inset-inline-end: 8px;
+    text-align: start;
+  }
+
+  .systemStateOrbit [data-position="1"] i,
+  .systemStateOrbit [data-position="2"] i,
+  .systemStateOrbit [data-position="3"] i {
+    inset-inline-end: -9px;
+  }
+
+  .systemStateOrbit [data-position="4"] i,
+  .systemStateOrbit [data-position="5"] i,
+  .systemStateOrbit [data-position="6"] i {
+    inset-inline-start: -9px;
+  }
+
+  .systemCommand {
+    border-block-start: 1px solid rgba(238, 233, 220, 0.08);
+  }
+
+  .systemCommand i {
+    position: relative;
     height: 1px;
+    flex: 1;
     overflow: hidden;
     background: rgba(238, 233, 220, 0.1);
   }
 
-  .systemStateList i::after {
-    display: block;
-    width: 42%;
+  .systemCommand i::after {
+    position: absolute;
+    width: 34%;
     height: 1px;
-    background: var(--m-green);
+    background: var(--m-gold);
     content: "";
     animation: stateTravel 2.8s linear infinite;
-  }
-
-  .systemStateList strong {
-    color: #9dc5a4;
-    font-size: inherit;
-    font-weight: 500;
   }
 
   .heroSystem figcaption {
     position: absolute;
     z-index: 4;
     inset-inline: var(--m-gutter);
-    inset-block-end: 18px;
+    inset-block-end: 11px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -690,11 +920,11 @@
   .heroSystem figcaption span {
     color: var(--m-gold-light);
     font-family: var(--font-mono);
-    font-size: 8px;
+    font-size: clamp(6px, 1.8vw, 8px);
   }
 
   .heroSystem figcaption strong {
-    font-size: var(--m-type-support);
+    font-size: clamp(9px, 2.7vw, 11px);
     font-weight: 550;
     text-align: end;
   }
@@ -1771,12 +2001,12 @@
 @media (max-width: 350px) {
   .shell {
     --m-gutter: 14px;
-    --m-type-hero: 35px;
+    --m-type-hero: 28px;
     --m-type-section: 29px;
   }
 
   .shell[data-locale="ar"] {
-    --m-type-hero: 32px;
+    --m-type-hero: 27px;
     --m-type-section: 28px;
   }
 
@@ -1789,7 +2019,7 @@
   }
 
   .systemCoreMap {
-    padding: 15px;
+    inset-inline: 10px;
   }
 
   .flowTrack span {
@@ -1802,6 +2032,12 @@
 
   .contactActions a > strong {
     font-size: 13px;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 860px) and (orientation: portrait) {
+  .heroActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1890,11 +2126,11 @@
   }
 
   .heroCopy {
-    padding-block: 38px 30px;
+    padding-block: 24px 18px;
   }
 
   .hero h1 {
-    max-width: 16ch;
+    max-width: 24ch;
   }
 
   .heroActions {
@@ -1902,13 +2138,11 @@
   }
 
   .heroSystem {
-    min-height: 420px;
+    min-height: 320px;
   }
 
   .systemCoreMap {
-    width: min(calc(100% - 80px), 560px);
-    grid-template-columns: 150px minmax(0, 1fr);
-    align-items: center;
+    inset-inline: max(28px, env(safe-area-inset-left)) max(28px, env(safe-area-inset-right));
   }
 
   .aboutFlow {
@@ -1946,8 +2180,13 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ambient code,
-  .systemStateList > div,
-  .systemStateList i::after,
+  .systemPaths path,
+  .systemCodeLayer code,
+  .systemCoreIndicator,
+  .systemStateOrbit > div,
+  .systemStateOrbit i,
+  .systemTelemetry strong i,
+  .systemCommand i::after,
   .layerMap i::after,
   .insightPulse i,
   .contactSystem i::after {
@@ -1970,6 +2209,39 @@
   12%,
   32% {
     opacity: 1;
+  }
+}
+
+@keyframes systemNodePulse {
+  0%,
+  100% {
+    opacity: 0.48;
+    box-shadow: 0 0 3px rgba(116, 164, 125, 0.32);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 9px rgba(116, 164, 125, 0.82);
+  }
+}
+
+@keyframes systemPathFlow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@keyframes systemCodeDrift {
+  0%,
+  100% {
+    opacity: 0.16;
+    transform: translateY(3px);
+  }
+
+  45%,
+  65% {
+    opacity: 0.72;
+    transform: translateY(-3px);
   }
 }
 

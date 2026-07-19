@@ -223,46 +223,128 @@ function MobileHeader({
   );
 }
 
-function HeroSystemCore({ content }: { content: SiteContent }) {
-  const states = [
-    ["AGENT", "ONLINE"],
-    ["WORKFLOW", "READY"],
-    ["API", "CONNECTED"],
-    ["AUTOMATION", "ACTIVE"],
-    ["EVALUATION", "PASSED"],
-    ["HUMAN ESCALATION", "READY"],
-    ["MONITORING", "ONLINE"],
-  ];
+function HeroActionIcon({
+  direction,
+  locale,
+}: {
+  direction: "down" | "forward";
+  locale: Locale;
+}) {
+  if (direction === "down") {
+    return (
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20">
+        <path d="M10 3.5v12M5.5 11l4.5 4.5 4.5-4.5" />
+      </svg>
+    );
+  }
 
   return (
-    <motion.figure className={styles.heroSystem} {...reveal}>
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20">
+      <path
+        d={
+          locale === "ar"
+            ? "M15 5 6 14M6 14V6M6 14h8"
+            : "M5 5l9 9M14 14V6M14 14H6"
+        }
+      />
+    </svg>
+  );
+}
+
+function HeroSystemCore({ content }: { content: SiteContent }) {
+  const isArabic = content.locale === "ar";
+  const states = isArabic
+    ? [
+        ["الوكيل", "متصل"],
+        ["مسار العمل", "يعمل"],
+        ["API", "متصل"],
+        ["الأتمتة", "نشطة"],
+        ["التقييم", "ناجح"],
+        ["التصعيد البشري", "جاهز"],
+      ]
+    : [
+        ["AGENT", "ONLINE"],
+        ["WORKFLOW", "RUNNING"],
+        ["API", "CONNECTED"],
+        ["AUTOMATION", "ACTIVE"],
+        ["EVALUATION", "PASSED"],
+        ["HUMAN ESCALATION", "READY"],
+      ];
+
+  return (
+    <motion.figure
+      aria-label={isArabic ? "نظام تحكم حي بالذكاء الاصطناعي" : "Live AI control system"}
+      className={styles.heroSystem}
+      {...reveal}
+    >
       <div className={styles.heroSystemImage}>
         <Image
           alt=""
           fill
-          priority
+          loading="eager"
           sizes="(max-width: 860px) 100vw, (max-width: 960px) and (max-height: 520px) 100vw, 0vw"
           src="/images/ai-operations-headquarters.webp"
         />
       </div>
+
       <div aria-hidden="true" className={styles.systemCoreMap}>
-        <div className={styles.systemCoreIdentity}>
-          <Image alt="" height={64} priority src={logoPath} width={64} />
-          <span>CONTROL CORE</span>
+        <div className={styles.systemTelemetry} dir="ltr">
+          <span>KB.AI / CONTROL</span>
+          <strong>
+            <i />
+            {isArabic ? "SYSTEM READY" : "SYSTEM READY"}
+          </strong>
         </div>
-        <div className={styles.systemStateList}>
-          {states.map(([label, state], index) => (
-            <div key={label} style={{ "--state-index": index } as CSSProperties}>
-              <span>{label}</span>
-              <i />
-              <strong>{state}</strong>
-            </div>
-          ))}
+
+        <div className={styles.systemTopology}>
+          <svg className={styles.systemPaths} preserveAspectRatio="none" viewBox="0 0 360 224">
+            <path d="M180 112C139 112 132 42 74 42" />
+            <path d="M180 112C142 112 126 86 66 86" />
+            <path d="M180 112C141 112 126 182 74 182" />
+            <path d="M180 112C221 112 228 42 286 42" />
+            <path d="M180 112C218 112 234 86 294 86" />
+            <path d="M180 112C219 112 234 182 286 182" />
+          </svg>
+
+          <div className={styles.systemCodeLayer} dir="ltr">
+            <code>agent.evaluate()</code>
+            <code>api.route.ready</code>
+            <code>workflow.execute()</code>
+            <code>human.escalation.ready</code>
+          </div>
+
+          <div className={styles.systemCoreIdentity}>
+            <span className={styles.systemCoreIndicator} />
+            <Image alt="" height={72} priority src={logoPath} width={72} />
+            <strong dir="ltr">CONTROL CORE</strong>
+            <small dir="ltr">automation.status = active</small>
+          </div>
+
+          <div className={styles.systemStateOrbit}>
+            {states.map(([label, state], index) => (
+              <div
+                data-position={index + 1}
+                dir={label === "API" ? "ltr" : content.direction}
+                key={label}
+                style={{ "--state-index": index } as CSSProperties}
+              >
+                <i />
+                <span>{label}</span>
+                <strong>{state}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.systemCommand} dir="ltr">
+          <span>process.queue</span>
+          <i />
+          <strong>READY</strong>
         </div>
       </div>
       <figcaption>
-        <span>{content.expertise.items[0].focus}</span>
-        <strong>{content.expertise.items[0].name}</strong>
+        <span dir="ltr">LIVE CONTROL LAYER</span>
+        <strong>{isArabic ? "الأتمتة نشطة" : "Automation active"}</strong>
       </figcaption>
     </motion.figure>
   );
@@ -270,33 +352,43 @@ function HeroSystemCore({ content }: { content: SiteContent }) {
 
 function MobileHero({ content }: { content: SiteContent }) {
   const heroSentences = splitSentences(content.hero.lead);
+  const headline = heroSentences[0] ?? content.hero.lead;
+  const supportingCopy = heroSentences[1] ?? "";
+  const continuation = heroSentences.slice(2).join(" ");
 
   return (
     <section aria-labelledby="m-hero-title" className={styles.hero} id="m-hero">
       <div className={styles.heroCopy}>
         <motion.span className={styles.heroLabel} {...reveal}>
-          {renderCopy(content.hero.eyebrow)}
+          {renderCopy(content.hero.title)}
         </motion.span>
         <motion.h1 id="m-hero-title" {...reveal}>
-          {content.hero.title}
+          {renderCopy(headline)}
         </motion.h1>
-        <motion.div className={styles.heroLead} {...reveal}>
-          {heroSentences.map((sentence) => (
-            <p key={sentence}>{sentence}</p>
-          ))}
-        </motion.div>
+        <motion.p className={styles.heroLead} {...reveal}>
+          {renderCopy(supportingCopy)}
+        </motion.p>
+      </div>
+
+      <HeroSystemCore content={content} />
+
+      <div className={styles.heroClose}>
         <motion.div className={styles.heroActions} {...reveal}>
           <a className={styles.primaryAction} href="#m-contact">
             <span>{content.hero.primaryCta}</span>
-            <i aria-hidden="true">↘</i>
+            <HeroActionIcon direction="forward" locale={content.locale} />
           </a>
           <a className={styles.secondaryAction} href="#m-expertise">
             <span>{content.hero.secondaryCta}</span>
-            <i aria-hidden="true">↓</i>
+            <HeroActionIcon direction="down" locale={content.locale} />
           </a>
         </motion.div>
+        {continuation ? (
+          <motion.p className={styles.heroContinuation} {...reveal}>
+            {renderCopy(continuation)}
+          </motion.p>
+        ) : null}
       </div>
-      <HeroSystemCore content={content} />
     </section>
   );
 }
