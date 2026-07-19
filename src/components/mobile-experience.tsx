@@ -259,7 +259,7 @@ function MobileHero({ content }: { content: SiteContent }) {
           loading="eager"
           priority
           sizes="(max-width: 960px) 100vw, 0vw"
-          src="/images/enterprise-data-center.jpg"
+          src="/images/ai-operations-headquarters.webp"
         />
         <div aria-hidden="true" className={styles.heroNetwork}>
           <span />

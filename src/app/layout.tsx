@@ -62,13 +62,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.khaledbamarouf.com"),
   title: {
-    default: "Khalid Bamarouf | AI Automation Engineer & Builder",
-    template: "%s | Khalid Bamarouf",
+    default: "Khalid Bamarouf: AI Automation Engineer & Builder",
+    template: "%s: Khalid Bamarouf",
   },
   description:
     "Custom AI apps and automations built around the client's actual workflow, tools, preferences, and current operating problems.",
   openGraph: {
-    title: "Khalid Bamarouf | AI Automation Engineer & Builder",
+    title: "Khalid Bamarouf: AI Automation Engineer & Builder",
     description:
       "AI automations that solve the problems clients have right now and make daily work run better.",
     url: "https://www.khaledbamarouf.com",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Khalid Bamarouf | AI Automation Engineer & Builder",
+    title: "Khalid Bamarouf: AI Automation Engineer & Builder",
     description:
       "Custom AI apps and automations shaped around real workflows, tools, preferences, and current operating problems.",
   },

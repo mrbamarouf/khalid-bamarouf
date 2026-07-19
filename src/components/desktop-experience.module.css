@@ -10,6 +10,27 @@
   --system-gold: #d8b96e;
   --muted-copy: rgba(238, 233, 220, 0.72);
   --dim-copy: rgba(238, 233, 220, 0.56);
+  --type-brand: 14px;
+  --type-eyebrow: 12px;
+  --type-hero: clamp(56px, 3.45vw, 66px);
+  --type-section: clamp(46px, 2.5vw, 48px);
+  --type-feature-title: clamp(28px, 1.56vw, 30px);
+  --type-panel-title: clamp(21px, 1.3vw, 25px);
+  --type-card-title: clamp(17px, 0.94vw, 18px);
+  --type-lead: clamp(16px, 0.9vw, 17px);
+  --type-body: clamp(14px, 0.79vw, 15px);
+  --type-support: clamp(12px, 0.69vw, 13px);
+  --type-meta: 11px;
+  --type-system: 10px;
+  --type-nav: 11px;
+  --type-button: 11px;
+  --type-contact-value: clamp(19px, 1.15vw, 22px);
+  --type-footer: 12px;
+  --leading-hero: 1.04;
+  --leading-section: 1.08;
+  --leading-lead: 1.72;
+  --leading-body: 1.72;
+  --leading-support: 1.62;
   isolation: isolate;
   background:
     radial-gradient(circle at 74% 10%, rgba(38, 90, 55, 0.22), transparent 30rem),
@@ -20,8 +41,26 @@
 }
 
 .shell[dir="rtl"] {
+  --type-hero: clamp(48px, 3.02vw, 58px);
+  --type-section: clamp(42px, 2.3vw, 44px);
+  --type-feature-title: clamp(27px, 1.5vw, 29px);
+  --type-panel-title: clamp(21px, 1.25vw, 24px);
+  --type-card-title: clamp(17px, 0.98vw, 19px);
+  --type-lead: clamp(16px, 0.94vw, 18px);
+  --type-body: clamp(15px, 0.84vw, 16px);
+  --type-support: clamp(13px, 0.74vw, 14px);
+  --leading-hero: 1.18;
+  --leading-section: 1.24;
+  --leading-lead: 1.9;
+  --leading-body: 1.9;
+  --leading-support: 1.78;
   font-family: var(--font-arabic-sans);
   text-align: right;
+}
+
+.shell[dir="rtl"] :where(h1, h2, h3, p, li, a, button, span, strong, small) {
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .shell :where(h1, h2, h3, p) {
@@ -44,11 +83,14 @@
 
 .shell :where(p) {
   color: var(--muted-copy);
-  line-height: 1.72;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .shell[dir="rtl"] :where(p) {
-  line-height: 1.9;
+  line-height: var(--leading-body);
   word-spacing: 0.04em;
 }
 
@@ -95,7 +137,7 @@
   left: calc(7% + var(--i) * 10%);
   color: rgba(103, 208, 138, 0.56);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-meta);
   letter-spacing: 0;
   text-shadow: 0 0 18px rgba(103, 208, 138, 0.34);
   transform: translate3d(0, 0, 0);
@@ -168,7 +210,7 @@
 
 .brandLockup strong {
   color: #fff8e6;
-  font-size: 14px;
+  font-size: var(--type-brand);
   font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -176,7 +218,7 @@
 
 .brandLockup small {
   color: rgba(238, 233, 220, 0.52);
-  font-size: 10px;
+  font-size: var(--type-system);
   line-height: 1.35;
 }
 
@@ -192,7 +234,7 @@
 .navigation a {
   position: relative;
   color: rgba(238, 233, 220, 0.68);
-  font-size: 11px;
+  font-size: var(--type-nav);
   font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -261,7 +303,7 @@
   border: 1px solid rgba(238, 233, 220, 0.12);
   border-radius: 999px;
   color: rgba(238, 233, 220, 0.7);
-  font-size: 11px;
+  font-size: var(--type-nav);
   font-weight: 700;
   letter-spacing: 0;
 }
@@ -335,7 +377,7 @@
 .kicker {
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--type-eyebrow);
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.5;
@@ -349,24 +391,24 @@
 
 .heroCopy h1 {
   margin-top: 26px;
-  font-size: 66px;
-  line-height: 1.04;
+  font-size: var(--type-hero);
+  line-height: var(--leading-hero);
 }
 
 .shell[dir="rtl"] .heroCopy h1 {
-  font-size: 58px;
-  line-height: 1.18;
+  font-size: var(--type-hero);
+  line-height: var(--leading-hero);
 }
 
 .heroLead {
   max-width: 64ch;
   margin-top: 24px;
-  font-size: 16px;
+  font-size: var(--type-lead);
+  line-height: var(--leading-lead);
 }
 
 .shell[dir="rtl"] .heroLead {
   max-width: 58ch;
-  font-size: 16px;
 }
 
 .heroActions {
@@ -390,7 +432,7 @@
   min-height: 54px;
   padding: 0 24px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: var(--type-button);
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -504,7 +546,7 @@
 .systemCore strong {
   color: rgba(216, 185, 110, 0.9);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-system);
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -537,7 +579,7 @@
 .panelHeader strong {
   color: rgba(238, 233, 220, 0.88);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-system);
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -546,7 +588,7 @@
 .panelHeader span {
   color: var(--system-green);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: calc(var(--type-system) - 1px);
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -562,7 +604,7 @@
   align-items: center;
   gap: 9px;
   color: rgba(238, 233, 220, 0.64);
-  font-size: 10px;
+  font-size: var(--type-system);
   line-height: 1.4;
 }
 
@@ -608,7 +650,7 @@
   background: rgba(2, 10, 8, 0.76);
   color: rgba(238, 233, 220, 0.7);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-system);
   letter-spacing: 0;
   text-transform: uppercase;
   transform: translateX(-50%);
@@ -643,16 +685,16 @@
 .aboutCopy h2,
 .whyIntro h2,
 .contactStatement h2 {
-  font-size: 48px;
-  line-height: 1.08;
+  font-size: var(--type-section);
+  line-height: var(--leading-section);
 }
 
 .shell[dir="rtl"] .sectionIntro h2,
 .shell[dir="rtl"] .aboutCopy h2,
 .shell[dir="rtl"] .whyIntro h2,
 .shell[dir="rtl"] .contactStatement h2 {
-  font-size: 44px;
-  line-height: 1.24;
+  font-size: var(--type-section);
+  line-height: var(--leading-section);
 }
 
 .sectionIntro p:last-child,
@@ -660,7 +702,7 @@
 .whyIntro .kicker,
 .contactStatement > p {
   max-width: 66ch;
-  font-size: 15px;
+  font-size: var(--type-body);
 }
 
 .shell[dir="rtl"] .sectionIntro p:last-child,
@@ -730,7 +772,7 @@
 .serviceIndex {
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--type-meta);
   letter-spacing: 0;
 }
 
@@ -745,14 +787,14 @@
   border-radius: 14px;
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-support);
   line-height: 1;
 }
 
 .serviceNode strong {
   align-self: end;
   color: #fff8e6;
-  font-size: 17px;
+  font-size: var(--type-card-title);
   font-weight: 500;
   line-height: 1.32;
   text-align: center;
@@ -761,8 +803,8 @@
 .serviceNode small {
   align-self: start;
   color: rgba(238, 233, 220, 0.62);
-  font-size: 12px;
-  line-height: 1.56;
+  font-size: var(--type-support);
+  line-height: var(--leading-support);
   text-align: center;
 }
 
@@ -789,7 +831,7 @@
 .serviceDetail h3 {
   margin-top: 12px;
   color: #fff8e6;
-  font-size: 28px;
+  font-size: var(--type-feature-title);
   font-weight: 500;
   line-height: 1.18;
 }
@@ -797,7 +839,7 @@
 .serviceDetail p {
   max-width: 68ch;
   margin-top: 13px;
-  font-size: 14px;
+  font-size: var(--type-body);
 }
 
 .signalList,
@@ -821,8 +863,8 @@
   align-items: flex-start;
   gap: 10px;
   color: rgba(238, 233, 220, 0.68);
-  font-size: 13px;
-  line-height: 1.62;
+  font-size: var(--type-support);
+  line-height: var(--leading-support);
 }
 
 .shell[dir="rtl"] .signalList li,
@@ -894,7 +936,8 @@
 
 .aboutLead {
   color: rgba(238, 233, 220, 0.84);
-  font-size: 17px;
+  font-size: var(--type-lead);
+  line-height: var(--leading-lead);
 }
 
 .aboutNotes {
@@ -948,7 +991,7 @@
   background: rgba(4, 12, 10, 0.58);
   color: rgba(238, 233, 220, 0.68);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-meta);
   letter-spacing: 0;
   text-transform: uppercase;
   backdrop-filter: blur(12px);
@@ -957,6 +1000,10 @@
 .problemMap span:last-child {
   grid-column: 1 / -1;
   color: var(--system-gold);
+}
+
+.shell[dir="rtl"] .problemMap span {
+  font-family: var(--font-arabic-sans);
 }
 
 .capabilityDeck {
@@ -991,14 +1038,14 @@
 .capabilityHead > span {
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-support);
   line-height: 1;
 }
 
 .capabilityHead p {
   color: rgba(103, 208, 138, 0.74);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-meta);
   line-height: 1.4;
   text-transform: uppercase;
 }
@@ -1007,7 +1054,7 @@
   max-width: 18ch;
   margin-top: 10px;
   color: #fff8e6;
-  font-size: 25px;
+  font-size: var(--type-panel-title);
   font-weight: 500;
   line-height: 1.2;
 }
@@ -1097,13 +1144,13 @@
 .stepCard span {
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--type-meta);
 }
 
 .stepCard h3 {
   margin-top: 44px;
   color: #fff8e6;
-  font-size: 22px;
+  font-size: var(--type-panel-title);
   font-weight: 500;
   line-height: 1.2;
 }
@@ -1111,8 +1158,8 @@
 .stepCard p {
   margin-top: 13px;
   color: rgba(238, 233, 220, 0.64);
-  font-size: 13px;
-  line-height: 1.68;
+  font-size: var(--type-support);
+  line-height: var(--leading-support);
 }
 
 .stepCard i {
@@ -1190,14 +1237,14 @@
 .studyDetailIntro h3 {
   margin-top: 12px;
   color: #fff8e6;
-  font-size: 30px;
+  font-size: var(--type-feature-title);
   font-weight: 500;
   line-height: 1.18;
 }
 
 .studyDetailIntro p {
   margin-top: 14px;
-  font-size: 14px;
+  font-size: var(--type-body);
 }
 
 .studyInformation {
@@ -1219,7 +1266,7 @@
 .studyInformation span {
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-meta);
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -1231,7 +1278,7 @@
 
 .studyInformation p,
 .structureList li {
-  font-size: 13px;
+  font-size: var(--type-support);
 }
 
 .whyGrid {
@@ -1257,7 +1304,8 @@
   max-width: 56ch;
   color: var(--muted-copy);
   font-family: inherit;
-  font-size: 15px;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
   text-transform: none;
 }
 
@@ -1286,12 +1334,12 @@
 .ruleItem > span {
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--type-meta);
 }
 
 .ruleItem h3 {
   color: #fff8e6;
-  font-size: 21px;
+  font-size: var(--type-panel-title);
   font-weight: 500;
   line-height: 1.2;
 }
@@ -1299,7 +1347,8 @@
 .ruleItem p {
   margin-top: 12px;
   color: rgba(238, 233, 220, 0.62);
-  font-size: 13px;
+  font-size: var(--type-support);
+  line-height: var(--leading-support);
 }
 
 .notesGrid {
@@ -1319,13 +1368,13 @@
 .noteItem span {
   color: rgba(103, 208, 138, 0.78);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-meta);
 }
 
 .noteItem h3 {
   margin-top: 22px;
   color: #fff8e6;
-  font-size: 21px;
+  font-size: var(--type-panel-title);
   font-weight: 500;
   line-height: 1.28;
 }
@@ -1333,7 +1382,8 @@
 .noteItem p {
   margin-top: 14px;
   color: rgba(238, 233, 220, 0.62);
-  font-size: 13px;
+  font-size: var(--type-support);
+  line-height: var(--leading-support);
 }
 
 .contact {
@@ -1429,7 +1479,7 @@
 .contactChannels span {
   color: var(--system-gold);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-meta);
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -1437,7 +1487,7 @@
 
 .contactChannels strong {
   color: #fff8e6;
-  font-size: 22px;
+  font-size: var(--type-contact-value);
   font-weight: 500;
   letter-spacing: 0;
 }
@@ -1462,7 +1512,7 @@
   align-items: center;
   gap: 13px;
   color: #fff8e6;
-  font-size: 13px;
+  font-size: var(--type-support);
   font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -1484,7 +1534,7 @@
 .footerCopy p {
   max-width: 70ch;
   color: rgba(238, 233, 220, 0.54);
-  font-size: 12px;
+  font-size: var(--type-footer);
 }
 
 .footerStudioSignature {
@@ -1492,7 +1542,7 @@
   align-items: center;
   gap: 10px;
   color: rgba(216, 185, 110, 0.76);
-  font-size: 10px;
+  font-size: var(--type-system);
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -1516,13 +1566,21 @@
 
 .footer nav a {
   color: rgba(238, 233, 220, 0.54);
-  font-size: 11px;
+  font-size: var(--type-nav);
   font-weight: 700;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
 @media (max-width: 1366px) {
+  .shell {
+    --type-section: 42px;
+  }
+
+  .shell[dir="rtl"] {
+    --type-section: 38px;
+  }
+
   .headerInner {
     grid-template-columns: minmax(230px, auto) minmax(300px, 1fr) auto;
     gap: 20px;
@@ -1539,12 +1597,10 @@
   }
 
   .heroCopy h1 {
-    font-size: 58px;
     max-width: 14.5ch;
   }
 
   .shell[dir="rtl"] .heroCopy h1 {
-    font-size: 50px;
     max-width: 11.5ch;
   }
 
@@ -1556,22 +1612,17 @@
     width: 216px;
   }
 
-  .sectionIntro h2,
-  .aboutCopy h2,
-  .whyIntro h2,
-  .contactStatement h2 {
-    font-size: 42px;
-  }
-
-  .shell[dir="rtl"] .sectionIntro h2,
-  .shell[dir="rtl"] .aboutCopy h2,
-  .shell[dir="rtl"] .whyIntro h2,
-  .shell[dir="rtl"] .contactStatement h2 {
-    font-size: 38px;
-  }
 }
 
 @media (max-width: 1512px) {
+  .shell {
+    --type-hero: 56px;
+  }
+
+  .shell[dir="rtl"] {
+    --type-hero: 48px;
+  }
+
   .hero {
     padding-top: 118px;
     padding-bottom: 44px;
@@ -1584,14 +1635,10 @@
   .heroCopy h1 {
     max-width: 14.5ch;
     margin-top: 20px;
-    font-size: 56px;
-    line-height: 1.03;
   }
 
   .shell[dir="rtl"] .heroCopy h1 {
     max-width: 11.5ch;
-    font-size: 48px;
-    line-height: 1.16;
   }
 
   .heroLead {
@@ -1608,20 +1655,24 @@
 }
 
 @media (max-width: 1366px) {
+  .shell {
+    --type-hero: 50px;
+  }
+
+  .shell[dir="rtl"] {
+    --type-hero: 43px;
+  }
+
   .heroLayout {
     min-height: calc(100vh - 150px);
   }
 
   .heroCopy h1 {
     max-width: 15ch;
-    font-size: 50px;
-    line-height: 1.04;
   }
 
   .shell[dir="rtl"] .heroCopy h1 {
     max-width: 12ch;
-    font-size: 43px;
-    line-height: 1.16;
   }
 
   .heroSystem {
@@ -1630,6 +1681,24 @@
 }
 
 @media (max-width: 1180px) {
+  .shell {
+    --type-brand: 12px;
+    --type-hero: 44px;
+    --type-lead: 14px;
+    --type-card-title: 15px;
+    --type-panel-title: 19px;
+    --type-support: 12px;
+    --type-contact-value: 19px;
+    --type-nav: 10px;
+    --type-system: 9px;
+  }
+
+  .shell[dir="rtl"] {
+    --type-hero: 38px;
+    --type-lead: 15px;
+    --type-support: 13px;
+  }
+
   .headerInner {
     min-height: 70px;
     padding: 9px 14px;
@@ -1641,20 +1710,12 @@
     height: 48px;
   }
 
-  .brandLockup strong {
-    font-size: 12px;
-  }
-
   .brandLockup small {
     display: none;
   }
 
   .navigation {
     gap: 14px;
-  }
-
-  .navigation a {
-    font-size: 10px;
   }
 
   .chapter {
@@ -1674,19 +1735,11 @@
   }
 
   .heroCopy h1 {
-    font-size: 44px;
-    line-height: 1.05;
     max-width: 15ch;
   }
 
   .shell[dir="rtl"] .heroCopy h1 {
-    font-size: 38px;
-    line-height: 1.17;
     max-width: 12ch;
-  }
-
-  .heroLead {
-    font-size: 14px;
   }
 
   .primaryButton,
@@ -1703,10 +1756,6 @@
     width: 194px;
     min-height: 118px;
     padding: 13px;
-  }
-
-  .panelRows span {
-    font-size: 9px;
   }
 
   .systemCore {
@@ -1726,14 +1775,6 @@
   .serviceNode {
     min-height: 216px;
     padding: 18px 14px 20px;
-  }
-
-  .serviceNode strong {
-    font-size: 15px;
-  }
-
-  .serviceNode small {
-    font-size: 11px;
   }
 
   .aboutGrid,
@@ -1770,13 +1811,6 @@
     padding: 20px 14px;
   }
 
-  .stepCard h3 {
-    font-size: 19px;
-  }
-
-  .stepCard p {
-    font-size: 12px;
-  }
 
   .studyDetail,
   .shell[dir="rtl"] .studyDetail {
@@ -1795,9 +1829,6 @@
     padding: 20px 16px;
   }
 
-  .contactChannels strong {
-    font-size: 19px;
-  }
 }
 
 @media (max-width: 1080px) {

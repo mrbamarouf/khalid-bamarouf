@@ -4,6 +4,10 @@ All production imagery is stored locally in `public/images/`. Remote image hotli
 
 ## Local Images
 
+- `public/images/ai-operations-headquarters.webp`
+  Leif Christoph Gottwald, Unsplash: https://unsplash.com/photos/a-bunch-of-television-screens-hanging-from-the-ceiling-iM8dxccK1sY
+  License: https://unsplash.com/license
+
 - `public/images/enterprise-data-center.jpg`  
   Kevin Ache, Unsplash: https://unsplash.com/photos/a-rack-of-servers-in-a-server-room-2JJ3wBHu4_0  
   License: https://unsplash.com/license

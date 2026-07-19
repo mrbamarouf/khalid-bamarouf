@@ -33,8 +33,13 @@ const revealTransition = {
 const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
 
 const heroLeadOpeners: Record<Locale, string> = {
-  en: "AI automations that solve the problems you have right now — and make things run better.",
-  ar: "أتمتة بالذكاء الاصطناعي تحل المشكلات التي تواجهها الآن — وتجعل العمل يسير بصورة أفضل.",
+  en: "AI automations that solve the problems you have right now and make things run better.",
+  ar: "أتمتة بالذكاء الاصطناعي تحل المشكلات التي تواجهها الآن وتجعل العمل يسير بصورة أفضل.",
+};
+
+const problemMapLanguage: Record<Locale, string[]> = {
+  en: ["Issue", "Workflow", "Tools", "Controls", "Automation"],
+  ar: ["المشكلة", "مسار العمل", "الأدوات", "الضوابط", "الأتمتة"],
 };
 
 const systemLanguage = {
@@ -516,7 +521,7 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
               fetchPriority="high"
               loading="eager"
               sizes="100vw"
-              src="/images/enterprise-data-center.jpg"
+              src="/images/ai-operations-headquarters.webp"
             />
           </div>
           <div className={styles.heroLayout}>
@@ -594,11 +599,9 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
               {...getReveal(42, oppositeDirection(direction), "x", 0.08)}
             >
               <div className={styles.problemMap}>
-                <span>issue</span>
-                <span>workflow</span>
-                <span>tools</span>
-                <span>controls</span>
-                <span>automation</span>
+                {problemMapLanguage[locale].map((label) => (
+                  <span key={label}>{label}</span>
+                ))}
               </div>
               <Image
                 alt=""
@@ -737,7 +740,7 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
 
         <section className={cx(styles.contact, styles.chapter)} id="contact" aria-labelledby="contact-title">
           <div className={styles.contactImage} aria-hidden="true">
-            <Image alt="" fill sizes="100vw" src="/images/automation-control-panel.jpg" />
+            <Image alt="" fill sizes="100vw" src="/images/ai-operations-headquarters.webp" />
           </div>
           <div className={styles.contactShell}>
             <motion.div

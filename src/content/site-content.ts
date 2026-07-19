@@ -188,24 +188,24 @@ export const siteContent: Record<Locale, SiteContent> = {
       eyebrow: "Khalid Bamarouf",
       title: "AI Automation Engineer & Builder",
       lead:
-        "AI automations that solve the problems you have right now — and make things run better. I build custom AI apps and automations shaped around how you actually work. From fixing a broken daily workflow to shipping a full AI-powered product, the goal is simple: your current issues, solved by AI, in a way that fits your preferences.",
+        "AI automations that solve the problems you have right now and make things run better. I build custom AI apps and automations shaped around how you actually work. From fixing a broken daily workflow to shipping a full product powered by AI, the goal is simple: your current issues, solved by AI, in a way that fits your preferences.",
       primaryCta: "Start a conversation",
       secondaryCta: "See what I build",
       metrics: [],
     },
     positioning: {
-      title: "AI automations built around the way you actually work.",
+      title: "AI automations built around the way you actually work",
       lead:
-        "I'm an AI automation engineer. My focus is simple: take the problems you're dealing with right now and solve them with AI — then make the rest of your work run better.",
+        "I'm an AI automation engineer. My focus is simple: take the problems you're dealing with right now, solve them with AI, and make the rest of your work run better.",
       body:
-        "I build custom AI apps and automations shaped around how you actually operate. Not a generic bot, not an off-the-shelf template that half-fits. If you have a repetitive task, a slow handoff, or tooling that doesn't match the way you work, that's where I start — with the real issue, not a feature list.",
+        "I build custom AI apps and automations shaped around how you actually operate. Not a generic bot or a standard template that only partly fits. If you have a repetitive task, a slow handoff, or tooling that doesn't match the way you work, that's where I start: with the real issue, not a feature list.",
       notes: [
         "From there I design and build the automation or app, wire it into the tools you already use, and keep it running reliably so it improves over time. Everything is customized to your preferences: your stack, your workflow, and the outcomes you care about.",
-        "The point of AI here isn't novelty — it's removing friction. If an automation needs more babysitting than the manual process it replaced, it's wrong. The win is a system that fits how you work and quietly makes things better.",
+        "The point of AI here isn't novelty. It's removing friction. If an automation needs more babysitting than the manual process it replaced, it's wrong. The win is a system that fits how you work and quietly makes things better.",
       ],
     },
     expertise: {
-      title: "What I do.",
+      title: "What I do",
       lead:
         "AI Automation is the core service. The supporting technical capabilities give each automation a reliable place to live.",
       items: [
@@ -253,7 +253,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     capabilities: {
-      title: "Capabilities shaped for AI automation.",
+      title: "Capabilities shaped for AI automation",
       lead:
         "The work connects custom AI apps, reliable engineering, and technical strategy so the automation fits the client's actual workflow.",
       groups: [
@@ -290,7 +290,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     approach: {
-      title: "From current issue to working AI automation.",
+      title: "From current issue to working AI automation",
       lead:
         "The process keeps the problem, the workflow, the tools, and the controls visible from the first conversation through ongoing improvement.",
       steps: [
@@ -298,19 +298,19 @@ export const siteContent: Record<Locale, SiteContent> = {
           number: "01",
           title: "Discover",
           body:
-            "Find the real issue — the goal, the constraint, the pain, and what \"better\" looks like for you.",
+            "Find the real issue: the goal, the constraint, the pain, and what \"better\" looks like for you.",
         },
         {
           number: "02",
           title: "Architect",
           body:
-            "Design the automation — what AI does, where it plugs in, what stays human, and the controls around it.",
+            "Design the automation: what AI does, where it plugs in, what stays human, and the controls around it.",
         },
         {
           number: "03",
           title: "Build",
           body:
-            "Engineer the app or automation — services, models, data paths, and measurable behavior.",
+            "Engineer the app or automation: services, models, data paths, and measurable behavior.",
         },
         {
           number: "04",
@@ -327,7 +327,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     studies: {
-      title: "Intelligent Operations & Automation.",
+      title: "Intelligent Operations & Automation",
       lead:
         "An anonymized system study showing how AI automation can reduce manual handoffs across disconnected tools.",
       items: [
@@ -350,12 +350,12 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     why: {
-      title: "Why work with me.",
+      title: "Why work with me",
       lead:
         "Serious clients need AI automation that begins with the real problem and keeps working after it ships.",
       principles: [
         {
-          title: "Problem-first",
+          title: "Problem first",
           body: "We start from your current issue, not a feature list.",
         },
         {
@@ -375,34 +375,34 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     insights: {
-      title: "Operating notes.",
+      title: "Operating notes",
       lead:
         "The principles behind AI automation that fits the work instead of creating more friction.",
       items: [
         {
-          title: "AI should remove friction, not add it.",
+          title: "AI should remove friction, not add it",
           body:
             "If the automation needs more babysitting than the manual process, it's wrong.",
         },
         {
-          title: "Customization is the point.",
+          title: "Customization is the point",
           body:
             "The best automation fits how you work, not the other way around.",
         },
         {
-          title: "AI needs a control room.",
+          title: "AI needs a control room",
           body:
             "Permissions, evaluation, human escalation, and a real place in the workflow.",
         },
         {
-          title: "Integration is where intent becomes real.",
+          title: "Integration is where intent becomes real",
           body:
             "Every connection is a decision about data, responsibility, and trust.",
         },
       ],
     },
     contact: {
-      title: "Start a conversation.",
+      title: "Start a conversation",
       lead:
         "Bring the workflow, handoff, tool, or product problem that needs to run better. The conversation starts with what is happening now and what AI should solve.",
       email: "kbamarouf@gmail.com",
@@ -467,24 +467,24 @@ export const siteContent: Record<Locale, SiteContent> = {
       eyebrow: "Khalid Bamarouf",
       title: "مهندس أتمتة بالذكاء الاصطناعي وبانٍ للحلول",
       lead:
-        "أتمتة بالذكاء الاصطناعي تحل المشكلات التي تواجهها الآن — وتجعل العمل يسير بصورة أفضل. أبني تطبيقات وأتمتات ذكاء اصطناعي مخصصة حسب طريقة عملك الفعلية. من إصلاح مسار يومي متعطل إلى إطلاق منتج كامل مدعوم بالذكاء الاصطناعي، الهدف بسيط: مشكلاتك الحالية محلولة بالذكاء الاصطناعي، بطريقة تناسب تفضيلاتك.",
+        "أتمتة بالذكاء الاصطناعي تحل المشكلات التي تواجهها الآن وتجعل العمل يسير بصورة أفضل. أبني تطبيقات وأتمتات ذكاء اصطناعي مخصصة حسب طريقة عملك الفعلية. من إصلاح مسار يومي متعطل إلى إطلاق منتج كامل مدعوم بالذكاء الاصطناعي، الهدف بسيط: مشكلاتك الحالية محلولة بالذكاء الاصطناعي، بطريقة تناسب تفضيلاتك.",
       primaryCta: "ابدأ المحادثة",
       secondaryCta: "شاهد ما أبنيه",
       metrics: [],
     },
     positioning: {
-      title: "أتمتة بالذكاء الاصطناعي مبنية حول طريقة عملك الفعلية.",
+      title: "أتمتة بالذكاء الاصطناعي مبنية حول طريقة عملك الفعلية",
       lead:
-        "أنا مهندس أتمتة بالذكاء الاصطناعي. تركيزي بسيط: أخذ المشكلات التي تتعامل معها الآن وحلها بالذكاء الاصطناعي — ثم جعل بقية عملك تسير بصورة أفضل.",
+        "أنا مهندس أتمتة بالذكاء الاصطناعي. تركيزي بسيط: أخذ المشكلات التي تتعامل معها الآن، وحلها بالذكاء الاصطناعي، ثم جعل بقية عملك تسير بصورة أفضل.",
       body:
-        "أبني تطبيقات وأتمتات ذكاء اصطناعي مخصصة حول الطريقة التي تعمل بها فعليا. ليست روبوتا عاما، ولا قالبا جاهزا يناسب نصف احتياجك. إذا كانت لديك مهمة متكررة، أو تسليم بطيء، أو أدوات لا تطابق طريقة عملك، فهنا أبدأ — من المشكلة الحقيقية، لا من قائمة مزايا.",
+        "أبني تطبيقات وأتمتات ذكاء اصطناعي مخصصة حول الطريقة التي تعمل بها فعليا. ليست روبوتا عاما، ولا قالبا جاهزا يناسب نصف احتياجك. إذا كانت لديك مهمة متكررة، أو تسليم بطيء، أو أدوات لا تطابق طريقة عملك، فهنا أبدأ: من المشكلة الحقيقية، لا من قائمة مزايا.",
       notes: [
         "بعد ذلك أصمم وأبني الأتمتة أو التطبيق، وأربطه بالأدوات التي تستخدمها بالفعل، وأبقيه يعمل بثبات حتى يتحسن مع الوقت. كل شيء مخصص لتفضيلاتك: تقنياتك، ومسار عملك، والنتائج التي تهمك.",
-        "قيمة الذكاء الاصطناعي هنا ليست في الجدة — بل في إزالة الاحتكاك. إذا كانت الأتمتة تحتاج متابعة أكثر من العملية اليدوية التي استبدلتها، فهي خاطئة. المكسب هو نظام يناسب طريقة عملك ويجعل الأمور أفضل بهدوء.",
+        "قيمة الذكاء الاصطناعي هنا ليست في الجدة، بل في إزالة الاحتكاك. إذا كانت الأتمتة تحتاج متابعة أكثر من العملية اليدوية التي استبدلتها، فهي خاطئة. المكسب هو نظام يناسب طريقة عملك ويجعل الأمور أفضل بهدوء.",
       ],
     },
     expertise: {
-      title: "ما أقدمه.",
+      title: "ما أقدمه",
       lead:
         "أتمتة الذكاء الاصطناعي هي الخدمة الأساسية. أما القدرات التقنية الداعمة فتمنح كل أتمتة مكانا موثوقا تعيش فيه.",
       items: [
@@ -530,7 +530,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     capabilities: {
-      title: "قدرات مصممة لأتمتة الذكاء الاصطناعي.",
+      title: "قدرات مصممة لأتمتة الذكاء الاصطناعي",
       lead:
         "يربط العمل بين تطبيقات الذكاء الاصطناعي المخصصة، والهندسة الموثوقة، والاستراتيجية التقنية حتى تناسب الأتمتة مسار العمل الفعلي لدى العميل.",
       groups: [
@@ -567,7 +567,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     approach: {
-      title: "من المشكلة الحالية إلى أتمتة ذكاء اصطناعي تعمل.",
+      title: "من المشكلة الحالية إلى أتمتة ذكاء اصطناعي تعمل",
       lead:
         "يحافظ المنهج على وضوح المشكلة، ومسار العمل، والأدوات، والضوابط من أول محادثة حتى التحسين المستمر.",
       steps: [
@@ -575,19 +575,19 @@ export const siteContent: Record<Locale, SiteContent> = {
           number: "01",
           title: "اكتشاف",
           body:
-            "العثور على المشكلة الحقيقية — الهدف، والقيد، والألم، وما يعنيه أن تصبح الأمور أفضل بالنسبة لك.",
+            "العثور على المشكلة الحقيقية: الهدف، والقيد، والألم، وما يعنيه أن تصبح الأمور أفضل بالنسبة لك.",
         },
         {
           number: "02",
           title: "تصميم",
           body:
-            "تصميم الأتمتة — ما الذي يفعله الذكاء الاصطناعي، وأين يتصل، وما الذي يبقى بشريا، وما الضوابط المحيطة به.",
+            "تصميم الأتمتة: ما الذي يفعله الذكاء الاصطناعي، وأين يتصل، وما الذي يبقى بشريا، وما الضوابط المحيطة به.",
         },
         {
           number: "03",
           title: "بناء",
           body:
-            "هندسة التطبيق أو الأتمتة — الخدمات، والنماذج، ومسارات البيانات، والسلوك القابل للقياس.",
+            "هندسة التطبيق أو الأتمتة: الخدمات، والنماذج، ومسارات البيانات، والسلوك القابل للقياس.",
         },
         {
           number: "04",
@@ -604,7 +604,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     studies: {
-      title: "عمليات ذكية وأتمتة.",
+      title: "عمليات ذكية وأتمتة",
       lead:
         "دراسة نظام مجهولة الهوية توضح كيف يمكن لأتمتة الذكاء الاصطناعي تقليل التسليمات اليدوية بين أدوات منفصلة.",
       items: [
@@ -627,7 +627,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     why: {
-      title: "لماذا تعمل معي.",
+      title: "لماذا تعمل معي",
       lead:
         "العملاء الجادون يحتاجون أتمتة ذكاء اصطناعي تبدأ من المشكلة الحقيقية وتبقى عاملة بعد إطلاقها.",
       principles: [
@@ -650,34 +650,34 @@ export const siteContent: Record<Locale, SiteContent> = {
       ],
     },
     insights: {
-      title: "ملاحظات تشغيلية.",
+      title: "ملاحظات تشغيلية",
       lead:
         "المبادئ التي تجعل أتمتة الذكاء الاصطناعي مناسبة للعمل بدلا من إضافة احتكاك جديد.",
       items: [
         {
-          title: "يجب أن يزيل الذكاء الاصطناعي الاحتكاك، لا أن يضيفه.",
+          title: "يجب أن يزيل الذكاء الاصطناعي الاحتكاك، لا أن يضيفه",
           body:
             "إذا كانت الأتمتة تحتاج متابعة أكثر من العملية اليدوية، فهي خاطئة.",
         },
         {
-          title: "التخصيص هو الفكرة.",
+          title: "التخصيص هو الفكرة",
           body:
             "أفضل أتمتة تناسب طريقة عملك، لا العكس.",
         },
         {
-          title: "الذكاء الاصطناعي يحتاج غرفة تحكم.",
+          title: "الذكاء الاصطناعي يحتاج غرفة تحكم",
           body:
             "صلاحيات، وتقييم، وتصعيد بشري، ومكان حقيقي داخل مسار العمل.",
         },
         {
-          title: "التكامل هو المكان الذي تصبح فيه النية واقعا.",
+          title: "التكامل هو المكان الذي تصبح فيه النية واقعا",
           body:
             "كل اتصال هو قرار حول البيانات، والمسؤولية، والثقة.",
         },
       ],
     },
     contact: {
-      title: "ابدأ المحادثة.",
+      title: "ابدأ المحادثة",
       lead:
         "اجلب مشكلة مسار العمل، أو التسليم، أو الأداة، أو المنتج التي تحتاج أن تعمل بصورة أفضل. تبدأ المحادثة مما يحدث الآن وما يجب أن يحله الذكاء الاصطناعي.",
       email: "kbamarouf@gmail.com",

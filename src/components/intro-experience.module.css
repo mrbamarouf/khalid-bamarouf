@@ -1,167 +1,775 @@
 .shell {
+  --intro-duration: 8800ms;
+  --intro-ease: cubic-bezier(0.16, 1, 0.3, 1);
   position: fixed;
   inset: 0;
   z-index: 120;
-  display: grid;
-  place-items: center;
   overflow: hidden;
   visibility: hidden;
   background: #000;
+  color: #eee9dc;
   opacity: 0;
   pointer-events: none;
+  isolation: isolate;
 }
 
 :global(html[data-kb-intro="play"]) .shell {
   visibility: visible;
   opacity: 1;
   pointer-events: auto;
-  animation: introShell 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: shellExit var(--intro-duration) var(--intro-ease) forwards;
 }
 
-.blackout {
+.atmosphere,
+.perspectiveGrid,
+.scanField,
+.depthField,
+.farLayer,
+.midLayer,
+.nearLayer,
+.topology,
+.logoCore {
   position: absolute;
   inset: 0;
+}
+
+.atmosphere {
+  z-index: 0;
   background:
-    radial-gradient(circle at 50% 50%, rgba(216, 185, 110, 0.18), transparent 18rem),
-    radial-gradient(circle at 50% 62%, rgba(103, 208, 138, 0.06), transparent 28rem),
-    #000;
+    radial-gradient(circle at 50% 49%, rgba(200, 169, 106, 0.14), transparent 10rem),
+    radial-gradient(circle at 50% 54%, rgba(41, 82, 56, 0.18), transparent 36rem),
+    linear-gradient(120deg, #000 0%, #050806 46%, #020403 100%);
   opacity: 0;
-  animation: introLight 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: atmosphereRise var(--intro-duration) var(--intro-ease) forwards;
 }
 
-.codeField {
+.perspectiveGrid {
+  z-index: 1;
+  inset: -28% -12% -20%;
+  background-image:
+    linear-gradient(rgba(103, 208, 138, 0.052) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 208, 138, 0.042) 1px, transparent 1px);
+  background-size: 76px 76px;
+  mask-image: radial-gradient(ellipse at 50% 55%, #000 8%, transparent 68%);
+  opacity: 0;
+  transform: perspective(780px) rotateX(68deg) translateY(26%);
+  transform-origin: 50% 70%;
+  animation: gridWake var(--intro-duration) linear forwards;
+}
+
+.scanField {
+  z-index: 10;
+  pointer-events: none;
+}
+
+.scanField::before,
+.scanField::after {
   position: absolute;
+  content: "";
+}
+
+.scanField::before {
   inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 3px,
+    rgba(238, 233, 220, 0.014) 4px
+  );
   opacity: 0;
-  animation: introCode 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rasterAppear 6.2s ease-out 400ms forwards;
 }
 
-.codeField span {
+.scanField::after {
+  right: 0;
+  left: 0;
+  height: 16vh;
+  background: linear-gradient(180deg, transparent, rgba(103, 208, 138, 0.055), transparent);
+  opacity: 0;
+  transform: translateY(-18vh);
+  animation: fieldScan 5.4s linear 1100ms forwards;
+}
+
+.bootRail {
   position: absolute;
-  color: rgba(103, 208, 138, 0.46);
+  top: clamp(18px, 2.2vw, 34px);
+  right: clamp(24px, 3.2vw, 58px);
+  left: clamp(24px, 3.2vw, 58px);
+  z-index: 14;
+  display: grid;
+  grid-template-columns: minmax(190px, 0.8fr) minmax(0, 2.6fr);
+  min-height: 62px;
+  align-items: start;
+  gap: clamp(28px, 4vw, 74px);
+  border-bottom: 1px solid rgba(143, 154, 133, 0.16);
+  opacity: 0;
+  animation: railReveal 1.1s var(--intro-ease) 260ms forwards;
+}
+
+.bootIdentity {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
   font-family: var(--font-mono);
+}
+
+.bootIdentity span {
+  color: #c8a96a;
   font-size: 11px;
-  letter-spacing: 0;
-  text-transform: uppercase;
+  font-weight: 650;
 }
 
-.codeField span:nth-child(1) {
-  top: 22%;
-  left: 18%;
+.bootIdentity strong {
+  color: rgba(238, 233, 220, 0.74);
+  font-size: 9px;
+  font-weight: 500;
 }
 
-.codeField span:nth-child(2) {
-  top: 32%;
-  right: 16%;
+.bootStages {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vw, 22px);
 }
 
-.codeField span:nth-child(3) {
-  right: 22%;
-  bottom: 28%;
+.bootStage {
+  display: grid;
+  grid-template-columns: 7px minmax(0, 1fr);
+  align-items: start;
+  gap: 7px;
+  color: rgba(143, 154, 133, 0.28);
+  font-family: var(--font-mono);
+  font-size: clamp(7px, 0.49vw, 9px);
+  line-height: 1.4;
+  opacity: 0;
+  animation: stageActivate 1.2s var(--intro-ease)
+    calc(560ms + var(--stage-index) * 690ms) forwards;
 }
 
-.codeField span:nth-child(4) {
-  bottom: 24%;
-  left: 20%;
+.bootStage i {
+  width: 5px;
+  height: 5px;
+  margin-top: 3px;
+  border: 1px solid rgba(143, 154, 133, 0.45);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(103, 208, 138, 0);
+  animation: stageNode 1.1s ease-out calc(620ms + var(--stage-index) * 690ms) forwards;
 }
 
-.construct {
+.bootStage:last-child {
+  color: rgba(200, 169, 106, 0.28);
+}
+
+.bootStage:last-child i {
+  border-color: rgba(200, 169, 106, 0.58);
+}
+
+.bootProgress {
   position: absolute;
-  width: min(900px, 78vw);
-  height: auto;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #345c42, #67d08a 65%, #c8a96a 100%);
+  box-shadow: 0 0 12px rgba(103, 208, 138, 0.36);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: bootProgress 7.1s cubic-bezier(0.55, 0.05, 0.22, 1) 420ms forwards;
+}
+
+.depthField {
+  z-index: 3;
+}
+
+.farLayer,
+.midLayer,
+.nearLayer {
+  pointer-events: none;
+}
+
+.codeLane {
+  --lane-delay: calc(640ms + var(--lane-index) * 140ms);
+  position: absolute;
+  width: clamp(235px, 21vw, 360px);
+  color: rgba(103, 208, 138, 0.52);
+  font-family: var(--font-mono);
+  opacity: 0;
+  filter: blur(0.15px);
+  transform: translate3d(0, 18px, 0) scale(0.985);
+  animation: laneDrift 6.4s var(--intro-ease) var(--lane-delay) forwards;
+}
+
+.codeLane:nth-child(1) {
+  top: 15%;
+  left: 3.5%;
+}
+
+.codeLane:nth-child(2) {
+  top: 15%;
+  right: 3.5%;
+}
+
+.codeLane:nth-child(3) {
+  bottom: 14%;
+  left: 4.5%;
+}
+
+.codeLane:nth-child(4) {
+  right: 4.5%;
+  bottom: 14%;
+}
+
+.codeLane:nth-child(5) {
+  top: 12%;
+  left: 50%;
+  width: clamp(250px, 22vw, 390px);
+  opacity: 0;
+  transform: translateX(-50%) translateY(18px) scale(0.94);
+}
+
+.codeLane header {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(103, 208, 138, 0.12);
+}
+
+.codeLane header span {
+  color: rgba(200, 169, 106, 0.7);
+  font-size: 8px;
+}
+
+.codeLane header strong {
+  color: rgba(143, 154, 133, 0.68);
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.codeLane code {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  padding-top: 8px;
+  overflow: hidden;
+  color: inherit;
+  font-family: inherit;
+  font-size: clamp(8px, 0.55vw, 10px);
+  line-height: 1.35;
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: lineExecute 1.3s steps(12, end)
+    calc(900ms + var(--lane-index) * 150ms + var(--line-index) * 240ms) forwards;
+}
+
+.midLayer {
+  z-index: 4;
+}
+
+.terminal {
+  --panel-delay: calc(1550ms + var(--panel-index) * 180ms);
+  position: absolute;
+  width: clamp(270px, 23vw, 390px);
+  border: 1px solid rgba(143, 154, 133, 0.2);
+  background: rgba(3, 8, 5, 0.74);
+  box-shadow: inset 0 0 32px rgba(41, 82, 56, 0.09);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: terminalWake 5.75s var(--intro-ease) var(--panel-delay) forwards;
+  backdrop-filter: blur(3px);
+}
+
+.terminal:nth-child(1) {
+  top: 23.5%;
+  left: 3.5%;
+}
+
+.terminal:nth-child(2) {
+  top: 23.5%;
+  right: 3.5%;
+}
+
+.terminal:nth-child(3) {
+  bottom: 15%;
+  left: 7%;
+}
+
+.terminal:nth-child(4) {
+  right: 7%;
+  bottom: 15%;
+}
+
+.terminal header {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(143, 154, 133, 0.15);
+  font-family: var(--font-mono);
+}
+
+.terminal header strong,
+.terminal header span {
+  font-size: clamp(7px, 0.48vw, 9px);
+  font-weight: 550;
+}
+
+.terminal header strong {
+  color: rgba(238, 233, 220, 0.72);
+}
+
+.terminal header span {
+  color: #67d08a;
+}
+
+.terminalRows {
+  padding: 7px 12px 9px;
+}
+
+.terminalRow {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 23px;
+  border-bottom: 1px solid rgba(143, 154, 133, 0.07);
+  font-family: var(--font-mono);
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: rowResolve 900ms var(--intro-ease)
+    calc(1920ms + var(--panel-index) * 180ms + var(--row-index) * 280ms) forwards;
+}
+
+.terminalRow:last-child {
+  border-bottom: 0;
+}
+
+.terminalRow time,
+.terminalRow code,
+.terminalRow b {
+  overflow: hidden;
+  font-size: clamp(7px, 0.47vw, 9px);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.terminalRow time {
+  color: rgba(143, 154, 133, 0.4);
+}
+
+.terminalRow code {
+  color: rgba(199, 195, 180, 0.7);
+}
+
+.terminalRow b {
+  color: rgba(103, 208, 138, 0.76);
+  font-weight: 500;
+}
+
+.nearLayer {
+  z-index: 2;
+  overflow: hidden;
+}
+
+.nearLayer code {
+  position: absolute;
+  color: rgba(103, 208, 138, 0.12);
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.15vw, 21px);
+  filter: blur(1.8px);
+  opacity: 0;
+  white-space: nowrap;
+  animation: nearSignal 5.2s linear calc(750ms + var(--signal-index) * 520ms) forwards;
+}
+
+.nearLayer code:nth-child(1) {
+  top: 40%;
+  left: -4%;
+  transform: translateX(-3vw) scale(1.08);
+}
+
+.nearLayer code:nth-child(2) {
+  top: 58%;
+  right: -5%;
+  transform: translateX(3vw) scale(1.12);
+}
+
+.nearLayer code:nth-child(3) {
+  bottom: 5%;
+  left: 38%;
+  transform: translateY(2vh) scale(1.05);
+}
+
+.topology {
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.topology path,
+.topology circle {
+  vector-effect: non-scaling-stroke;
+}
+
+.topologyGuides path,
+.topologyGuides circle {
+  fill: none;
+  stroke: rgba(143, 154, 133, 0.09);
+  stroke-width: 1;
+  opacity: 0;
+  animation: guideRegister 3.6s var(--intro-ease) 2400ms forwards;
+}
+
+.topologyGuides circle {
+  stroke-dasharray: 3 12;
+}
+
+.processNodes g {
+  opacity: 0;
+  animation: processActivate 3.9s var(--intro-ease)
+    calc(2460ms + var(--process-index) * 105ms) forwards;
+}
+
+.processNodes circle {
+  fill: #050b07;
+  stroke: rgba(103, 208, 138, 0.76);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.processNodes text {
+  fill: rgba(199, 195, 180, 0.64);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+.topologyPaths path {
+  fill: none;
+  stroke: rgba(103, 208, 138, 0.5);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: pathOpen 4.4s var(--intro-ease)
+    calc(2920ms + var(--path-index) * 110ms) forwards;
+}
+
+.topologyPaths path:nth-child(3n) {
+  stroke: rgba(200, 169, 106, 0.56);
+}
+
+.topologyNodes circle {
+  fill: #67d08a;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nodeActivate 3.4s var(--intro-ease)
+    calc(3200ms + var(--node-index) * 120ms) forwards;
+}
+
+.topologyNodes circle:last-child {
+  fill: #e4c785;
+}
+
+.logoCore {
+  z-index: 9;
+  display: grid;
+  width: min(420px, 36vw);
+  height: min(420px, 62vh);
+  margin: auto;
+  place-items: center;
+  pointer-events: none;
+}
+
+.convergence {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   overflow: visible;
 }
 
-.constructLine,
-.constructArc,
-.constructRing {
+.coreOrbit,
+.coreAxis,
+.coreFrame,
+.coreArc {
   fill: none;
-  stroke-linecap: round;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.coreOrbit {
+  stroke: rgba(143, 154, 133, 0.3);
+  stroke-dasharray: 5 13;
   opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orbitResolve 4.3s var(--intro-ease) 3650ms forwards;
 }
 
-.constructLine {
-  stroke: rgba(216, 185, 110, 0.36);
-  stroke-width: 1;
-  stroke-dasharray: 680;
-  stroke-dashoffset: 680;
-  animation: introLine 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.coreOrbit:nth-child(2) {
+  stroke: rgba(200, 169, 106, 0.34);
+  animation-delay: 3920ms;
+  animation-direction: reverse;
 }
 
-.constructArc {
-  stroke: rgba(103, 208, 138, 0.28);
-  stroke-width: 1;
-  stroke-dasharray: 420;
-  stroke-dashoffset: 420;
-  animation: introArc 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.coreAxis,
+.coreFrame,
+.coreArc {
+  stroke: rgba(200, 169, 106, 0.6);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: coreDraw 3.65s var(--intro-ease) 4050ms forwards;
 }
 
-.constructRing {
-  stroke: rgba(238, 233, 220, 0.12);
-  stroke-width: 1;
-  stroke-dasharray: 14 18;
-  animation: introRing 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.coreFrame {
+  stroke: rgba(238, 233, 220, 0.22);
+  animation-delay: 4320ms;
 }
 
-.logoStage {
+.coreArc {
+  stroke: rgba(103, 208, 138, 0.46);
+  animation-delay: 4520ms;
+}
+
+.coreNodes circle {
+  fill: #e4c785;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coreNode 2.2s var(--intro-ease) 4780ms forwards;
+}
+
+.coreNodes circle:nth-child(2) {
+  animation-delay: 4930ms;
+}
+
+.coreNodes circle:nth-child(3) {
+  animation-delay: 5080ms;
+}
+
+.coreNodes circle:nth-child(4) {
+  animation-delay: 5230ms;
+}
+
+.logoAperture {
   position: relative;
   display: grid;
-  width: 260px;
-  height: 284px;
+  width: clamp(146px, 12vw, 190px);
+  aspect-ratio: 1;
   place-items: center;
   opacity: 0;
-  filter: blur(18px);
-  transform: scale(0.96);
-  animation: introLogo 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: blur(10px);
+  transform: scale(0.94);
+  animation: apertureResolve 2.65s var(--intro-ease) 5150ms forwards;
 }
 
-.logoStage img {
-  width: 176px;
-  height: 176px;
+.logoAperture::before,
+.logoAperture::after {
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+}
+
+.logoAperture::before {
+  inset: -18%;
+  box-shadow:
+    0 0 32px rgba(200, 169, 106, 0.12),
+    inset 0 0 24px rgba(103, 208, 138, 0.08);
+}
+
+.logoAperture::after {
+  inset: 10%;
+  background: radial-gradient(circle, rgba(200, 169, 106, 0.18), transparent 68%);
+  filter: blur(12px);
+}
+
+.logoAperture img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 38px rgba(216, 185, 110, 0.56));
+  clip-path: inset(100% 0 0 0);
+  filter: drop-shadow(0 0 18px rgba(200, 169, 106, 0.42));
+  animation: logoConstruct 2.1s var(--intro-ease) 5480ms forwards;
 }
 
-.logoStage strong {
+.logoScan {
   position: absolute;
-  bottom: 14px;
-  color: rgba(216, 185, 110, 0.82);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0;
-}
-
-.logoGuide {
-  position: absolute;
-  inset: 14px;
-  border: 1px solid rgba(216, 185, 110, 0.28);
-  border-radius: 26px;
+  z-index: 3;
+  right: -20%;
+  left: -20%;
+  height: 1px;
+  background: #e4c785;
+  box-shadow:
+    0 0 8px rgba(228, 199, 133, 0.86),
+    0 0 30px rgba(200, 169, 106, 0.34);
   opacity: 0;
-  animation: introGuide 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(-88px);
+  animation: logoSweep 1.85s cubic-bezier(0.7, 0, 0.3, 1) 5410ms forwards;
+}
+
+.readyState {
+  position: absolute;
+  bottom: 2%;
+  display: grid;
+  grid-template-columns: 7px auto auto;
+  align-items: center;
+  gap: 9px;
+  color: rgba(199, 195, 180, 0.62);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: readySet 1.2s var(--intro-ease) 7000ms forwards;
+}
+
+.readyState i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e4c785;
+  box-shadow: 0 0 12px rgba(228, 199, 133, 0.72);
+}
+
+.readyState strong {
+  color: #e4c785;
+  font-weight: 600;
+}
+
+.telemetryBar {
+  position: absolute;
+  right: clamp(118px, 10vw, 170px);
+  bottom: clamp(24px, 3vw, 40px);
+  left: clamp(24px, 3.2vw, 58px);
+  z-index: 14;
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 40px);
+  color: rgba(143, 154, 133, 0.42);
+  font-family: var(--font-mono);
+  font-size: clamp(7px, 0.48vw, 9px);
+  opacity: 0;
+  animation: telemetryReveal 6.4s var(--intro-ease) 860ms forwards;
+}
+
+.telemetryBar span::before {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: rgba(103, 208, 138, 0.72);
+  content: "";
 }
 
 .skip {
   position: absolute;
-  right: 32px;
-  bottom: 28px;
-  min-width: 72px;
+  right: clamp(24px, 3.2vw, 58px);
+  bottom: clamp(18px, 2.4vw, 34px);
+  z-index: 16;
+  min-width: 68px;
   min-height: 36px;
-  border: 1px solid rgba(238, 233, 220, 0.16);
+  border: 1px solid rgba(238, 233, 220, 0.18);
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.28);
-  color: rgba(238, 233, 220, 0.68);
+  background: rgba(0, 0, 0, 0.48);
+  color: rgba(238, 233, 220, 0.66);
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0;
   opacity: 0;
   text-transform: uppercase;
-  animation: introSkip 8600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background 180ms ease;
+  animation: skipReveal 900ms var(--intro-ease) 760ms forwards;
+}
+
+.skip:hover {
+  border-color: rgba(200, 169, 106, 0.5);
+  background: rgba(200, 169, 106, 0.08);
+  color: #eee9dc;
 }
 
 .skip:focus-visible {
-  outline: 2px solid rgba(216, 185, 110, 0.72);
+  outline: 2px solid rgba(228, 199, 133, 0.76);
   outline-offset: 4px;
+}
+
+@media (max-width: 1180px) {
+  .bootRail {
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .bootIdentity strong {
+    display: none;
+  }
+
+  .terminal {
+    width: min(27vw, 280px);
+  }
+
+  .terminalRow {
+    grid-template-columns: 49px minmax(0, 1fr) auto;
+    gap: 6px;
+  }
+
+  .codeLane {
+    width: min(27vw, 280px);
+  }
+
+  .codeLane:nth-child(5),
+  .telemetryBar span:nth-child(2),
+  .telemetryBar span:nth-child(3) {
+    display: none;
+  }
+
+  .logoCore {
+    width: min(360px, 36vw);
+    height: min(360px, 58vh);
+  }
+}
+
+@media (max-height: 700px) {
+  .bootRail {
+    min-height: 50px;
+  }
+
+  .terminal {
+    transform: scale(0.92);
+  }
+
+  .terminal:nth-child(1),
+  .terminal:nth-child(2) {
+    top: 20%;
+  }
+
+  .terminal:nth-child(3),
+  .terminal:nth-child(4) {
+    bottom: 12%;
+  }
+
+  .terminalRow:last-child {
+    display: none;
+  }
+
+  .logoCore {
+    width: min(320px, 34vw);
+    height: min(320px, 54vh);
+  }
+
+  .readyState {
+    bottom: -2%;
+  }
 }
 
 @media (max-width: 860px), (max-width: 960px) and (max-height: 520px) {
@@ -171,22 +779,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shell,
-  .blackout,
-  .codeField,
-  .constructLine,
-  .constructArc,
-  .constructRing,
-  .logoStage,
-  .logoGuide,
-  .skip {
-    animation: none;
+  .shell {
+    display: none !important;
   }
 }
 
-@keyframes introShell {
+@keyframes shellExit {
   0%,
-  86% {
+  91% {
     visibility: visible;
     opacity: 1;
   }
@@ -197,9 +797,240 @@
   }
 }
 
-@keyframes introLight {
+@keyframes atmosphereRise {
   0%,
-  10% {
+  5% {
+    opacity: 0;
+  }
+
+  24%,
+  86% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.72;
+  }
+}
+
+@keyframes gridWake {
+  0%,
+  8% {
+    opacity: 0;
+    transform: perspective(780px) rotateX(68deg) translateY(31%);
+  }
+
+  36%,
+  70% {
+    opacity: 0.72;
+    transform: perspective(780px) rotateX(68deg) translateY(26%);
+  }
+
+  100% {
+    opacity: 0.16;
+    transform: perspective(780px) rotateX(68deg) translateY(24%);
+  }
+}
+
+@keyframes rasterAppear {
+  0% {
+    opacity: 0;
+  }
+
+  20%,
+  74% {
+    opacity: 0.58;
+  }
+
+  100% {
+    opacity: 0.16;
+  }
+}
+
+@keyframes fieldScan {
+  0% {
+    opacity: 0;
+    transform: translateY(-18vh);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  82% {
+    opacity: 0.62;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(118vh);
+  }
+}
+
+@keyframes railReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stageActivate {
+  0% {
+    color: rgba(143, 154, 133, 0.24);
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  44% {
+    color: rgba(238, 233, 220, 0.84);
+    opacity: 1;
+  }
+
+  100% {
+    color: rgba(103, 208, 138, 0.72);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stageNode {
+  0% {
+    background: transparent;
+    box-shadow: 0 0 0 0 rgba(103, 208, 138, 0);
+  }
+
+  55% {
+    background: #67d08a;
+    box-shadow: 0 0 0 6px rgba(103, 208, 138, 0.08);
+  }
+
+  100% {
+    background: #67d08a;
+    box-shadow: 0 0 9px rgba(103, 208, 138, 0.64);
+  }
+}
+
+@keyframes bootProgress {
+  0% {
+    transform: scaleX(0);
+  }
+
+  18% {
+    transform: scaleX(0.08);
+  }
+
+  42% {
+    transform: scaleX(0.36);
+  }
+
+  68% {
+    transform: scaleX(0.72);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes laneDrift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.985);
+  }
+
+  16%,
+  58% {
+    opacity: 0.84;
+  }
+
+  72% {
+    opacity: 0.5;
+    transform: translate3d(0, -8px, 0) scale(1);
+  }
+
+  100% {
+    opacity: 0.1;
+    transform: translate3d(0, -10px, 0) scale(1);
+  }
+}
+
+@keyframes lineExecute {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes terminalWake {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  16%,
+  66% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  82% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0.08;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes rowResolve {
+  0% {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  34% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes nearSignal {
+  0% {
+    opacity: 0;
+  }
+
+  20%,
+  56% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(2.6px);
+  }
+}
+
+@keyframes guideRegister {
+  0% {
     opacity: 0;
   }
 
@@ -209,145 +1040,203 @@
   }
 
   100% {
-    opacity: 0.35;
+    opacity: 0.22;
   }
 }
 
-@keyframes introCode {
-  0%,
-  12% {
+@keyframes processActivate {
+  0% {
     opacity: 0;
-    transform: translateY(12px);
   }
 
-  22%,
-  48% {
+  26%,
+  62% {
     opacity: 1;
-    transform: translateY(0);
   }
 
-  70%,
   100% {
-    opacity: 0;
-    transform: translateY(-14px);
+    opacity: 0.12;
   }
 }
 
-@keyframes introLine {
-  0%,
+@keyframes pathOpen {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
   18% {
-    opacity: 0;
-    stroke-dashoffset: 680;
-  }
-
-  34%,
-  66% {
     opacity: 1;
-    stroke-dashoffset: 0;
   }
 
-  84%,
-  100% {
-    opacity: 0;
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes introArc {
-  0%,
-  26% {
-    opacity: 0;
-    stroke-dashoffset: 420;
-  }
-
-  44%,
-  64% {
+  68% {
     opacity: 0.9;
     stroke-dashoffset: 0;
   }
 
-  82%,
   100% {
-    opacity: 0;
+    opacity: 0.2;
     stroke-dashoffset: 0;
   }
 }
 
-@keyframes introRing {
-  0%,
-  30% {
+@keyframes nodeActivate {
+  0% {
     opacity: 0;
-    transform: scale(0.94);
-    transform-origin: center;
+    transform: scale(0.3);
   }
 
-  48%,
-  68% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  86%,
-  100% {
-    opacity: 0;
-    transform: scale(1.03);
-  }
-}
-
-@keyframes introLogo {
-  0%,
-  28% {
-    opacity: 0;
-    filter: blur(18px);
-    transform: scale(0.96);
-  }
-
-  54%,
-  82% {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-  }
-
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-  }
-}
-
-@keyframes introGuide {
-  0%,
   38% {
-    opacity: 0;
-    transform: scale(1.08);
-  }
-
-  52%,
-  68% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1.8);
   }
 
-  86%,
   100% {
-    opacity: 0;
-    transform: scale(0.98);
+    opacity: 0.52;
+    transform: scale(1);
   }
 }
 
-@keyframes introSkip {
-  0%,
-  34% {
+@keyframes orbitResolve {
+  0% {
     opacity: 0;
+    transform: rotate(-12deg) scale(0.86);
   }
 
-  42%,
-  92% {
+  42% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: rotate(14deg) scale(1);
+  }
+}
+
+@keyframes coreDraw {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  22% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 0.9;
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    opacity: 0.18;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes coreNode {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  44% {
+    opacity: 1;
+    transform: scale(2.2);
+  }
+
+  100% {
+    opacity: 0.38;
+    transform: scale(1);
+  }
+}
+
+@keyframes apertureResolve {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.94);
+  }
+
+  55% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes logoConstruct {
+  0% {
+    clip-path: inset(100% 0 0 0);
+    filter: brightness(1.7) drop-shadow(0 0 20px rgba(200, 169, 106, 0.62));
+  }
+
+  70% {
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1.35) drop-shadow(0 0 22px rgba(200, 169, 106, 0.52));
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1) drop-shadow(0 0 14px rgba(200, 169, 106, 0.32));
+  }
+}
+
+@keyframes logoSweep {
+  0% {
+    opacity: 0;
+    transform: translateY(-88px);
+  }
+
+  12%,
+  84% {
     opacity: 1;
   }
 
   100% {
     opacity: 0;
+    transform: translateY(88px);
+  }
+}
+
+@keyframes readySet {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes telemetryReveal {
+  0% {
+    opacity: 0;
+  }
+
+  18%,
+  78% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.32;
+  }
+}
+
+@keyframes skipReveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
