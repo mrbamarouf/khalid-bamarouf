@@ -8,163 +8,415 @@
     z-index: 121;
     inset: 0;
     display: grid;
+    min-height: 100svh;
     overflow: hidden;
     visibility: hidden;
     place-items: center;
-    background:
-      radial-gradient(circle at 50% 48%, rgba(200, 169, 106, 0.14), transparent 14rem),
-      #000;
+    background: #020403;
+    color: #eee9dc;
     opacity: 0;
     pointer-events: none;
+    isolation: isolate;
   }
 
   :global(html[data-kb-intro="play"]) .shell {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
-    animation: introShell 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: introShell 6600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  .codeField {
+  .atmosphere,
+  .scan,
+  .codeDepth,
+  .topology {
     position: absolute;
     inset: 0;
+    pointer-events: none;
+  }
+
+  .atmosphere {
+    z-index: -2;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(200, 169, 106, 0.12), transparent 11rem),
+      radial-gradient(circle at 72% 21%, rgba(54, 92, 65, 0.16), transparent 15rem),
+      linear-gradient(180deg, #020403 0%, #050806 52%, #020403 100%);
     opacity: 0;
-    animation: codeReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: atmosphereReveal 6600ms ease-out forwards;
   }
 
-  .codeField span {
+  .scan {
+    z-index: -1;
+    background:
+      linear-gradient(rgba(104, 136, 104, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 169, 106, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+    opacity: 0;
+    animation: scanReveal 6600ms ease-out forwards;
+  }
+
+  .scan::after {
     position: absolute;
-    color: rgba(103, 208, 138, 0.42);
+    inset-inline: 0;
+    inset-block-start: -12%;
+    height: 20%;
+    background: linear-gradient(180deg, transparent, rgba(136, 177, 141, 0.08), transparent);
+    content: "";
+    animation: scanTravel 2600ms linear 700ms 2;
+  }
+
+  .bootHeader {
+    position: absolute;
+    inset-block-start: max(18px, env(safe-area-inset-top));
+    inset-inline: 18px;
+    z-index: 4;
+    display: flex;
+    min-height: 32px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border-block-end: 1px solid rgba(200, 169, 106, 0.18);
+    color: rgba(238, 233, 220, 0.5);
     font-family: var(--font-mono);
-    font-size: 8px;
+    font-size: 7px;
     letter-spacing: 0;
-    text-transform: uppercase;
+    opacity: 0;
+    animation: interfaceReveal 6600ms ease-out forwards;
   }
 
-  .codeField span:nth-child(1) {
-    inset-block-start: 18%;
-    inset-inline-start: 9%;
+  .bootHeader strong {
+    color: rgba(228, 199, 133, 0.82);
+    font-size: inherit;
+    font-weight: 500;
   }
 
-  .codeField span:nth-child(2) {
-    inset-block-start: 38%;
-    inset-inline-end: 8%;
+  .codeDepth {
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    animation: codeFieldReveal 6600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  .codeField span:nth-child(3) {
-    inset-block-end: 22%;
-    inset-inline-start: 12%;
-  }
-
-  .construction {
+  .codeColumn {
+    --column-index: 0;
     position: absolute;
-    width: min(320px, 86vw);
-    height: auto;
+    display: grid;
+    width: min(69vw, 286px);
+    gap: 8px;
+    font-family: var(--font-mono);
+    opacity: calc(0.72 - (var(--column-index) * 0.16));
+    transform: translateY(18px);
+    animation: columnDrift 5200ms linear calc(var(--column-index) * -900ms) infinite;
+  }
+
+  .codeColumn:nth-child(1) {
+    inset-block-start: 13%;
+    inset-inline-start: -7%;
+    filter: blur(0.1px);
+  }
+
+  .codeColumn:nth-child(2) {
+    inset-block-start: 34%;
+    inset-inline-end: -19%;
+    filter: blur(0.7px);
+  }
+
+  .codeColumn:nth-child(3) {
+    inset-block-end: 10%;
+    inset-inline-start: 2%;
+    filter: blur(1px);
+  }
+
+  .codeColumn code {
+    --line-index: 0;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 7px;
+    color: rgba(121, 160, 126, 0.48);
+    font-size: clamp(7px, 2.1vw, 9px);
+    line-height: 1.3;
+    white-space: nowrap;
+    opacity: 0;
+    animation: codeLine 6600ms ease-out calc(350ms + (var(--line-index) * 170ms) + (var(--column-index) * 420ms)) forwards;
+  }
+
+  .codeColumn code span {
+    color: rgba(200, 169, 106, 0.45);
+  }
+
+  .topology {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
     overflow: visible;
   }
 
-  .axis,
-  .frame,
-  .ring,
-  .signal {
+  .topology path {
     fill: none;
-    stroke-linecap: round;
+    stroke: rgba(200, 169, 106, 0.34);
+    stroke-width: 0.8;
+    stroke-dasharray: 310;
+    stroke-dashoffset: 310;
+    vector-effect: non-scaling-stroke;
+    animation: pathConverge 6600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .topology path:nth-child(2),
+  .topology path:nth-child(5) {
+    animation-delay: 180ms;
+  }
+
+  .topology path:nth-child(3),
+  .topology path:nth-child(6) {
+    animation-delay: 360ms;
+  }
+
+  .topology circle {
+    fill: #c8a96a;
     opacity: 0;
+    filter: drop-shadow(0 0 5px rgba(228, 199, 133, 0.6));
+    animation: nodeActivate 6600ms ease-out forwards;
   }
 
-  .axis,
-  .frame {
-    stroke: rgba(200, 169, 106, 0.38);
-    stroke-width: 0.8;
-    stroke-dasharray: 360;
-    stroke-dashoffset: 360;
-    animation: lineReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .stateRail {
+    position: absolute;
+    z-index: 3;
+    inset-inline: 18px;
+    inset-block-end: calc(max(66px, env(safe-area-inset-bottom) + 56px));
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px 16px;
+    opacity: 0;
+    animation: stateRailReveal 6600ms ease-out forwards;
   }
 
-  .ring {
-    stroke: rgba(238, 233, 220, 0.14);
-    stroke-width: 0.8;
-    stroke-dasharray: 8 12;
-    transform-origin: center;
-    animation: ringReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .stateRail span {
+    --state-index: 0;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 7px;
+    color: rgba(238, 233, 220, 0.52);
+    font-family: var(--font-mono);
+    font-size: clamp(6px, 1.8vw, 8px);
+    line-height: 1.3;
+    opacity: 0;
+    animation: stateActivate 6600ms ease-out calc(1200ms + (var(--state-index) * 430ms)) forwards;
   }
 
-  .signal {
-    stroke: rgba(103, 208, 138, 0.4);
-    stroke-width: 1;
-    stroke-dasharray: 360;
-    stroke-dashoffset: 360;
-    animation: signalReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .stateRail i {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 5px;
+    border-radius: 50%;
+    background: #6f9b77;
+    box-shadow: 0 0 7px rgba(111, 155, 119, 0.6);
   }
 
   .logoStage {
     position: relative;
+    z-index: 5;
     display: grid;
-    width: 166px;
-    height: 194px;
+    width: 168px;
+    min-height: 184px;
     place-items: center;
     opacity: 0;
-    filter: blur(14px);
-    transform: scale(0.96);
-    animation: logoReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    filter: blur(12px);
+    transform: scale(0.92);
+    animation: logoReveal 6600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  .logoStage > span {
+  .logoStage::before {
     position: absolute;
-    inset: 8px;
-    border: 1px solid rgba(200, 169, 106, 0.28);
-    border-radius: 8px;
-    opacity: 0;
-    animation: guideReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    width: 146px;
+    height: 146px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(228, 199, 133, 0.13), transparent 68%);
+    content: "";
+    filter: blur(9px);
   }
 
   .logoStage img {
-    width: 108px;
-    height: 108px;
+    position: relative;
+    z-index: 2;
+    width: 116px;
+    height: 116px;
     object-fit: contain;
-    filter: drop-shadow(0 0 28px rgba(200, 169, 106, 0.42));
+    filter: drop-shadow(0 0 24px rgba(200, 169, 106, 0.42));
+    transform: scale(1.82);
+    transform-origin: center;
   }
 
   .logoStage strong {
     position: absolute;
-    inset-block-end: 18px;
-    color: rgba(228, 199, 133, 0.82);
+    z-index: 3;
+    inset-block-end: 8px;
+    color: rgba(228, 199, 133, 0.92);
     font-family: var(--font-mono);
     font-size: 9px;
-    letter-spacing: 0;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    animation: readyReveal 6600ms ease-out forwards;
+  }
+
+  .logoPaths {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+  }
+
+  .logoPaths i {
+    position: absolute;
+    width: 54px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(228, 199, 133, 0.78));
+    opacity: 0;
+    animation: localPath 6600ms ease-out forwards;
+  }
+
+  .logoPaths i:nth-child(1) {
+    inset-block-start: 52px;
+    inset-inline-start: -28px;
+  }
+
+  .logoPaths i:nth-child(2) {
+    inset-block-start: 52px;
+    inset-inline-end: -28px;
+    transform: rotate(180deg);
+  }
+
+  .logoPaths i:nth-child(3) {
+    inset-block-end: 76px;
+    inset-inline-start: -20px;
+  }
+
+  .logoPaths i:nth-child(4) {
+    inset-block-end: 76px;
+    inset-inline-end: -20px;
+    transform: rotate(180deg);
+  }
+
+  .bootFooter {
+    position: absolute;
+    z-index: 4;
+    inset-inline: 18px;
+    inset-block-end: max(18px, env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    color: rgba(238, 233, 220, 0.48);
+    font-family: var(--font-mono);
+    font-size: 7px;
+    opacity: 0;
+    animation: interfaceReveal 6600ms ease-out forwards;
+  }
+
+  .bootFooter i {
+    position: relative;
+    height: 1px;
+    overflow: hidden;
+    background: rgba(238, 233, 220, 0.12);
+  }
+
+  .bootFooter i::after {
+    position: absolute;
+    inset: 0;
+    background: #c8a96a;
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: bootProgress 6600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .skip {
     position: absolute;
+    z-index: 8;
     inset-inline-end: max(18px, env(safe-area-inset-right));
-    inset-block-end: max(18px, env(safe-area-inset-bottom));
-    min-width: 64px;
+    inset-block-start: max(58px, env(safe-area-inset-top) + 48px);
+    min-width: 56px;
     min-height: 44px;
-    border: 1px solid rgba(238, 233, 220, 0.14);
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.28);
-    color: rgba(238, 233, 220, 0.68);
+    border: 0;
+    background: transparent;
+    color: rgba(238, 233, 220, 0.62);
     cursor: pointer;
+    font-family: var(--font-sans);
     font-size: 11px;
     opacity: 0;
-    animation: skipReveal 6400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: skipReveal 6600ms ease-out forwards;
   }
 
   .skip:focus-visible {
     outline: 2px solid rgba(228, 199, 133, 0.72);
-    outline-offset: 3px;
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 960px) and (max-height: 520px) and (orientation: landscape) {
+  .stateRail {
+    inset-inline: max(24px, env(safe-area-inset-left)) max(24px, env(safe-area-inset-right));
+    inset-block-end: max(18px, env(safe-area-inset-bottom));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .bootFooter {
+    display: none;
+  }
+
+  .logoStage {
+    width: 142px;
+    min-height: 146px;
+  }
+
+  .logoStage img {
+    width: 92px;
+    height: 92px;
+  }
+
+  .logoStage strong {
+    inset-block-end: 0;
+  }
+
+  .codeColumn {
+    width: 34vw;
+  }
+
+  .codeColumn:nth-child(1) {
+    inset-block-start: 20%;
+    inset-inline-start: 3%;
+  }
+
+  .codeColumn:nth-child(2) {
+    inset-block-start: 22%;
+    inset-inline-end: 1%;
+  }
+
+  .codeColumn:nth-child(3) {
+    display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .shell,
-  .codeField,
-  .axis,
-  .frame,
-  .ring,
-  .signal,
+  .atmosphere,
+  .scan,
+  .scan::after,
+  .codeDepth,
+  .codeColumn,
+  .codeColumn code,
+  .topology path,
+  .topology circle,
+  .bootHeader,
+  .stateRail,
+  .stateRail span,
   .logoStage,
-  .logoStage > span,
+  .logoStage strong,
+  .logoPaths i,
+  .bootFooter,
+  .bootFooter i::after,
   .skip {
     animation: none;
   }
@@ -172,7 +424,7 @@
 
 @keyframes introShell {
   0%,
-  86% {
+  89% {
     visibility: visible;
     opacity: 1;
   }
@@ -183,95 +435,176 @@
   }
 }
 
-@keyframes codeReveal {
+@keyframes atmosphereReveal {
   0%,
   8% {
     opacity: 0;
-    transform: translateY(12px);
   }
 
-  20%,
-  42% {
+  22%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scanReveal {
+  0%,
+  12% {
+    opacity: 0;
+  }
+
+  24%,
+  82% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scanTravel {
+  to {
+    transform: translateY(620%);
+  }
+}
+
+@keyframes interfaceReveal {
+  0%,
+  7% {
+    opacity: 0;
+  }
+
+  18%,
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes codeFieldReveal {
+  0%,
+  7% {
+    opacity: 0;
+  }
+
+  22%,
+  63% {
+    opacity: 1;
+  }
+
+  84%,
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes codeLine {
+  0% {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  10%,
+  62% {
     opacity: 1;
     transform: translateY(0);
   }
 
-  64%,
+  84%,
   100% {
-    opacity: 0;
-    transform: translateY(-18px);
+    opacity: 0.22;
   }
 }
 
-@keyframes lineReveal {
+@keyframes columnDrift {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pathConverge {
   0%,
-  14% {
+  29% {
     opacity: 0;
-    stroke-dashoffset: 360;
+    stroke-dashoffset: 310;
   }
 
-  34%,
-  62% {
+  57%,
+  72% {
     opacity: 1;
     stroke-dashoffset: 0;
   }
 
-  78%,
+  90%,
   100% {
-    opacity: 0;
+    opacity: 0.18;
     stroke-dashoffset: 0;
   }
 }
 
-@keyframes ringReveal {
+@keyframes nodeActivate {
   0%,
-  24% {
+  31% {
     opacity: 0;
-    transform: scale(0.94);
   }
 
-  43%,
-  64% {
+  45%,
+  75% {
     opacity: 1;
-    transform: scale(1);
   }
 
-  80%,
   100% {
-    opacity: 0;
-    transform: scale(1.03);
+    opacity: 0.24;
   }
 }
 
-@keyframes signalReveal {
+@keyframes stateRailReveal {
   0%,
-  28% {
+  16% {
     opacity: 0;
-    stroke-dashoffset: 360;
   }
 
-  48%,
-  62% {
+  29%,
+  88% {
     opacity: 1;
-    stroke-dashoffset: 0;
   }
 
-  76%,
   100% {
     opacity: 0;
-    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes stateActivate {
+  0%,
+  10% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  18%,
+  86% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0.35;
   }
 }
 
 @keyframes logoReveal {
   0%,
-  30% {
+  48% {
     opacity: 0;
-    filter: blur(14px);
-    transform: scale(0.96);
+    filter: blur(12px);
+    transform: scale(0.92);
   }
 
-  54%,
+  70%,
   100% {
     opacity: 1;
     filter: blur(0);
@@ -279,34 +612,58 @@
   }
 }
 
-@keyframes guideReveal {
+@keyframes localPath {
   0%,
-  38% {
+  43% {
     opacity: 0;
-    transform: scale(1.06);
+    transform: scaleX(0);
   }
 
-  52%,
-  68% {
+  60%,
+  73% {
     opacity: 1;
-    transform: scale(1);
+    transform: scaleX(1);
   }
 
-  82%,
+  86%,
   100% {
     opacity: 0;
-    transform: scale(0.98);
+  }
+}
+
+@keyframes readyReveal {
+  0%,
+  67% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  76%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bootProgress {
+  0% {
+    transform: scaleX(0);
+  }
+
+  80%,
+  100% {
+    transform: scaleX(1);
   }
 }
 
 @keyframes skipReveal {
   0%,
-  28% {
+  16% {
     opacity: 0;
   }
 
-  38%,
-  90% {
+  28%,
+  88% {
     opacity: 1;
   }
 

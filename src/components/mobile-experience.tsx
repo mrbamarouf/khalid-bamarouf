@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  type CSSProperties,
+  type ReactNode,
+  type RefObject,
   useEffect,
   useRef,
   useState,
-  type ReactNode,
-  type RefObject,
 } from "react";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import {
@@ -30,10 +31,10 @@ const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
 const easeOut = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 const reveal = {
-  initial: { opacity: 0.86, y: 18 },
+  initial: { opacity: 0.84, y: 18 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.18 },
-  transition: { duration: 0.58, ease: easeOut },
+  viewport: { once: true, amount: 0.16 },
+  transition: { duration: 0.56, ease: easeOut },
 };
 
 function localizeNumerals(value: string, locale: Locale) {
@@ -69,28 +70,24 @@ function renderCopy(text: string): ReactNode {
   });
 }
 
-function splitHeroLead(lead: string) {
-  const sentenceEnd = lead.indexOf(". ");
-
-  if (sentenceEnd === -1) {
-    return [lead, ""] as const;
-  }
-
-  return [lead.slice(0, sentenceEnd + 1), lead.slice(sentenceEnd + 2)] as const;
+function splitSentences(text: string) {
+  const sentences = text.match(/[^.!?؟]+[.!?؟]?/g)?.map((sentence) => sentence.trim());
+  return sentences?.filter(Boolean) ?? [text];
 }
 
-function MobileSystemWorld() {
+function MobileAmbient() {
   return (
-    <div aria-hidden="true" className={styles.systemWorld}>
-      <span>01 workflow.input</span>
-      <span>02 agent.evaluate</span>
-      <span>03 api.connect</span>
-      <span>04 action.verify</span>
+    <div aria-hidden="true" className={styles.ambient}>
+      <code>agent.initialize()</code>
+      <code>workflow.trigger()</code>
+      <code>api.connect()</code>
+      <code>evaluateOutput()</code>
+      <code>humanEscalation.ready</code>
     </div>
   );
 }
 
-function ChapterHeader({
+function ChapterIntro({
   id,
   label,
   lead,
@@ -102,7 +99,7 @@ function ChapterHeader({
   title: string;
 }) {
   return (
-    <motion.header className={styles.chapterHeader} {...reveal}>
+    <motion.header className={styles.chapterIntro} {...reveal}>
       <span className={styles.chapterLabel}>{renderCopy(label)}</span>
       <h2 id={id}>{renderCopy(title)}</h2>
       <p>{renderCopy(lead)}</p>
@@ -125,8 +122,6 @@ function MobileHeader({
   onClose: () => void;
   onToggle: () => void;
 }) {
-  const menuLabel = locale === "ar" ? "فتح القائمة" : "Open menu";
-  const closeLabel = locale === "ar" ? "إغلاق القائمة" : "Close menu";
   const navigation = [
     { label: locale === "ar" ? "عن خالد" : "About", href: "#m-about" },
     { label: content.labels.expertise, href: "#m-expertise" },
@@ -137,34 +132,37 @@ function MobileHeader({
     { label: content.labels.insights, href: "#m-insights" },
     { label: locale === "ar" ? "التواصل" : "Contact", href: "#m-contact" },
   ];
+  const menuLabel = locale === "ar" ? "فتح القائمة" : "Open menu";
+  const closeLabel = locale === "ar" ? "إغلاق القائمة" : "Close menu";
 
   return (
     <>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <a className={styles.brand} href="#m-top" aria-label={`${brandName} home`}>
-            <Image alt="" height={40} priority src={logoPath} width={40} />
-            <strong className="brand-name" dir="ltr">
-              {brandName}
-            </strong>
+          <a className={styles.identity} href="#m-top" aria-label={`${brandName} home`}>
+            <Image alt="" height={36} priority src={logoPath} width={36} />
+            <span>
+              <strong className="brand-name" dir="ltr">
+                {brandName}
+              </strong>
+              <small>{content.brand.role}</small>
+            </span>
           </a>
 
-          <div className={styles.headerActions}>
+          <div className={styles.headerControls}>
             <Link
               aria-label={content.language.switchLabel}
-              className={styles.languageSwitch}
+              className={styles.languageControl}
               href={locale === "ar" ? "/" : "/ar"}
               hrefLang={locale === "ar" ? "en" : "ar"}
             >
-              <span>{content.language.current}</span>
-              <i aria-hidden="true" />
-              <span>{content.language.alternate}</span>
+              {content.language.alternate}
             </Link>
             <button
               aria-controls="mobile-navigation"
               aria-expanded={menuOpen}
               aria-label={menuOpen ? closeLabel : menuLabel}
-              className={styles.menuButton}
+              className={styles.menuTrigger}
               onClick={onToggle}
               ref={menuButtonRef}
               type="button"
@@ -183,18 +181,22 @@ function MobileHeader({
             aria-label={locale === "ar" ? "تنقل الهاتف" : "Mobile navigation"}
             aria-modal="true"
             className={styles.menu}
-            exit={{ opacity: 0, y: 18 }}
+            exit={{ opacity: 0, y: -14 }}
             id="mobile-navigation"
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: -14 }}
             role="dialog"
-            transition={{ duration: 0.32, ease: easeOut }}
+            transition={{ duration: 0.28, ease: easeOut }}
           >
-            <div className={styles.menuTopline}>
-              <span>{content.brand.role}</span>
+            <div className={styles.menuHeader}>
+              <div>
+                <span>KB.OS</span>
+                <strong>{content.brand.role}</strong>
+              </div>
               <button data-mobile-menu-close onClick={onClose} type="button">
                 {locale === "ar" ? "إغلاق" : "Close"}
               </button>
             </div>
+
             <nav>
               {navigation.map((item, index) => (
                 <a href={item.href} key={item.href} onClick={onClose}>
@@ -204,13 +206,15 @@ function MobileHeader({
                 </a>
               ))}
             </nav>
+
             <a
               aria-label={content.studio.ariaLabel}
               className={styles.menuStudio}
               href={content.studio.url}
             >
-              <Image alt="" height={34} src={studioSymbolPath} width={34} />
+              <Image alt="" height={36} src={studioSymbolPath} width={36} />
               <span>{content.studio.label}</span>
+              <i aria-hidden="true">↗</i>
             </a>
           </motion.aside>
         ) : null}
@@ -219,20 +223,67 @@ function MobileHeader({
   );
 }
 
+function HeroSystemCore({ content }: { content: SiteContent }) {
+  const states = [
+    ["AGENT", "ONLINE"],
+    ["WORKFLOW", "READY"],
+    ["API", "CONNECTED"],
+    ["AUTOMATION", "ACTIVE"],
+    ["EVALUATION", "PASSED"],
+    ["HUMAN ESCALATION", "READY"],
+    ["MONITORING", "ONLINE"],
+  ];
+
+  return (
+    <motion.figure className={styles.heroSystem} {...reveal}>
+      <div className={styles.heroSystemImage}>
+        <Image
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 860px) 100vw, (max-width: 960px) and (max-height: 520px) 100vw, 0vw"
+          src="/images/ai-operations-headquarters.webp"
+        />
+      </div>
+      <div aria-hidden="true" className={styles.systemCoreMap}>
+        <div className={styles.systemCoreIdentity}>
+          <Image alt="" height={64} priority src={logoPath} width={64} />
+          <span>CONTROL CORE</span>
+        </div>
+        <div className={styles.systemStateList}>
+          {states.map(([label, state], index) => (
+            <div key={label} style={{ "--state-index": index } as CSSProperties}>
+              <span>{label}</span>
+              <i />
+              <strong>{state}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+      <figcaption>
+        <span>{content.expertise.items[0].focus}</span>
+        <strong>{content.expertise.items[0].name}</strong>
+      </figcaption>
+    </motion.figure>
+  );
+}
+
 function MobileHero({ content }: { content: SiteContent }) {
-  const [opening, detail] = splitHeroLead(content.hero.lead);
+  const heroSentences = splitSentences(content.hero.lead);
 
   return (
     <section aria-labelledby="m-hero-title" className={styles.hero} id="m-hero">
-      <div className={styles.heroNarrative}>
-        <motion.span className={styles.heroIdentity} {...reveal}>
+      <div className={styles.heroCopy}>
+        <motion.span className={styles.heroLabel} {...reveal}>
           {renderCopy(content.hero.eyebrow)}
         </motion.span>
         <motion.h1 id="m-hero-title" {...reveal}>
           {content.hero.title}
         </motion.h1>
         <motion.div className={styles.heroLead} {...reveal}>
-          <p>{opening}</p>
+          {heroSentences.map((sentence) => (
+            <p key={sentence}>{sentence}</p>
+          ))}
         </motion.div>
         <motion.div className={styles.heroActions} {...reveal}>
           <a className={styles.primaryAction} href="#m-contact">
@@ -245,102 +296,50 @@ function MobileHero({ content }: { content: SiteContent }) {
           </a>
         </motion.div>
       </div>
-
-      <motion.figure
-        animate={{ opacity: 1, scale: 1 }}
-        className={styles.heroVisual}
-        initial={{ opacity: 0.78, scale: 1.02 }}
-        transition={{ duration: 1.1, ease: easeOut }}
-      >
-        <Image
-          alt=""
-          fill
-          fetchPriority="high"
-          loading="eager"
-          priority
-          sizes="(max-width: 960px) 100vw, 0vw"
-          src="/images/ai-operations-headquarters.webp"
-        />
-        <div aria-hidden="true" className={styles.heroNetwork}>
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className={styles.heroCore}>
-          <Image alt="" height={82} priority src={logoPath} width={82} />
-          <span>{content.brand.role}</span>
-        </div>
-        <figcaption>
-          <span>{content.expertise.items[0].focus}</span>
-          <strong>{content.expertise.items[0].name}</strong>
-          <i aria-hidden="true" />
-        </figcaption>
-      </motion.figure>
-      {detail ? (
-        <motion.p className={styles.heroDetail} {...reveal}>
-          {detail}
-        </motion.p>
-      ) : null}
+      <HeroSystemCore content={content} />
     </section>
   );
 }
 
 function MobileAbout({ content, locale }: { content: SiteContent; locale: Locale }) {
-  const [activeNote, setActiveNote] = useState(0);
-
   return (
     <section aria-labelledby="m-about-title" className={`${styles.chapter} ${styles.about}`} id="m-about">
-      <ChapterHeader
+      <ChapterIntro
         id="m-about-title"
         label={content.brand.role}
         lead={content.positioning.lead}
         title={content.positioning.title}
       />
 
-      <motion.figure className={styles.aboutVisual} {...reveal}>
-        <Image
-          alt=""
-          fill
-          sizes="(max-width: 960px) calc(100vw - 32px), 0vw"
-          src="/images/automation-control-panel.jpg"
-        />
-        <figcaption>{content.expertise.items[0].focus}</figcaption>
-      </motion.figure>
-
-      <motion.div className={styles.aboutBrief} {...reveal}>
-        <p>{renderCopy(content.positioning.body)}</p>
-        <div className={styles.noteSwitcher} role="tablist" aria-label={content.labels.insights}>
-          {content.positioning.notes.map((note, index) => (
-            <button
-              aria-controls="mobile-about-note"
-              aria-selected={activeNote === index}
-              className={activeNote === index ? styles.active : undefined}
-              id={`mobile-about-note-tab-${index}`}
-              key={note}
-              onClick={() => setActiveNote(index)}
-              role="tab"
-              type="button"
-            >
-              {formatIndex(index, locale)}
-            </button>
+      <motion.div className={styles.aboutFlow} {...reveal}>
+        <div className={styles.aboutFlowImage}>
+          <Image
+            alt=""
+            fill
+            sizes="(max-width: 860px) calc(100vw - 32px), (max-width: 960px) and (max-height: 520px) calc(100vw - 48px), 0vw"
+            src="/images/enterprise-data-center.jpg"
+          />
+        </div>
+        <div aria-hidden="true" className={styles.flowTrack}>
+          {["INPUT", "EVALUATE", "AUTOMATE", "CONTROL"].map((item, index) => (
+            <span key={item}>
+              <i>{formatIndex(index, locale)}</i>
+              <strong>{item}</strong>
+            </span>
           ))}
         </div>
-        <AnimatePresence mode="wait">
-          <motion.p
-            animate={{ opacity: 1, y: 0 }}
-            aria-labelledby={`mobile-about-note-tab-${activeNote}`}
-            className={styles.activeNote}
-            exit={{ opacity: 0, y: -8 }}
-            id="mobile-about-note"
-            initial={{ opacity: 0.65, y: 8 }}
-            key={content.positioning.notes[activeNote]}
-            role="tabpanel"
-            transition={{ duration: 0.28, ease: easeOut }}
-          >
-            {renderCopy(content.positioning.notes[activeNote])}
-          </motion.p>
-        </AnimatePresence>
+      </motion.div>
+
+      <motion.div className={styles.aboutReading} {...reveal}>
+        <p className={styles.aboutBody}>{renderCopy(content.positioning.body)}</p>
+        <div className={styles.aboutNotes}>
+          {content.positioning.notes.map((note, index) => (
+            <article key={note}>
+              <span>{formatIndex(index, locale)}</span>
+              <p>{renderCopy(note)}</p>
+            </article>
+          ))}
+        </div>
       </motion.div>
     </section>
   );
@@ -348,120 +347,137 @@ function MobileAbout({ content, locale }: { content: SiteContent; locale: Locale
 
 function MobileExpertise({ content, locale }: { content: SiteContent; locale: Locale }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeItem = content.expertise.items[activeIndex];
 
   return (
     <section aria-labelledby="m-expertise-title" className={`${styles.chapter} ${styles.expertise}`} id="m-expertise">
-      <ChapterHeader
+      <ChapterIntro
         id="m-expertise-title"
         label={content.labels.expertise}
         lead={content.expertise.lead}
         title={content.expertise.title}
       />
 
-      <motion.div className={styles.expertiseSystem} {...reveal}>
-        <div className={styles.expertiseRail} role="tablist" aria-label={content.labels.expertise}>
-          {content.expertise.items.map((item, index) => (
-            <button
-              aria-controls="mobile-expertise-panel"
-              aria-selected={activeIndex === index}
-              className={activeIndex === index ? styles.active : undefined}
-              id={`mobile-expertise-tab-${index}`}
-              key={item.name}
-              onClick={() => setActiveIndex(index)}
-              role="tab"
-              type="button"
-            >
-              <span>{formatIndex(index, locale)}</span>
-              <strong>{item.name}</strong>
-              <i aria-hidden="true" />
-            </button>
-          ))}
+      <motion.div className={styles.serviceSystem} {...reveal}>
+        <div aria-hidden="true" className={styles.serviceStatus}>
+          <span>service.select()</span>
+          <i />
+          <strong>{formatIndex(activeIndex, locale)}</strong>
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.article
-            animate={{ opacity: 1, y: 0 }}
-            aria-labelledby={`mobile-expertise-tab-${activeIndex}`}
-            className={styles.expertisePanel}
-            exit={{ opacity: 0, y: -10 }}
-            id="mobile-expertise-panel"
-            initial={{ opacity: 0.68, y: 10 }}
-            key={activeItem.name}
-            role="tabpanel"
-            transition={{ duration: 0.3, ease: easeOut }}
-          >
-            <span>{activeItem.focus}</span>
-            <p>{activeItem.value}</p>
-            <ul>
-              {activeItem.signals.map((signal) => (
-                <li key={signal}>{signal}</li>
-              ))}
-            </ul>
-          </motion.article>
-        </AnimatePresence>
+        <div className={styles.serviceList}>
+          {content.expertise.items.map((item, index) => {
+            const isActive = index === activeIndex;
+            const panelId = `mobile-service-panel-${index}`;
+
+            return (
+              <article className={isActive ? styles.active : undefined} key={item.name}>
+                <button
+                  aria-controls={panelId}
+                  aria-expanded={isActive}
+                  onClick={() => setActiveIndex(index)}
+                  type="button"
+                >
+                  <span>{formatIndex(index, locale)}</span>
+                  <strong>{item.name}</strong>
+                  <i aria-hidden="true" />
+                </button>
+                <AnimatePresence initial={false}>
+                  {isActive ? (
+                    <motion.div
+                      animate={{ height: "auto", opacity: 1 }}
+                      className={styles.servicePanel}
+                      exit={{ height: 0, opacity: 0 }}
+                      id={panelId}
+                      initial={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.34, ease: easeOut }}
+                    >
+                      <div>
+                        <span>{item.focus}</span>
+                        <p>{item.value}</p>
+                        <ul>
+                          {item.signals.map((signal) => (
+                            <li key={signal}>{signal}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </article>
+            );
+          })}
+        </div>
       </motion.div>
     </section>
   );
 }
 
 function MobileCapabilities({ content, locale }: { content: SiteContent; locale: Locale }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const group = content.capabilities.groups[activeIndex];
+  const [activeLayer, setActiveLayer] = useState(0);
 
   return (
     <section aria-labelledby="m-capabilities-title" className={`${styles.chapter} ${styles.capabilities}`} id="m-capabilities">
-      <ChapterHeader
+      <ChapterIntro
         id="m-capabilities-title"
         label={content.labels.capabilities}
         lead={content.capabilities.lead}
         title={content.capabilities.title}
       />
 
-      <motion.div className={styles.capabilityConsole} {...reveal}>
-        <div className={styles.capabilityTabs} role="tablist" aria-label={content.labels.capabilities}>
-          {content.capabilities.groups.map((item, index) => (
-            <button
-              aria-controls="mobile-capability-panel"
-              aria-selected={activeIndex === index}
-              className={activeIndex === index ? styles.active : undefined}
-              id={`mobile-capability-tab-${index}`}
-              key={item.title}
-              onClick={() => setActiveIndex(index)}
-              role="tab"
-              type="button"
-            >
-              <span>{formatIndex(index, locale)}</span>
-              <strong>{item.title}</strong>
-            </button>
-          ))}
+      <motion.div className={styles.layerSystem} {...reveal}>
+        <div className={styles.layerMap} aria-hidden="true">
+          <span>STRATEGY</span>
+          <i />
+          <span>ENGINEERING</span>
+          <i />
+          <span>AUTOMATION</span>
         </div>
-        <AnimatePresence mode="wait">
-          <motion.article
-            animate={{ opacity: 1, x: 0 }}
-            aria-labelledby={`mobile-capability-tab-${activeIndex}`}
-            className={styles.capabilityPanel}
-            exit={{ opacity: 0, x: locale === "ar" ? 10 : -10 }}
-            id="mobile-capability-panel"
-            initial={{ opacity: 0.66, x: locale === "ar" ? -10 : 10 }}
-            key={group.title}
-            role="tabpanel"
-            transition={{ duration: 0.3, ease: easeOut }}
-          >
-            <header>
-              <span>{group.intro}</span>
-              <strong>{group.title}</strong>
-            </header>
-            <ol>
-              {group.capabilities.map((capability, index) => (
-                <li key={capability}>
+
+        <div className={styles.layerList}>
+          {content.capabilities.groups.map((group, index) => {
+            const isActive = index === activeLayer;
+            const panelId = `mobile-layer-panel-${index}`;
+
+            return (
+              <article className={isActive ? styles.active : undefined} key={group.title}>
+                <button
+                  aria-controls={panelId}
+                  aria-expanded={isActive}
+                  onClick={() => setActiveLayer(index)}
+                  type="button"
+                >
                   <span>{formatIndex(index, locale)}</span>
-                  <p>{capability}</p>
-                </li>
-              ))}
-            </ol>
-          </motion.article>
-        </AnimatePresence>
+                  <span>
+                    <small>{group.intro}</small>
+                    <strong>{group.title}</strong>
+                  </span>
+                  <i aria-hidden="true" />
+                </button>
+                <AnimatePresence initial={false}>
+                  {isActive ? (
+                    <motion.div
+                      animate={{ height: "auto", opacity: 1 }}
+                      className={styles.layerPanel}
+                      exit={{ height: 0, opacity: 0 }}
+                      id={panelId}
+                      initial={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.34, ease: easeOut }}
+                    >
+                      <ol>
+                        {group.capabilities.map((capability, capabilityIndex) => (
+                          <li key={capability}>
+                            <span>{formatIndex(capabilityIndex, locale)}</span>
+                            <p>{capability}</p>
+                          </li>
+                        ))}
+                      </ol>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </article>
+            );
+          })}
+        </div>
       </motion.div>
     </section>
   );
@@ -469,55 +485,42 @@ function MobileCapabilities({ content, locale }: { content: SiteContent; locale:
 
 function MobileApproach({ content, locale }: { content: SiteContent; locale: Locale }) {
   const [activeStep, setActiveStep] = useState(0);
+  const progress = ((activeStep + 1) / content.approach.steps.length) * 100;
 
   return (
     <section aria-labelledby="m-approach-title" className={`${styles.chapter} ${styles.approach}`} id="m-approach">
-      <ChapterHeader
+      <ChapterIntro
         id="m-approach-title"
         label={content.labels.approach}
         lead={content.approach.lead}
         title={content.approach.title}
       />
 
-      <motion.div className={styles.journey} {...reveal}>
-        <div aria-hidden="true" className={styles.journeyProgress}>
-          <span style={{ height: `${(activeStep / (content.approach.steps.length - 1)) * 100}%` }} />
+      <div
+        className={styles.operatingPath}
+        style={{ "--path-progress": `${progress}%` } as CSSProperties}
+      >
+        <div aria-hidden="true" className={styles.pathLine}>
+          <span />
         </div>
         <ol>
-          {content.approach.steps.map((step, index) => {
-            const isActive = activeStep === index;
-
-            return (
-              <li className={isActive ? styles.active : undefined} key={step.number}>
-                <button
-                  aria-controls={`mobile-approach-step-${index}`}
-                  aria-expanded={isActive}
-                  onClick={() => setActiveStep(index)}
-                  type="button"
-                >
-                  <span>{localizeNumerals(step.number, locale)}</span>
-                  <strong>{step.title}</strong>
-                  <i aria-hidden="true" />
-                </button>
-                <AnimatePresence initial={false}>
-                  {isActive ? (
-                    <motion.div
-                      animate={{ height: "auto", opacity: 1 }}
-                      className={styles.journeyDetail}
-                      exit={{ height: 0, opacity: 0 }}
-                      id={`mobile-approach-step-${index}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.34, ease: easeOut }}
-                    >
-                      <p>{step.body}</p>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </li>
-            );
-          })}
+          {content.approach.steps.map((step, index) => (
+            <motion.li
+              className={index === activeStep ? styles.active : undefined}
+              key={step.number}
+              onViewportEnter={() => setActiveStep(index)}
+              viewport={{ amount: 0.62 }}
+            >
+              <span>{localizeNumerals(step.number, locale)}</span>
+              <div>
+                <strong>{step.title}</strong>
+                <p>{step.body}</p>
+              </div>
+              <i aria-hidden="true" />
+            </motion.li>
+          ))}
         </ol>
-      </motion.div>
+      </div>
     </section>
   );
 }
@@ -527,20 +530,20 @@ function MobileStudy({ content, locale }: { content: SiteContent; locale: Locale
 
   return (
     <section aria-labelledby="m-studies-title" className={`${styles.chapter} ${styles.studies}`} id="m-studies">
-      <ChapterHeader
+      <ChapterIntro
         id="m-studies-title"
         label={content.labels.studies}
         lead={content.studies.lead}
         title={content.studies.title}
       />
 
-      <motion.figure className={styles.studyCover} {...reveal}>
+      <motion.figure className={styles.studyPortal} {...reveal}>
         <div className={styles.studyImage}>
           <Image
             alt=""
             fill
-            sizes="(max-width: 960px) calc(100vw - 32px), 0vw"
-            src={study.image}
+            sizes="(max-width: 860px) calc(100vw - 32px), (max-width: 960px) and (max-height: 520px) calc(100vw - 48px), 0vw"
+            src="/images/integration-cabling.jpg"
           />
           <span>{formatIndex(0, locale)}</span>
         </div>
@@ -558,70 +561,42 @@ function MobileStudy({ content, locale }: { content: SiteContent; locale: Locale
 }
 
 function MobileStudyDetail({ content, locale }: { content: SiteContent; locale: Locale }) {
-  const [activeStage, setActiveStage] = useState(0);
   const study = content.studies.items[0];
-  const stages = [
-    { label: content.labels.challenge, type: "text" as const, value: study.challenge },
-    { label: content.labels.structure, type: "list" as const, value: study.structure },
-    { label: locale === "ar" ? "النتيجة" : "Outcome", type: "text" as const, value: study.value },
+  const labels = locale === "ar"
+    ? ["التحدي", "رسم مسار العمل", "طبقة الأتمتة", "مسار الاستثناء البشري", "المراقبة والتحكم", "النتيجة"]
+    : ["Challenge", "Workflow mapping", "AI automation layer", "Human exception route", "Monitoring and control", "Outcome"];
+  const story = [
+    { body: study.challenge, signal: "workflow.blocked", title: labels[0] },
+    { body: study.structure[0], signal: "workflow.map()", title: labels[1] },
+    { body: study.structure[1], signal: "automation.active", title: labels[2] },
+    { body: "", signal: "human.escalation.ready", title: labels[3] },
+    { body: study.structure[2], signal: "monitor.status = online", title: labels[4] },
+    { body: study.value, signal: "process.completed", title: labels[5] },
   ];
-  const stage = stages[activeStage];
 
   return (
     <section aria-labelledby="m-study-detail-title" className={`${styles.chapter} ${styles.studyDetail}`} id="m-study-detail">
-      <motion.header className={styles.studyDetailHeader} {...reveal}>
+      <motion.header className={styles.storyHeader} {...reveal}>
         <span className={styles.chapterLabel}>{study.label}</span>
         <h2 id="m-study-detail-title">{study.title}</h2>
         <p>{study.summary}</p>
       </motion.header>
 
-      <motion.div className={styles.studyStory} {...reveal}>
-        <div className={styles.storyTabs} role="tablist" aria-label={study.title}>
-          {stages.map((item, index) => (
-            <button
-              aria-controls="mobile-study-stage"
-              aria-selected={activeStage === index}
-              className={activeStage === index ? styles.active : undefined}
-              id={`mobile-study-stage-tab-${index}`}
-              key={item.label}
-              onClick={() => setActiveStage(index)}
-              role="tab"
-              type="button"
-            >
+      <div className={styles.storySequence}>
+        {story.map((stage, index) => (
+          <motion.article key={stage.title} {...reveal}>
+            <div className={styles.storyIndex}>
               <span>{formatIndex(index, locale)}</span>
-              <strong>{item.label}</strong>
-            </button>
-          ))}
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.article
-            animate={{ opacity: 1, y: 0 }}
-            aria-labelledby={`mobile-study-stage-tab-${activeStage}`}
-            className={styles.storyPanel}
-            exit={{ opacity: 0, y: -10 }}
-            id="mobile-study-stage"
-            initial={{ opacity: 0.66, y: 10 }}
-            key={stage.label}
-            role="tabpanel"
-            transition={{ duration: 0.3, ease: easeOut }}
-          >
-            <span>{stage.label}</span>
-            {stage.type === "list" ? (
-              <ol>
-                {stage.value.map((item, index) => (
-                  <li key={item}>
-                    <small>{formatIndex(index, locale)}</small>
-                    <p>{item}</p>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p>{stage.value}</p>
-            )}
+              <i aria-hidden="true" />
+            </div>
+            <div>
+              <small dir="ltr">{stage.signal}</small>
+              <h3>{stage.title}</h3>
+              {stage.body ? <p>{stage.body}</p> : null}
+            </div>
           </motion.article>
-        </AnimatePresence>
-      </motion.div>
+        ))}
+      </div>
     </section>
   );
 }
@@ -632,21 +607,21 @@ function MobileWhy({ content, locale }: { content: SiteContent; locale: Locale }
 
   return (
     <section aria-labelledby="m-why-title" className={`${styles.chapter} ${styles.why}`} id="m-why">
-      <ChapterHeader
+      <ChapterIntro
         id="m-why-title"
         label={content.brand.name}
         lead={content.why.lead}
         title={content.why.title}
       />
 
-      <motion.div className={styles.whySystem} {...reveal}>
-        <div className={styles.whyRail} role="tablist" aria-label={content.why.title}>
+      <motion.div className={styles.principleSystem} {...reveal}>
+        <div className={styles.principleSelector} role="tablist" aria-label={content.why.title}>
           {content.why.principles.map((item, index) => (
             <button
-              aria-controls="mobile-why-panel"
+              aria-controls="mobile-principle-panel"
               aria-selected={activePrinciple === index}
               className={activePrinciple === index ? styles.active : undefined}
-              id={`mobile-why-tab-${index}`}
+              id={`mobile-principle-tab-${index}`}
               key={item.title}
               onClick={() => setActivePrinciple(index)}
               role="tab"
@@ -657,20 +632,24 @@ function MobileWhy({ content, locale }: { content: SiteContent; locale: Locale }
             </button>
           ))}
         </div>
+
         <AnimatePresence mode="wait">
-          <motion.p
+          <motion.article
             animate={{ opacity: 1, y: 0 }}
-            aria-labelledby={`mobile-why-tab-${activePrinciple}`}
-            className={styles.whyPanel}
+            aria-labelledby={`mobile-principle-tab-${activePrinciple}`}
+            className={styles.principlePanel}
             exit={{ opacity: 0, y: -8 }}
-            id="mobile-why-panel"
-            initial={{ opacity: 0.65, y: 8 }}
+            id="mobile-principle-panel"
+            initial={{ opacity: 0.68, y: 8 }}
             key={principle.title}
             role="tabpanel"
             transition={{ duration: 0.28, ease: easeOut }}
           >
-            {principle.body}
-          </motion.p>
+            <span>{formatIndex(activePrinciple, locale)}</span>
+            <h3>{principle.title}</h3>
+            <p>{principle.body}</p>
+            <code dir="ltr">principle.verify() = true</code>
+          </motion.article>
         </AnimatePresence>
       </motion.div>
     </section>
@@ -678,51 +657,33 @@ function MobileWhy({ content, locale }: { content: SiteContent; locale: Locale }
 }
 
 function MobileInsights({ content, locale }: { content: SiteContent; locale: Locale }) {
-  const [activeInsight, setActiveInsight] = useState(0);
-
   return (
     <section aria-labelledby="m-insights-title" className={`${styles.chapter} ${styles.insights}`} id="m-insights">
-      <ChapterHeader
+      <ChapterIntro
         id="m-insights-title"
         label={content.labels.insights}
         lead={content.insights.lead}
         title={content.insights.title}
       />
 
-      <motion.div className={styles.insightLedger} {...reveal}>
-        {content.insights.items.map((insight, index) => {
-          const isActive = activeInsight === index;
-
-          return (
-            <article className={isActive ? styles.active : undefined} key={insight.title}>
-              <button
-                aria-controls={`mobile-insight-${index}`}
-                aria-expanded={isActive}
-                onClick={() => setActiveInsight(index)}
-                type="button"
-              >
-                <span>{formatIndex(index, locale)}</span>
-                <strong>{insight.title}</strong>
-                <i aria-hidden="true" />
-              </button>
-              <AnimatePresence initial={false}>
-                {isActive ? (
-                  <motion.div
-                    animate={{ height: "auto", opacity: 1 }}
-                    className={styles.insightBody}
-                    exit={{ height: 0, opacity: 0 }}
-                    id={`mobile-insight-${index}`}
-                    initial={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: easeOut }}
-                  >
-                    <p>{insight.body}</p>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-            </article>
-          );
-        })}
-      </motion.div>
+      <div className={styles.insightSequence}>
+        {content.insights.items.map((insight, index) => (
+          <motion.article key={insight.title} {...reveal}>
+            <div className={styles.insightMeta}>
+              <span>{formatIndex(index, locale)}</span>
+              <code dir="ltr">note.commit()</code>
+            </div>
+            <h3>{insight.title}</h3>
+            <p>{insight.body}</p>
+            <div aria-hidden="true" className={styles.insightPulse}>
+              <i />
+              <i />
+              <i />
+              <i />
+            </div>
+          </motion.article>
+        ))}
+      </div>
     </section>
   );
 }
@@ -730,13 +691,16 @@ function MobileInsights({ content, locale }: { content: SiteContent; locale: Loc
 function MobileContact({ content }: { content: SiteContent }) {
   return (
     <section aria-labelledby="m-contact-title" className={styles.contact} id="m-contact">
-      <motion.div className={styles.contactMark} {...reveal}>
-        <span aria-hidden="true" />
-        <Image alt="" height={96} src={logoPath} width={96} />
-        <i aria-hidden="true" />
+      <div aria-hidden="true" className={styles.contactSystem}>
+        <span>CONTROL LAYER</span>
+        <i />
+        <strong>READY</strong>
+      </div>
+      <motion.div className={styles.contactIdentity} {...reveal}>
+        <Image alt="" height={88} src={logoPath} width={88} />
+        <span>{content.brand.role}</span>
       </motion.div>
       <motion.div className={styles.contactCopy} {...reveal}>
-        <span>{content.brand.role}</span>
         <h2 id="m-contact-title">{content.contact.title}</h2>
         <p>{renderCopy(content.contact.lead)}</p>
       </motion.div>
@@ -760,7 +724,7 @@ function MobileFooter({ content }: { content: SiteContent }) {
   return (
     <footer className={styles.footer}>
       <a className={styles.footerBrand} href="#m-top">
-        <Image alt="" height={38} src={logoPath} width={38} />
+        <Image alt="" height={40} src={logoPath} width={40} />
         <strong className="brand-name" dir="ltr">
           {brandName}
         </strong>
@@ -771,8 +735,9 @@ function MobileFooter({ content }: { content: SiteContent }) {
         className={styles.footerStudio}
         href={content.studio.url}
       >
-        <Image alt="" height={28} src={studioFooterMarkPath} width={28} />
+        <Image alt="" height={32} src={studioFooterMarkPath} width={32} />
         <span>{content.studio.footerSignature}</span>
+        <i aria-hidden="true">↗</i>
       </a>
       <small dir="ltr">© {new Date().getFullYear()} {brandName}</small>
     </footer>
@@ -793,9 +758,11 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
     const menuButton = menuTriggerRef.current;
     const menu = document.getElementById("mobile-navigation");
     const closeButton = document.querySelector<HTMLButtonElement>("[data-mobile-menu-close]");
-    const closeOnEscape = (event: KeyboardEvent) => {
+
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setMenuOpen(false);
+        return;
       }
 
       if (event.key !== "Tab" || !menu) {
@@ -815,15 +782,15 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
         event.preventDefault();
         first?.focus();
       }
-    };
+    }
 
     document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", handleKeyDown);
     window.requestAnimationFrame(() => closeButton?.focus());
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", handleKeyDown);
       menuButton?.focus();
     };
   }, [menuOpen]);
@@ -837,8 +804,8 @@ export function MobileExperience({ locale = "en" }: { locale?: Locale }) {
         id="m-top"
         lang={content.locale}
       >
-        <MobileSystemWorld />
-        <div className={styles.mobileSurface}>
+        <MobileAmbient />
+        <div className={styles.surface}>
           <MobileHeader
             content={content}
             locale={locale}
