@@ -635,7 +635,7 @@ function MobileStudy({ content, locale }: { content: SiteContent; locale: Locale
             alt=""
             fill
             sizes="(max-width: 860px) calc(100vw - 32px), (max-width: 960px) and (max-height: 520px) calc(100vw - 48px), 0vw"
-            src="/images/integration-cabling.jpg"
+            src={study.image}
           />
           <span>{formatIndex(0, locale)}</span>
         </div>
