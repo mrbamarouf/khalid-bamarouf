@@ -76,6 +76,32 @@ function splitSentences(text: string) {
   return sentences?.filter(Boolean) ?? [text];
 }
 
+function DirectionalArrow({
+  kind,
+  locale,
+}: {
+  kind: "external" | "section";
+  locale: Locale;
+}) {
+  const arrow =
+    kind === "external"
+      ? locale === "ar"
+        ? "↖"
+        : "↗"
+      : locale === "ar"
+        ? "↙"
+        : "↘";
+
+  return (
+    <i
+      aria-hidden="true"
+      className={kind === "external" ? styles.externalArrow : styles.menuArrow}
+    >
+      {arrow}
+    </i>
+  );
+}
+
 function MobileAmbient() {
   return (
     <div aria-hidden="true" className={styles.ambient}>
@@ -198,15 +224,17 @@ function MobileHeader({
               </button>
             </div>
 
-            <nav>
+            <nav className={styles.menuNavigation}>
               {navigation.map((item, index) => (
                 <a href={item.href} key={item.href} onClick={onClose}>
                   <span>{formatIndex(index, locale)}</span>
                   <strong>{item.label}</strong>
-                  <i aria-hidden="true">↘</i>
+                  <DirectionalArrow kind="section" locale={locale} />
                 </a>
               ))}
             </nav>
+
+            <StudioSocialLinks className={styles.menuSocialLinks} />
 
             <a
               aria-label={content.studio.ariaLabel}
@@ -215,7 +243,7 @@ function MobileHeader({
             >
               <Image alt="" height={36} src={studioSymbolPath} width={36} />
               <span>{content.studio.label}</span>
-              <i aria-hidden="true">↗</i>
+              <DirectionalArrow kind="external" locale={locale} />
             </a>
           </motion.aside>
         ) : null}
@@ -801,12 +829,12 @@ function MobileContact({ content }: { content: SiteContent }) {
         <a href={getWhatsAppHref()} rel="noreferrer" target="_blank">
           <span>{content.contact.whatsappLabel}</span>
           <strong dir="ltr">{contactConfig.whatsapp.display}</strong>
-          <i aria-hidden="true">↗</i>
+          <DirectionalArrow kind="external" locale={content.locale} />
         </a>
         <a href={getMailtoHref(content.contact.subject)}>
           <span>{content.contact.emailLabel}</span>
           <strong dir="ltr">{contactConfig.email.address}</strong>
-          <i aria-hidden="true">↗</i>
+          <DirectionalArrow kind="external" locale={content.locale} />
         </a>
         <StudioSocialLinks className={styles.contactSocialLinks} />
       </motion.div>
@@ -831,7 +859,7 @@ function MobileFooter({ content }: { content: SiteContent }) {
       >
         <Image alt="" height={32} src={studioFooterMarkPath} width={32} />
         <span>{content.studio.footerSignature}</span>
-        <i aria-hidden="true">↗</i>
+        <DirectionalArrow kind="external" locale={content.locale} />
       </a>
       <small dir="ltr">© {new Date().getFullYear()} {brandName}</small>
     </footer>
