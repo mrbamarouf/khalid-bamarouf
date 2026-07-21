@@ -83,22 +83,34 @@ function DirectionalArrow({
   kind: "external" | "section";
   locale: Locale;
 }) {
-  const arrow =
+  const isArabic = locale === "ar";
+  const paths =
     kind === "external"
-      ? locale === "ar"
-        ? "↖"
-        : "↗"
-      : locale === "ar"
-        ? "↙"
-        : "↘";
+      ? isArabic
+        ? ["M14 14 6 6", "M12 6H6v6"]
+        : ["M6 14 14 6", "M8 6h6v6"]
+      : isArabic
+        ? ["M14 6 6 14", "M6 8v6h6"]
+        : ["M6 6 14 14", "M14 8v6H8"];
 
   return (
-    <i
+    <span
       aria-hidden="true"
       className={kind === "external" ? styles.externalArrow : styles.menuArrow}
     >
-      {arrow}
-    </i>
+      <svg fill="none" focusable="false" height="20" viewBox="0 0 20 20" width="20">
+        {paths.map((path) => (
+          <path
+            d={path}
+            key={path}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.45"
+          />
+        ))}
+      </svg>
+    </span>
   );
 }
 

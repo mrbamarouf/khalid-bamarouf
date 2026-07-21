@@ -410,7 +410,7 @@
     border-block-end: 1px solid rgba(238, 233, 220, 0.08);
   }
 
-  .menuNavigation a > span {
+  .menuNavigation a > span:not(.menuArrow) {
     color: var(--m-gold);
     font-family: var(--font-mono);
     font-size: 9px;
@@ -432,15 +432,21 @@
     height: 44px;
     place-items: center;
     color: var(--m-gold-light);
-    font-style: normal;
-    font-size: 18px;
-    line-height: 1;
+    pointer-events: none;
     justify-self: end;
     background: transparent;
     border: 0;
     transition:
       transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
       filter 220ms ease;
+  }
+
+  .menuArrow svg,
+  .externalArrow svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    overflow: visible;
   }
 
   .menuArrow {
@@ -1974,7 +1980,7 @@
     background: rgba(5, 8, 6, 0.82);
   }
 
-  .contactActions > a > span {
+  .contactActions > a > span:not(.externalArrow) {
     color: var(--m-gold-light);
     font-size: var(--m-type-label);
   }
@@ -1990,7 +1996,7 @@
     white-space: nowrap;
   }
 
-  .contactActions > a > i {
+  .contactActions > a > .externalArrow {
     grid-column: 2;
     grid-row: 1 / 3;
   }
