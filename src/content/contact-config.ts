@@ -6,6 +6,16 @@ export const contactConfig = {
   email: {
     address: "kbamarouf@gmail.com",
   },
+  social: {
+    instagram: {
+      label: "BAMAROUF STUDIO on Instagram",
+      url: "https://www.instagram.com/bamaroufstudio?igsh=MWs0dW0ybzZrMmE4Mw==",
+    },
+    tiktok: {
+      label: "BAMAROUF STUDIO on TikTok",
+      url: "https://www.tiktok.com/@bamaroufstudio?_r=1&_t=ZS-98DieCp6cKa",
+    },
+  },
 } as const;
 
 export function getWhatsAppHref() {

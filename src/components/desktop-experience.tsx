@@ -16,6 +16,7 @@ import {
   type Locale,
   type SystemStudy,
 } from "@/content/site-content";
+import { StudioSocialLinks } from "./studio-social-links";
 import styles from "./desktop-experience.module.css";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
@@ -765,6 +766,7 @@ export function DesktopExperience({ locale = "en" }: { locale?: Locale }) {
                 <span>{content.contact.emailLabel}</span>
                 <strong dir="ltr">{contactConfig.email.address}</strong>
               </a>
+              <StudioSocialLinks className={styles.contactSocialLinks} />
             </motion.div>
           </div>
         </section>

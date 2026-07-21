@@ -1451,7 +1451,7 @@
   gap: 16px;
 }
 
-.contactChannels a {
+.contactChannels > a {
   display: grid;
   gap: 10px;
   min-height: 112px;
@@ -1467,8 +1467,8 @@
     background 220ms ease;
 }
 
-.contactChannels a:hover,
-.contactChannels a:focus-visible {
+.contactChannels > a:hover,
+.contactChannels > a:focus-visible {
   border-color: rgba(216, 185, 110, 0.58);
   background:
     linear-gradient(180deg, rgba(216, 185, 110, 0.15), transparent 70%),
@@ -1476,7 +1476,7 @@
   transform: translateY(-2px);
 }
 
-.contactChannels span {
+.contactChannels > a > span {
   color: var(--system-gold);
   font-family: var(--font-mono);
   font-size: var(--type-meta);
@@ -1485,11 +1485,48 @@
   text-transform: uppercase;
 }
 
-.contactChannels strong {
+.contactChannels > a > strong {
   color: #fff8e6;
   font-size: var(--type-contact-value);
   font-weight: 500;
   letter-spacing: 0;
+}
+
+.contactSocialLinks {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 12px;
+  direction: ltr;
+}
+
+.shell[dir="rtl"] .contactSocialLinks {
+  justify-content: end;
+}
+
+.contactSocialLinks a {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: rgba(216, 185, 110, 0.82);
+  outline-offset: 5px;
+  transition:
+    color 220ms ease,
+    filter 220ms ease,
+    transform 220ms ease;
+}
+
+.contactSocialLinks a:hover,
+.contactSocialLinks a:focus-visible {
+  color: #fff0bd;
+  filter: drop-shadow(0 0 13px rgba(216, 185, 110, 0.36));
+  transform: translateY(-1px);
+}
+
+.contactSocialLinks svg {
+  width: 22px;
+  height: 22px;
 }
 
 .footer {
@@ -1872,7 +1909,8 @@
   .primaryButton,
   .secondaryButton,
   .serviceNode,
-  .contactChannels a {
+  .contactChannels > a,
+  .contactSocialLinks a {
     transition: none;
   }
 }

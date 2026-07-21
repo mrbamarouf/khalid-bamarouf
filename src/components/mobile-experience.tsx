@@ -21,6 +21,7 @@ import {
   type Locale,
   type SiteContent,
 } from "@/content/site-content";
+import { StudioSocialLinks } from "./studio-social-links";
 import styles from "./mobile-experience.module.css";
 
 const logoPath = "/brand/khalid-bamarouf-logo-transparent.png";
@@ -807,6 +808,7 @@ function MobileContact({ content }: { content: SiteContent }) {
           <strong dir="ltr">{contactConfig.email.address}</strong>
           <i aria-hidden="true">↗</i>
         </a>
+        <StudioSocialLinks className={styles.contactSocialLinks} />
       </motion.div>
     </section>
   );
